@@ -1,10 +1,10 @@
-const userRoutes = require("./users");
+const users = require("./users");
 
 const constructorMethod = (app) => {
-  app.use("/users", userRoutes);
+  app.use("/users", users);
 
   app.use("*", (req, res) => {
-    res.status(404).json("Error: Route not found");
+    res.status(404).send('Page not found!');
   });
 };
 

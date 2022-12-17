@@ -1,171 +1,112 @@
-const mongoCollections = require("../config/mongoCollection");
-const users = mongoCollections.users;
-
+const Users = require("../models/users");
+const { validateLogin, validateSignUp } = require("../validators/users");
+const ClientError = require("../helpers/client-error");
+const ServerError = require("../helpers/server-error");
 const bcrypt = require("bcrypt");
-const saltRounds = 16;
-const { ObjectId } = require("mongodb");
-
-function checkIsPassword(s) {
-  if (s.length < 6) throw "Given password size is less than 8";
-}
-function checkIsString(s) {
-  if (typeof s !== "string") throw "Given input is invalid";
-  if (s.length < 1) throw "Given input is empty";
-  if (s.trim().length === 0) throw "Given input is all white spaces";
-}
-function checkIsEmail(s) {
-  const emailRegex = /^\S+@[a-zA-Z]+\.[a-zA-Z]+$/;
-  if (!emailRegex.test(s)) throw "Given email id is invalid";
-}
-
-function checkIsUsername(s) {
-  if (s.length < 4) throw "Given username size is less than 4";
-}
-
-async function createUser(
-  email,
-
-  username,
-  password
-) {
-  console.log("Inside else of create user");
-
-  if (!email) throw "Must provide the email";
-  if (!username) throw "Must provide the username";
-  if (!password) throw "Must provide the password";
-
-  email = email.toLowerCase().trim();
-  username = username.toLowerCase().trim();
-  password = password.trim();
-
-  try {
-    checkIsString(email);
-    checkIsString(username);
-    checkIsString(password);
-
-    checkIsEmail(email);
-
-    checkIsUsername(username);
-    checkIsPassword(password);
-  } catch (e) {
-    console.log(e);
-    throw String(e);
-  }
-
-  const userCollection = await users();
-
-  if (await userCollection.findOne({ email: email })) throw "Email is taken.";
-
-  let hash = null;
-
-  hash = await bcrypt.hash(password, saltRounds);
-
-  let newUser = {
-    email: email,
-    username: username,
-    password: hash,
-    commments: [],
-  };
-
-  console.log("Before insert of create user");
-  const insertInfo = await userCollection
-    .insertOne(newUser)
-    .catch(function (e) {
-      throw "Username already exists";
-    });
-  if (insertInfo.insertedCount === 0) throw `Could not add user`;
-  return insertInfo.insertedId.toString();
-}
-
-async function getUser(emailId) {
-  if (
-    typeof emailId !== "string" ||
-    emailId.length === 0 ||
-    emailId === " ".repeat(emailId.length)
-  )
-    throw "Error: emailId must be a non-empty string.";
-
-  checkIsEmail(emailId);
-  const userCollection = await users();
-  const singleUserId = await userCollection.findOne({ email: emailId });
-  if (singleUserId === null) return null;
-  return { ...singleUserId, _id: singleUserId._id.toString() };
-}
-
-async function updateUser(email, username, password, id) {
-  if (!email) throw "Must provide the email";
-  if (!username) throw "Must provide the username";
-
-  if (!password) throw "Must provide the password";
-
-  email = email.toLowerCase().trim();
-  username = username.toLowerCase().trim();
-  password = password.trim();
-
-  try {
-    checkIsString(email);
-    checkIsString(username);
-    checkIsString(password);
-    checkIsEmail(email);
-    checkIsUsername(username);
-    checkIsPassword(password);
-  } catch (e) {
-    throw String(e);
-  }
-  let objectID = ObjectId(id);
-  const userCollection = await users();
-
-  // check if email exists
-  const userFound = await userCollection.findOne({ email: email }).toArray();
-  if (userFound.length > 0) return false;
-  let updateObj = {};
-  if (email) updateObj.email = email;
-
-  if (password) updateObj.password = await bcrypt.hash(password, saltRounds);
-
-  const updateUser = await userCollection.updateOne(
-    { _id: objectID },
-
-    { $set: updateObj }
-  );
-
-  if (updateUser.modifiedCount === 0) throw "User could not be updated";
-  return updateUser;
-}
-
-async function checkUser(email, password) {
-  // error check
-  if (!email) throw "You must provide a username";
-  if (!password) throw "You must provide a password";
-
-  email = email.toLowerCase().trim();
-
-  try {
-    checkIsEmail(email);
-    checkIsString(password);
-    checkIsPassword(password);
-  } catch (e) {
-    throw String(e);
-  }
-
-  // get user by username or email
-  const userCollection = await users();
-  let user = await userCollection.findOne({ email: email });
-
-  // authenticate user
-  if (!user || !bcrypt.compareSync(password, user.password))
-    return { authenticated: false };
-
-  return {
-    authenticated: true,
-    userId: user._id,
-    email: email,
-  };
-}
+const sendResponse = require("../helpers/sendResponse");
+const { isValidObjectId: isObjectId } = require("mongoose");
+const salt = 10;
 
 module.exports = {
-  createUser,
+  login,
+  signUp,
   getUser,
-  updateUser,
-  checkUser,
+  logout
+};
+
+async function getUser(req, res, next) {
+  try {
+    const userId = req.params.id;
+    if (!isObjectId(userId)) throw ClientError('ID is not a valid objectId');
+
+    const user = await Users.findOne({ '_id': userId }).lean();
+
+    if (!user) throw new ClientError('User does not exists with given id');
+
+    return sendResponse(res, user);
+  } catch (error) {
+    if (error instanceof ClientError) {
+      return next(error);
+    }
+    return next(new ServerError(error.message));
+  }
+}
+
+async function login(req, res, next) {
+  try {
+    const reqBody = req.body;
+
+    const { isInvalid, message } = validateLogin(reqBody);
+    if (isInvalid) {
+      throw new ClientError(message);
+    }
+
+    const username = reqBody.username;
+    const password = reqBody.password;
+
+    const user = await Users.findOne({
+      username: username.toLowerCase(),
+    });
+
+    if (!user) {
+      throw new ClientError('Username or password Incorrect!');
+    }
+
+    if (!(await bcrypt.compare(password, user.password))) {
+      throw new ClientError('Username or password Incorrect!');
+    }
+
+    return sendResponse(res, user);
+  } catch (error) {
+    if (error instanceof ClientError) {
+      return next(error);
+    }
+    return next(new ServerError(error.message));
+  }
+}
+
+async function logout(req, res, next) {
+  try {
+
+    return res.redirect("/");
+  } catch (error) {
+    if (error instanceof ClientError) {
+      return next(error);
+    }
+    return next(new ServerError(error.message));
+  }
+}
+
+async function signUp(req, res, next) {
+  try {
+    const requestBody = req.body;
+
+    const { isInvalid, message } = validateSignUp(requestBody);
+    if (error) {
+      throw new ServerError(400, error.message);
+    }
+
+    const username = requestBody.username.toLowerCase();
+
+    const user = await Users.findOne({ username: username });
+
+    if (user) throw new ServerError(400, "User already exists with given username");
+
+    const password = await bcrypt.hash(requestBody.password, salt);
+
+    const response = await Users.create({
+      firstName: requestBody.firstName,
+      lastName: requestBody.lastName,
+      name: `${requestBody.firstName} ${requestBody.lastName}`,
+      username: username,
+      password: password,
+    });
+
+    return sendResponse(res, response);
+  } catch (error) {
+    if (error instanceof ServerError) {
+      return next(error);
+    }
+    return next(new ServerError(500, error.message));
+  }
 };
