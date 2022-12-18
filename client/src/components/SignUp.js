@@ -1,21 +1,71 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useState, useEffect } from "react";
+import axios from "axios";
 import { Navigate } from "react-router-dom";
 import { doCreateUserWithEmailAndPassword } from "../firebase/functions";
 import { AuthContext } from "../firebase/Auth";
 import SocialSignIn from "./SocialSignIn";
+
+const defaultFormFields = {
+  firstName: "",
+  lastName: "",
+  email: "",
+
+  username: "",
+  password: "",
+};
+
 function SignUp() {
+  const [formFields, setFormFields] = useState(defaultFormFields);
+  const { firstName, lastName, email, username, password } = formFields;
+  const [formErrors, setFormErrors] = useState({});
+  const [isSubmit, setIsSubmit] = useState(false);
   const { currentUser } = useContext(AuthContext);
+
+  const resetFormFields = () => {
+    setFormFields(defaultFormFields);
+  };
+
+  const handleChange = (event) => {
+    const { name, value } = event.target;
+
+    setFormFields({ ...formFields, [name]: value });
+  };
   // const [pwMatch, setPwMatch] = useState("");
   const handleSignUp = async (e) => {
     e.preventDefault();
-    const { displayName, email, passwordOne } = e.target.elements;
+    setFormErrors(formFields);
+    setIsSubmit(true);
+    //const { displayName, email, passwordOne } = e.target.elements;
+    let dataBody = {
+      firstName: firstName,
+      lastName: lastName,
+      email: email,
 
+      username: username,
+      password: password,
+    };
+    try {
+      await axios
+        .post(
+          "http://localhost:5000/signup",
+          {
+            data: dataBody,
+          }
+        )
+        .then(function (response) {
+          console.log(response.data);
+        });
+    } catch (error) {
+      // alert(error.response.data);
+      return;
+    }
     try {
       await doCreateUserWithEmailAndPassword(
         email.value,
-        passwordOne.value,
-        displayName
+        password.value,
+        username
       );
+      resetFormFields();
     } catch (error) {
       alert(error);
     }
@@ -32,13 +82,43 @@ function SignUp() {
       <form onSubmit={handleSignUp}>
         <div className="form-group">
           <label>
-            Name:
+            First Name:
             <input
               className="form-control"
               required
-              name="displayName"
+              onChange={handleChange}
+              name="firstName"
+              value={firstName}
               type="text"
-              placeholder="Name"
+              placeholder="FirstName"
+            />
+          </label>
+        </div>
+        <div className="form-group">
+          <label>
+            Last Name:
+            <input
+              className="form-control"
+              required
+              onChange={handleChange}
+              value={lastName}
+              name="lastName"
+              type="text"
+              placeholder="LastName"
+            />
+          </label>
+        </div>
+        <div className="form-group">
+          <label>
+            Username:
+            <input
+              className="form-control"
+              required
+              onChange={handleChange}
+              value={username}
+              name="username"
+              type="text"
+              placeholder="UserName"
             />
           </label>
         </div>
@@ -48,6 +128,8 @@ function SignUp() {
             <input
               className="form-control"
               required
+              onChange={handleChange}
+              value={email}
               name="email"
               type="email"
               placeholder="Email"
@@ -59,12 +141,14 @@ function SignUp() {
             Password:
             <input
               className="form-control"
-              id="passwordOne"
-              name="passwordOne"
+              id="password"
               type="password"
               placeholder="Password"
               autoComplete="off"
               required
+              onChange={handleChange}
+              value={password}
+              name="password"
             />
           </label>
         </div>

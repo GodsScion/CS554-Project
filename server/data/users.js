@@ -11,17 +11,17 @@ module.exports = {
   login,
   signUp,
   getUser,
-  logout
+  logout,
 };
 
 async function getUser(req, res, next) {
   try {
     const userId = req.params.id;
-    if (!isObjectId(userId)) throw ClientError('ID is not a valid objectId');
+    if (!isObjectId(userId)) throw ClientError("ID is not a valid objectId");
 
-    const user = await Users.findOne({ '_id': userId }).lean();
+    const user = await Users.findOne({ _id: userId }).lean();
 
-    if (!user) throw new ClientError('User does not exists with given id');
+    if (!user) throw new ClientError("User does not exists with given id");
 
     return sendResponse(res, user);
   } catch (error) {
@@ -41,7 +41,7 @@ async function login(req, res, next) {
       throw new ClientError(message);
     }
 
-    const username = reqBody.username;
+    const username = reqBody.email;
     const password = reqBody.password;
 
     const user = await Users.findOne({
@@ -49,11 +49,11 @@ async function login(req, res, next) {
     });
 
     if (!user) {
-      throw new ClientError('Username or password Incorrect!');
+      throw new ClientError("Username or password Incorrect!");
     }
 
     if (!(await bcrypt.compare(password, user.password))) {
-      throw new ClientError('Username or password Incorrect!');
+      throw new ClientError("Username or password Incorrect!");
     }
 
     return sendResponse(res, user);
@@ -67,7 +67,6 @@ async function login(req, res, next) {
 
 async function logout(req, res, next) {
   try {
-
     return res.redirect("/");
   } catch (error) {
     if (error instanceof ClientError) {
@@ -87,10 +86,12 @@ async function signUp(req, res, next) {
     }
 
     const username = requestBody.username.toLowerCase();
+    const email = requestBody.email.toLowerCase();
 
     const user = await Users.findOne({ username: username });
 
-    if (user) throw new ServerError(400, "User already exists with given username");
+    if (user)
+      throw new ServerError(400, "User already exists with given username");
 
     const password = await bcrypt.hash(requestBody.password, salt);
 
@@ -99,6 +100,7 @@ async function signUp(req, res, next) {
       lastName: requestBody.lastName,
       name: `${requestBody.firstName} ${requestBody.lastName}`,
       username: username,
+      email: email,
       password: password,
     });
 
@@ -109,4 +111,4 @@ async function signUp(req, res, next) {
     }
     return next(new ServerError(500, error.message));
   }
-};
+}
