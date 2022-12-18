@@ -41,19 +41,19 @@ async function login(req, res, next) {
       throw new ClientError(message);
     }
 
-    const username = reqBody.username;
+    const email = reqBody.email.toLowerCase();
     const password = reqBody.password;
 
     const user = await Users.findOne({
-      username: username.toLowerCase(),
+      email: email,
     });
 
     if (!user) {
-      throw new ClientError('Username or password Incorrect!');
+      throw new ClientError('User email or password Incorrect!');
     }
 
     if (!(await bcrypt.compare(password, user.password))) {
-      throw new ClientError('Username or password Incorrect!');
+      throw new ClientError('User email or password Incorrect!');
     }
 
     return sendResponse(res, user);
@@ -82,15 +82,15 @@ async function signUp(req, res, next) {
     const requestBody = req.body;
 
     const { isInvalid, message } = validateSignUp(requestBody);
-    if (error) {
-      throw new ServerError(400, error.message);
+    if (isInvalid) {
+      throw new ClientError(message);
     }
 
-    const username = requestBody.username.toLowerCase();
+    const email = requestBody.email.toLowerCase();
 
-    const user = await Users.findOne({ username: username });
+    const user = await Users.findOne({ email: email });
 
-    if (user) throw new ServerError(400, "User already exists with given username");
+    if (user) throw new ClientError("User already exists with given email");
 
     const password = await bcrypt.hash(requestBody.password, salt);
 
@@ -98,13 +98,13 @@ async function signUp(req, res, next) {
       firstName: requestBody.firstName,
       lastName: requestBody.lastName,
       name: `${requestBody.firstName} ${requestBody.lastName}`,
-      username: username,
+      email: email,
       password: password,
     });
 
     return sendResponse(res, response);
   } catch (error) {
-    if (error instanceof ServerError) {
+    if (error instanceof ClientError) {
       return next(error);
     }
     return next(new ServerError(500, error.message));

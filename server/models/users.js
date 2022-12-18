@@ -17,15 +17,10 @@ const schema = new mongoose.Schema(
       min: 1,
       required: true,
     },
-    username: {
-      type: String,
-      min: 3,
-      // required: true,
-    },
     email: {
       type: String,
       min: 3,
-      // required: true,
+      required: true,
     },
     password: {
       type: String,
