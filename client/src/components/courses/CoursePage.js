@@ -1,19 +1,20 @@
 import React, { useEffect, useState } from "react"
 import axios from "axios"
-import check from "./validations"
+import check from "../validations"
 import { useParams , useNavigate, Link } from "react-router-dom"
 
-import '../App.css'
-import { data } from "jquery"
 
-CoursePage = () => {
+const CoursePage = () => {
+    const navigate = useNavigate()
+    const id = useParams().id || 1
     const[data, setData] = useState(undefined)
     const[reviewsData, setReviewsData] = useState(undefined)
     const[reviewsDataShow, setReviewsDataShow] = useState(<p>No reviews posted!</p>)
     const[rating, setRating] = useState(5)
     const[message, setMessage] = useState("")
 
-    useEffect(async () => {
+
+    async function getData() {
         try {
             check.isValidNum(id);
         } catch (error) {
@@ -62,7 +63,7 @@ CoursePage = () => {
                                                     }
                                                 ],
                                         "rating": 5.0,
-                                        "isLoggedIn": False
+                                        "isLoggedIn": false
                                     } 
                               }
             setReviewsData(data.reviews)
@@ -71,7 +72,9 @@ CoursePage = () => {
             console.error(error.message || error);
             return navigate("/pg404")
         }
-    },[])
+    }
+
+    useEffect(getData,[])
 
     useEffect(async () => {
         setReviewsDataShow(
@@ -96,6 +99,7 @@ CoursePage = () => {
                 "review": message,
             }
             const res = await axios.post(`http://localhost:3000/courses/${data.id}/reviews`,sendData);
+            getData()
         } catch (error) {
             console.error(error.message || error);
             alert(error.message || error);
@@ -122,7 +126,7 @@ CoursePage = () => {
                 <h2>Professors:</h2>
                 {data ? 
                 <ul className="list-group">{data.professors.map(
-                    (professor) => { return <li className="list-group-item" onClick={() => useNavigate(`/professors/${professor.id}`)}>{professor.name}</li> }
+                    (professor) => { return <li className="list-group-item" onClick={() => navigate(`/professors/${professor.id}`)}>{professor.name}</li> }
                 )}</ul> 
                 : 
                 <p>Currently no professors are teaching this course!</p>}
@@ -175,4 +179,4 @@ CoursePage = () => {
     );
 }
 
-export default CoursePage
+export default CoursePage;

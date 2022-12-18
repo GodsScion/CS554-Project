@@ -7,6 +7,7 @@ import SignUp from "./components/SignUp";
 
 //import { AuthProvider } from "./firebase/Auth";
 //import PrivateRoute from "./components/PrivateRoute";
+import CoursePage from "./components/courses/CoursePage";
 import Page404 from "./components/Page404";
 import Page400 from "./components/Pg400";
 import { BrowserRouter as Router, Route, Routes, Link } from "react-router-dom";
@@ -30,6 +31,7 @@ const App = () => {
           <Route path="/signin" element={<SignIn />}></Route>
           <Route path="/signup" element={<SignUp />}></Route>
 
+          <Route path="/courses/:id" element={<CoursePage />}></Route>
           <Route path="/pg404" element={<Page404 />}></Route>
           <Route path="/pg400/:msg" element={<Page400 />}></Route>
           <Route path="*" element={<Page404 />}></Route>
