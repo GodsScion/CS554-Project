@@ -45,17 +45,14 @@ function SignUp() {
       password: password,
     };
     try {
-      await axios
-        .post(
-          "http://localhost:5000/signup",
-          {
-            data: dataBody,
-          }
-        )
-        .then(function (response) {
-          console.log(response.data);
-        });
+      const { data } = await axios.post("http://localhost:4000/users/signup",
+        {
+          data: dataBody,
+        }
+      );
+      console.log(data)
     } catch (error) {
+      console.log(error);
       // alert(error.response.data);
       return;
     }

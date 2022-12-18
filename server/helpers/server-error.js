@@ -6,6 +6,7 @@ class ServerError extends Error {
  * @param {String} message
  */
   constructor(description = '', message = 'Internal server error!', status = 500) {
+    super(message);
     this.status = status;
     this.message = message;
     this.description = description;

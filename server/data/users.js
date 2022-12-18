@@ -81,8 +81,8 @@ async function signUp(req, res, next) {
     const requestBody = req.body;
 
     const { isInvalid, message } = validateSignUp(requestBody);
-    if (error) {
-      throw new ServerError(400, error.message);
+    if (isInvalid) {
+      throw new ServerError(400, message);
     }
 
     const username = requestBody.username.toLowerCase();
