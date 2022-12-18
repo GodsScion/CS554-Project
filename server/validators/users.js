@@ -2,7 +2,7 @@ const Joi = require("joi");
 
 module.exports = {
   validateSignUp,
-  validateLogin
+  validateLogin,
 };
 
 /**
@@ -17,10 +17,11 @@ function validateSignUp(requestBody) {
     lastName: Joi.string().alphanum().min(1).max(20).required(),
     email: Joi.string().email().required(),
     password: Joi.string().required(),
+    username: Joi.string().required(),
   });
   const { error } = schema.validate(requestBody);
   if (error) return { isInvalid: true, message: error.message };
-  return { isInvalid: false, message: '' };
+  return { isInvalid: false, message: "" };
 }
 
 function validateLogin(requestBody) {
@@ -30,5 +31,5 @@ function validateLogin(requestBody) {
   });
   const { error } = schema.validate(requestBody);
   if (error) return { isInvalid: true, message: error.message };
-  return { isInvalid: false, message: '' };
+  return { isInvalid: false, message: "" };
 }

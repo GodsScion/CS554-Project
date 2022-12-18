@@ -1,5 +1,5 @@
-import React from "react";
-import { doSignOut } from "../firebase/functions";
+/*import React from "react";
+//import { doSignOut } from "../firebase/functions";
 
 const SignOutButton = () => {
   return (
@@ -10,3 +10,4 @@ const SignOutButton = () => {
 };
 
 export default SignOutButton;
+*/

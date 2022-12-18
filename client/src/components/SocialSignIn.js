@@ -1,5 +1,5 @@
-import React from "react";
-import { doSocialSignIn } from "../firebase/functions";
+/*import React from "react";
+//import { doSocialSignIn } from "../firebase/functions";
 
 const SocialSignIn = () => {
   const socialSignOn = async (provider) => {
@@ -20,4 +20,4 @@ const SocialSignIn = () => {
   );
 };
 
-export default SocialSignIn;
+export default SocialSignIn;*/

@@ -1,29 +1,72 @@
-import React, { useContext, useState } from "react";
-import { Navigate } from "react-router-dom";
-import { doCreateUserWithEmailAndPassword } from "../firebase/functions";
-import { AuthContext } from "../firebase/Auth";
-import SocialSignIn from "./SocialSignIn";
+import React, { useState, useContext, useEffect } from "react";
+import axios from "axios";
+import { useNavigate, Navigate } from "react-router-dom";
+import { createNativeUser } from "../firebase/firebase";
+import FormInput from "./FormInput";
+import { UserContext } from "../contexts/userContext";
+//import SocialSignIn from "./SocialSignIn";
+import Button from "./Button";
+
+const defaultFormFields = {
+  firstName: "",
+  lastName: "",
+  email: "",
+
+  username: "",
+  password: "",
+};
+
 function SignUp() {
-  const { currentUser } = useContext(AuthContext);
+  const [formFields, setFormFields] = useState(defaultFormFields);
+  const { firstName, lastName, email, password } = formFields;
+  const [formErrors, setFormErrors] = useState({});
+  const [isSubmit, setIsSubmit] = useState(false);
+  const { setCurrentUser } = useContext(UserContext);
+  const history = useNavigate();
+
+  const resetFormFields = () => {
+    setFormFields(defaultFormFields);
+  };
+
+  const handleChange = (event) => {
+    const { name, value } = event.target;
+
+    setFormFields({ ...formFields, [name]: value });
+  };
   // const [pwMatch, setPwMatch] = useState("");
   const handleSignUp = async (e) => {
     e.preventDefault();
-    const { displayName, email, passwordOne } = e.target.elements;
+    setFormErrors(formFields);
+    setIsSubmit(true);
+    //const { displayName, email, passwordOne } = e.target.elements;
+    let dataBody = {
+      firstName: firstName,
+      lastName: lastName,
+      email: email,
 
+      password: password,
+    };
     try {
-      await doCreateUserWithEmailAndPassword(
-        email.value,
-        passwordOne.value,
-        displayName
-      );
+      await axios
+        .post("http://localhost:4000/users/signup", {
+          data: dataBody,
+        })
+        .then(function (response) {
+          console.log(response.data);
+          history("/", { replace: true });
+        });
+    } catch (error) {
+      // alert(error.response.data);
+      return;
+    }
+    try {
+      const { user } = await createNativeUser(email, password);
+      setCurrentUser(user);
+      resetFormFields();
     } catch (error) {
       alert(error);
     }
   };
-
-  if (currentUser) {
-    return <Navigate to="/home" />;
-  }
 
   return (
     <div>
@@ -32,49 +75,61 @@ function SignUp() {
       <form onSubmit={handleSignUp}>
         <div className="form-group">
           <label>
-            Name:
-            <input
-              className="form-control"
-              required
-              name="displayName"
+            First Name:
+            <FormInput
+              label="First Name"
               type="text"
-              placeholder="Name"
+              required
+              onChange={handleChange}
+              value={firstName}
+              name="firstName"
             />
           </label>
         </div>
         <div className="form-group">
           <label>
-            Email:
-            <input
-              className="form-control"
+            Last Name:
+            <FormInput
+              label="Last Name"
+              type="text"
               required
-              name="email"
+              onChange={handleChange}
+              value={lastName}
+              name="lastName"
+            />
+          </label>
+        </div>
+
+        <div className="form-group">
+          <label>
+            Email:
+            <FormInput
+              label="Email"
               type="email"
-              placeholder="Email"
+              required
+              onChange={handleChange}
+              value={email}
+              name="email"
             />
           </label>
         </div>
         <div className="form-group">
           <label>
             Password:
-            <input
-              className="form-control"
-              id="passwordOne"
-              name="passwordOne"
+            <FormInput
+              label="Password"
               type="password"
-              placeholder="Password"
-              autoComplete="off"
               required
+              onChange={handleChange}
+              value={password}
+              name="password"
             />
           </label>
         </div>
 
-        <button id="submitButton" name="submitButton" type="submit">
-          Sign Up
-        </button>
+        <Button type="submit">Sign Up</Button>
       </form>
       <br />
-      <SocialSignIn />
     </div>
   );
 }

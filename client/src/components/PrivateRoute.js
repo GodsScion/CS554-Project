@@ -1,8 +1,8 @@
 //import { Route, Redirect } from "react-router-dom";
 //import React, { useContext } from "react";
-import { Navigate, Outlet } from "react-router-dom";
+/*import { Navigate, Outlet } from "react-router-dom";
 import React, { useContext } from "react";
-import { AuthContext } from "../firebase/Auth";
+//import { AuthContext } from "../firebase/Auth";
 /*
 const PrivateRoute = ({ component: RouteComponenet, ...rest }) => {
   const { currentUser } = useContext(AuthContext);
@@ -24,7 +24,7 @@ const PrivateRoute = ({ component: RouteComponenet, ...rest }) => {
 };
 
 export default PrivateRoute;*/
-
+/*
 const PrivateRoute = () => {
   const { currentUser } = useContext(AuthContext);
   console.log("Private Route Comp current user", currentUser);
@@ -34,3 +34,4 @@ const PrivateRoute = () => {
 };
 
 export default PrivateRoute;
+*/

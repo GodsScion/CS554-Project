@@ -11,17 +11,17 @@ module.exports = {
   login,
   signUp,
   getUser,
-  logout
+  logout,
 };
 
 async function getUser(req, res, next) {
   try {
     const userId = req.params.id;
-    if (!isObjectId(userId)) throw ClientError('ID is not a valid objectId');
+    if (!isObjectId(userId)) throw ClientError("ID is not a valid objectId");
 
-    const user = await Users.findOne({ '_id': userId }).lean();
+    const user = await Users.findOne({ _id: userId }).lean();
 
-    if (!user) throw new ClientError('User does not exists with given id');
+    if (!user) throw new ClientError("User does not exists with given id");
 
     return sendResponse(res, user);
   } catch (error) {
@@ -34,8 +34,8 @@ async function getUser(req, res, next) {
 
 async function login(req, res, next) {
   try {
-    const reqBody = req.body;
-
+    const reqBody = req.body.data;
+    console.log(reqBody);
     const { isInvalid, message } = validateLogin(reqBody);
     if (isInvalid) {
       throw new ClientError(message);
@@ -49,11 +49,11 @@ async function login(req, res, next) {
     });
 
     if (!user) {
-      throw new ClientError('User email or password Incorrect!');
+      throw new ClientError("User email or password Incorrect!");
     }
 
     if (!(await bcrypt.compare(password, user.password))) {
-      throw new ClientError('User email or password Incorrect!');
+      throw new ClientError("User email or password Incorrect!");
     }
 
     return sendResponse(res, user);
@@ -67,7 +67,6 @@ async function login(req, res, next) {
 
 async function logout(req, res, next) {
   try {
-
     return res.redirect("/");
   } catch (error) {
     if (error instanceof ClientError) {
@@ -79,12 +78,22 @@ async function logout(req, res, next) {
 
 async function signUp(req, res, next) {
   try {
-    const requestBody = req.body;
+    const requestBody = req.body.data;
+    if (flag === "G") {
+      email = email.toLowerCase().trim();
+      try {
+        checkIsEmail(email);
+      } catch (e) {
+        return res.status(400).send(String(e));
+      }
+    }
 
     const { isInvalid, message } = validateSignUp(requestBody);
     if (isInvalid) {
       throw new ClientError(message);
     }
+    //console.log("requestBody.username");
+    console.log(requestBody.username);
 
     const email = requestBody.email.toLowerCase();
 
@@ -109,4 +118,4 @@ async function signUp(req, res, next) {
     }
     return next(new ServerError(500, error.message));
   }
-};
+}
