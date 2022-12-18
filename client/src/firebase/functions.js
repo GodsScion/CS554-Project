@@ -23,8 +23,6 @@ async function doSocialSignIn(provider) {
   let socialProvider = null;
   if (provider === "google") {
     socialProvider = new firebase.auth.GoogleAuthProvider();
-  } else if (provider === "facebook") {
-    socialProvider = new firebase.auth.FacebookAuthProvider();
   }
   await firebase.auth().signInWithPopup(socialProvider);
 }

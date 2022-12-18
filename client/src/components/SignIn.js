@@ -1,4 +1,5 @@
-import React, { useContext } from "react";
+import React, { useState, useContext } from "react";
+import axios from "axios";
 import SocialSignIn from "./SocialSignIn";
 import { Navigate } from "react-router-dom";
 import { AuthContext } from "../firebase/Auth";
@@ -6,12 +7,43 @@ import {
   doSignInWithEmailAndPassword,
   // doPasswordReset,
 } from "../firebase/functions";
+const defaultFormFields = {
+  email: "",
+  password: "",
+};
 
 function SignIn() {
+  const [formFields, setFormFields] = useState(defaultFormFields);
+  const { email, password } = formFields;
   const { currentUser } = useContext(AuthContext);
+  const handleChange = (event) => {
+    const { name, value } = event.target;
+
+    setFormFields({ ...formFields, [name]: value });
+  };
+
   const handleLogin = async (event) => {
     event.preventDefault();
-    let { email, password } = event.target.elements;
+    //let { email, password } = event.target.elements;
+    let dataBody = {
+      email: email,
+      password: password,
+    };
+    try {
+      await axios
+        .post(
+          "http://localhost:5000/login",
+          {
+            data: dataBody,
+          }
+        )
+        .then(function (response) {
+          console.log(response.data);
+        });
+    } catch (error) {
+      alert(error.response.data);
+      return;
+    }
 
     try {
       await doSignInWithEmailAndPassword(email.value, password.value);
@@ -32,6 +64,9 @@ function SignIn() {
       );
     }
   };*/
+
+  //const handleOnSubmit = async (event) => {};
+
   if (currentUser) {
     return <Navigate to="/home" />;
   }
@@ -41,27 +76,18 @@ function SignIn() {
       <form onSubmit={handleLogin}>
         <div className="form-group">
           <label>
-            Email:
-            <input
-              className="form-control"
-              name="email"
-              id="email"
-              type="email"
-              placeholder="Email"
-              required
-            />
+            email:
+            <input label="Email" type="email" required name="email-signin" />
           </label>
         </div>
         <div className="form-group">
           <label>
-            Password:
+            email:
             <input
-              className="form-control"
-              name="password"
+              label="Password"
               type="password"
-              placeholder="Password"
-              autoComplete="off"
               required
+              name="password-signin"
             />
           </label>
         </div>
