@@ -177,7 +177,6 @@ const CoursePage = () => {
                 </div>
              </div>
             }
-
         </div>
     );
 }
