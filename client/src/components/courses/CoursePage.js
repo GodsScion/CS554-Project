@@ -4,6 +4,7 @@ import check from "../validations"
 import { useParams , useNavigate, Link } from "react-router-dom"
 
 
+
 const CoursePage = () => {
     const navigate = useNavigate()
     const id = useParams().id || 1
@@ -63,7 +64,7 @@ const CoursePage = () => {
                                                     }
                                                 ],
                                         "rating": 5.0,
-                                        "isLoggedIn": false
+                                        "isLoggedIn": true
                                     } 
                               }
             setReviewsData(data.reviews)
@@ -74,12 +75,12 @@ const CoursePage = () => {
         }
     }
 
-    useEffect(getData,[])
+    useEffect(() => {getData()},[])
 
-    useEffect(async () => {
+    useEffect(() => {
         setReviewsDataShow(
         <div className="card onHoverShadow">
-            {data.reviews.map(
+            {data && data.reviews.map(
             (review) => {
                 return <div className="card-body onHoverShadow" >
                             <h3 className="card-title">{review.user.name}</h3>
@@ -108,7 +109,7 @@ const CoursePage = () => {
 
 
     return (
-        <div className="container-fluid m-5 p-2">
+        <div className="container-fluid m-5 p-2 bg-body">
             <hr/>
             <div className="row col-12">
                 <h1 className="col-9">{data && data.name}</h1>
@@ -132,10 +133,18 @@ const CoursePage = () => {
                 <p>Currently no professors are teaching this course!</p>}
             </div>
             <hr/>
-            
+            <div className="container bg-body rounded">
+                <h2>Reviews:</h2>
+                {data && data.isLoggedIn && <button type="button" className="btn btn-primary" data-bs-toggle="modal" data-bs-target="#createReviewModal">Add Review</button>}
+                {data && reviewsDataShow}
+            </div>
+            <hr/>
+
+
             {/* <!-- Vertically centered modal --> */}
             {data && data.isLoggedIn && 
-                <div id="createReviewModal" className="modal-dialog modal-dialog-centered">
+             <div className="modal fade" id="createReviewModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div className="modal-dialog modal-dialog-centered">
                   <div className="modal-content">
                     <div className="modal-header">
                         <h1 className="modal-title fs-5" id="exampleModalLabel">Your Review</h1>
@@ -145,7 +154,7 @@ const CoursePage = () => {
                         <form onSubmit={sendReviewData}>
                             <div className="mb-3">
                                 <label for="rating" className="col-form-label">Select your rating:</label>
-                                <select id="rating" name="rating" class="form-select col-2" aria-label="Rating" onChange={()=>{setRating(Event.target.value)}}>
+                                <select id="rating" name="rating" class="form-select col-1" aria-label="Rating" onChange={()=>{setRating(Event.target.value)}}>
                                 <option value={5}>5 / 5</option>
                                 <option value={4}>4 / 5</option>
                                 <option value={3}>3 / 5</option>
@@ -166,14 +175,8 @@ const CoursePage = () => {
                     </div>
                   </div>
                 </div>
+             </div>
             }
-            <div className="container bg-body rounded">
-                <h2>Reviews:</h2>
-                {data && data.isLoggedIn && <button type="button" className="btn btn-primary" data-bs-toggle="modal" data-bs-target="#createReviewModal">Add Review</button>}
-                {data && reviewsDataShow}
-            </div>
-            <hr/>
-
 
         </div>
     );
