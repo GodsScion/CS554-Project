@@ -12,6 +12,7 @@ module.exports = {
   signUp,
   getUser,
   logout,
+  getUserById,
 };
 
 async function getUser(req, res, next) {
@@ -119,3 +120,8 @@ async function signUp(req, res, next) {
     return next(new ServerError(500, error.message));
   }
 }
+
+async function getUserById(id) {
+  const user = await Users.findOne({ _id: id });
+  return user;
+};

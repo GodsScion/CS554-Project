@@ -6,6 +6,7 @@ const { isAuthenticated } = require('../middlewares/auth');
 const errorHandler = require('../middlewares/error-handler');
 const redisClient = require('./redisClient');
 const routes = require('../routes');
+const session = require("express-session");
 
 /**
  *
@@ -23,6 +24,16 @@ module.exports = async function init(app) {
 
   // Intializing json for req.body
   app.use(express.json({ limit: "50mb" }));
+
+  app.use(
+    session({
+      name: "AuthCookie",
+      secret: "CerHteWinI",
+      saveUninitialized: true,
+      resave: false,
+      cookie: { maxAge: 600000 },
+    })
+  );
 
   // Intializing Logging middleware
   app.use(logging);
