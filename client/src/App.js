@@ -32,6 +32,8 @@ const App = () => {
           <Route path="/courses/:id" element={<CoursePage />}></Route>
           <Route path="/pg404" element={<Page404 />}></Route>
           <Route path="/pg400/:msg" element={<Page400 />}></Route>
+           <Route path="/discussions" element={<Discussions />} />
+           <Route path="/discussions/:roomId" element={<ChatRoom />} />
           <Route path="*" element={<Page404 />}></Route>
         </Routes>
       </div>
