@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 
 const Home = () => {
     return (
-        <div className="container bg-body rounded">
+        <div className="container bg-body rounded m-5 p-2">
             <h1>Home</h1>
             <br />
             <p>
@@ -36,6 +36,8 @@ const Home = () => {
                 </Link>
                 <br />
             </nav>
+            <br/>
+            <br/>
         </div>
     )
 }
