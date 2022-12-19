@@ -10,7 +10,6 @@ const defaultFormFields = {
   lastName: "",
   email: "",
 
-  username: "",
   password: "",
 };
 
@@ -44,7 +43,9 @@ function SignUp() {
       username: username,
       password: password,
     };
+    console.log(email.value);
     try {
+<<<<<<< Updated upstream
       const { data } = await axios.post("http://localhost:4000/users/signup",
         {
           data: dataBody,
@@ -63,8 +64,23 @@ function SignUp() {
         username
       );
       resetFormFields();
+=======
+      await doCreateUserWithEmailAndPassword(email, password);
+      resetFormFields();
     } catch (error) {
       alert(error);
+    }
+    try {
+      const { data } = await axios.post(
+        "http://localhost:4000/users/signup",
+        dataBody
+      );
+      console.log(data.data.id);
+>>>>>>> Stashed changes
+    } catch (error) {
+      console.log(error);
+      // alert(error.response.data);
+      return;
     }
   };
 
@@ -102,6 +118,7 @@ function SignUp() {
               name="lastName"
               type="text"
               placeholder="LastName"
+<<<<<<< Updated upstream
             />
           </label>
         </div>
@@ -116,6 +133,8 @@ function SignUp() {
               name="username"
               type="text"
               placeholder="UserName"
+=======
+>>>>>>> Stashed changes
             />
           </label>
         </div>

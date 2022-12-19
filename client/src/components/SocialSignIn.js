@@ -9,6 +9,7 @@ const SocialSignIn = () => {
       alert(error);
     }
   };
+
   return (
     <div>
       <img
