@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react"
 import axios from "axios"
 import check from "../validations"
-import { useParams , useNavigate, Link } from "react-router-dom"
+import { useParams , useNavigate } from "react-router-dom"
 
 
 
@@ -112,11 +112,11 @@ const CoursePage = () => {
 
 
     return (
-        <div className="container m-5 p-2 bg-body rounded">
+        <div className="container m-5 mt-0 p-2 bg-body rounded">
             <hr/>
             <h1><strong>{data && data.name}</strong></h1>
             <hr/>
-            <h2 className="col-3"><strong>Rating: </strong>{data && data.rating} / 5.0</h2>
+            <h2 className="col-3"><strong>Rating: </strong>{data && data.rating} / 5</h2>
             <hr/>
             <div className="container">
                 <h2>Description:</h2>
