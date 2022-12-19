@@ -116,7 +116,7 @@ const CoursePage = () => {
             <hr/>
             <h1><strong>{data && data.name}</strong></h1>
             <hr/>
-            <h2 className="col-3"><strong>Rating: </strong>{data && data.rating} / 5</h2>
+            <h2 className="col-3"><strong>Rating: </strong>{data && data.rating} / 5.0</h2>
             <hr/>
             <div className="container">
                 <h2>Description:</h2>
