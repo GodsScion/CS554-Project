@@ -6,6 +6,5 @@ module.exports = {
 };
 
 async function isAuthenticated(req, res, next) {
-  const url = req.originalUrl;
-  next();
+    const url = req.originalUrl;
 }

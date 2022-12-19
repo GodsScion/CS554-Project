@@ -80,9 +80,9 @@ async function signUp(req, res, next) {
   try {
     const reqBody = xss(req.body);
 
-    const { isInvalid, message } = validateSignUp(reqBody);
-    if (isInvalid) {
-      throw new ClientError(message);
+    const { isInvalid, message } = validateSignUp(requestBody);
+    if (error) {
+      throw new ServerError(400, error.message);
     }
 
     const email = reqBody.email.toLowerCase();
