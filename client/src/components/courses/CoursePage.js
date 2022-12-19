@@ -31,7 +31,7 @@ const CoursePage = () => {
                                         "rating": 5.0,
                                         "professors": [
                                             {
-                                                "id": "878799238928932",
+                                                "id": "878799238128932",
                                                 "name": "P1",
                                             },
                                             {
@@ -52,7 +52,7 @@ const CoursePage = () => {
                                                         "createdAt": 2352590245
                                                     },
                                                     {
-                                                        "id": 98732233333234554,
+                                                        "id": 98732233333234551,
                                                         "user": {
                                                                   "id": 232342342342342332,
                                                                   "name": "User 2",
@@ -82,7 +82,7 @@ const CoursePage = () => {
         <div className="container">
             {data && data.reviews.map(
             (review) => {
-                return <div className="card mb-2">
+                return <div key={review.id} className="card mb-2">
                         <div className="card-body onHoverShadow" >
                             <h4 className="card-title">{review.user.name}</h4>
                             <h5 className="card-title">Rating: {review.rating} / 5</h5>
@@ -102,6 +102,7 @@ const CoursePage = () => {
                 "rating": rating,
                 "review": message,
             }
+            
             const res = await axios.post(`http://localhost:4000/courses/${data.id}/reviews`,sendData);
             getData()
         } catch (error) {
@@ -125,10 +126,11 @@ const CoursePage = () => {
             <hr/>
             <div className="container">
                 <h3>Professors:</h3>
+                
                 {/* data-bs-toggle="tooltip" data-bs-placement="right" data-bs-title={`Click for more info on ${professor.name}`} */}
                 {data ? 
                 <ul className="list-group">{data.professors.map(
-                    (professor) => { return <li className="list-group-item list-group-item-dark list-group-item-action col-5" 
+                    (professor) => { return <li key={professor.id} className="list-group-item list-group-item-dark list-group-item-action col-5" 
                                                 onClick={() => navigate(`/professors/${professor.id}`)} >{professor.name}</li> }
                 )}</ul> 
                 : 
@@ -151,7 +153,7 @@ const CoursePage = () => {
 
             {/* <!-- Vertically centered modal --> */}
             {data && data.isLoggedIn && 
-             <div className="modal fade" id="createReviewModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+             <div className="modal fade" id="createReviewModal" tabIndex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div className="modal-dialog modal-dialog-centered">
                   <div className="modal-content">
                     <div className="modal-header">
@@ -161,18 +163,19 @@ const CoursePage = () => {
                     <div className="modal-body">
                         <form onSubmit={sendReviewData}>
                             <div className="mb-3">
-                                <label for="rating" className="col-form-label">Select your rating:</label>
-                                <select id="rating" name="rating" class="form-select col-1" aria-label="Rating" onChange={()=>{setRating(Event.target.value)}}>
-                                <option value={5}>5 / 5</option>
-                                <option value={4}>4 / 5</option>
-                                <option value={3}>3 / 5</option>
-                                <option value={2}>2 / 5</option>
-                                <option value={1}>1 / 5</option>
+                                <label htmlFor="rating" className="col-form-label">Select your rating:</label>
+                                <select id="rating" name="rating" className="form-select col-1" aria-label="Rating" onChange={(e)=>{setRating(e.target.value)}}>
+                                    <option value={5}>5 / 5</option>
+                                    <option value={4}>4 / 5</option>
+                                    <option value={3}>3 / 5</option>
+                                    <option value={2}>2 / 5</option>
+                                    <option value={1}>1 / 5</option>
                                 </select>
                             </div>
                             <div className="mb-3">
-                                <label for="message" className="col-form-label">Type your review:</label>
-                                <textarea className="form-control" id="message" name="message" onChange={()=>{setMessage(Event.target.value)}}></textarea>
+                                <label htmlFor="message" className="col-form-label">Type your review:</label>
+                                <textarea className="form-control" id="message" name="message" onChange={(e)=>{setMessage(e.target.value)}} 
+                                minLength="2" required></textarea>
                             </div>
                             <button type="submit" className="btn btn-primary me-2 col-3 col-sm-4">Add Review</button>
                             <button type="button" className="btn btn-secondary col-3 col-sm-4" data-bs-dismiss="modal">Cancel</button>
