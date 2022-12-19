@@ -21,30 +21,9 @@ const Navigation = () => {
     <>
       <nav className="navigation">
         <div className="flex">
-          <h3 className="App-title">Marvel API</h3>
+          <h3 className="App-title">RMC</h3>
         </div>
         <ul>
-          <li>
-            <NavLink className="showlink" to="/">
-              Home
-            </NavLink>
-          </li>
-
-          <li>
-            <NavLink className="showlink" to="/characters/page/1">
-              Characters
-            </NavLink>
-          </li>
-          <li>
-            <NavLink className="showlink" to="/comics/page/1">
-              Comics
-            </NavLink>
-          </li>
-          <li>
-            <NavLink className="showlink" to="/stories/page/1">
-              Stories
-            </NavLink>
-          </li>
 
           <li>
             <NavLink to="/">Landing</NavLink>
