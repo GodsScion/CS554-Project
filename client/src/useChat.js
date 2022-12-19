@@ -1,10 +1,10 @@
-import React,{useState, useRef, useEffect} from "react";
+import {useState, useRef, useEffect} from "react";
 import socketIOClient from "socket.io-client";
 
 const NEW_CHAT_MESSAGE_EVENT = "newChatMessage";
-const SOCKET_SERVER_URL = "http://localhost:4000";
+const SOCKET_SERVER_URL = "http://localhost:8080";
 
-function useChat(roomId) {
+function useChat(roomId,userName) {
     const [messages, setMessages] = useState([]);
     const socketRef = useRef();
 
@@ -29,6 +29,7 @@ function useChat(roomId) {
     const sendMessage = (messageBody) => {
         socketRef.current.emit(NEW_CHAT_MESSAGE_EVENT, {
           body: messageBody,
+          userName : userName,
           senderId: socketRef.current.id,
         });
       };

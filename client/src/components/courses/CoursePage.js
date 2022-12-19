@@ -115,9 +115,12 @@ const CoursePage = () => {
                     </div>
                     <div className="modal-body">
                         <form onSubmit={sendReviewData}>
+                            <br/>
+                            <p className="text-decoration-underline is-red rating">Once a review is posted, it can't be deleted or updated!!! *</p>
+                            <br/>
                             <div className="mb-3">
                                 <label htmlFor="rating" className="col-form-label">Select your rating:</label>
-                                <select id="rating" name="rating" className="form-select col-1" aria-label="Rating" onChange={(e)=>{setRating(xss(e.target.value))}}>
+                                <select id="rating" name="rating" className="form-select col-1" aria-label="Rating" onChange={(e)=>{setRating(e.target.value)}}>
                                     <option value={5}>5 / 5</option>
                                     <option value={4}>4 / 5</option>
                                     <option value={3}>3 / 5</option>

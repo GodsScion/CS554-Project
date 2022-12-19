@@ -6,6 +6,10 @@
   font-weight: bolder;
 }
 
+.is-red {
+  color: red;
+}
+
 .btn {
   max-width: 3cm;
 }
