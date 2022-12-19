@@ -16,59 +16,16 @@ const CoursePage = () => {
 
     async function getData() {
         try {
-            // const { data } = await axios.get(`http://localhost:4000/courses/${id}`);
-            const {data} = { "data": {
-                                        "id": 67899384934793493484,
-                                        "name": "CS 554 - Web Programming",
-                                        "description": "Something hamana hamana hamana...",
-                                        "rating": 5.0,
-                                        "professors": [
-                                            {
-                                                "id": "878799238128932",
-                                                "name": "P1",
-                                            },
-                                            {
-                                                "id": "878799238928932",
-                                                "name": "P1",
-                                            }
-                                        ],
-                                        "reviews":  [
-                                                    {
-                                                        "id": 32332232323234554,
-                                                        "user": {
-                                                                  "id": 23234234234234236,
-                                                                  "name": "User 1",
-                                                                },
-                                                        "rating": 4,
-                                                        "review": "Hamana hamana hamana...",
-                                                        "votes": 0,
-                                                        "createdAt": 2352590245
-                                                    },
-                                                    {
-                                                        "id": 98732233333234551,
-                                                        "user": {
-                                                                  "id": 232342342342342332,
-                                                                  "name": "User 2",
-                                                                },
-                                                        "rating": 2,
-                                                        "review": "Hamana2 hamana2 hamana2...",
-                                                        "votes": 0,
-                                                        "createdAt": 2352590245
-                                                    }
-                                                ],
-                                        "rating": 5.0,
-                                        "isLoggedIn": true
-                                    } 
-                              }
-            setReviewsData(data.reviews)
-            setData(data);
+            const { data } = await axios.get(`http://localhost:4000/courses/${id}`);
+            setReviewsData(data.data.reviews)
+            setData(data.data);
         } catch (error) {
             console.error(error.message || error);
             return navigate("/pg404")
         }
     }
 
-    useEffect(() => {getData()},[id])
+    useEffect((id) => {getData()},[id])
 
     useEffect(() => {
         setReviewsDataShow(
