@@ -32,16 +32,7 @@ function SignIn() {
     console.log(dataBody);
     try {
       await axios
-<<<<<<< Updated upstream
-        .post(
-          "http://localhost:4000/login",
-          {
-            data: dataBody,
-          }
-        )
-=======
         .post("http://localhost:4000/users/login", dataBody)
->>>>>>> Stashed changes
         .then(function (response) {
           console.log(response.data);
         });
@@ -51,11 +42,7 @@ function SignIn() {
     }
 
     try {
-<<<<<<< Updated upstream
-      await doSignInWithEmailAndPassword(email.value, password.value);
-=======
       await doSignInWithEmailAndPassword(email, password);
->>>>>>> Stashed changes
     } catch (error) {
       alert(error);
     }
@@ -85,10 +72,6 @@ function SignIn() {
       <form onSubmit={handleLogin}>
         <div className="form-group">
           <label>
-<<<<<<< Updated upstream
-            email:
-            <input label="Email" type="email" required name="email-signin" />
-=======
             Email:
             <input
               className="form-control"
@@ -99,19 +82,10 @@ function SignIn() {
               type="email"
               placeholder="Email"
             />
->>>>>>> Stashed changes
           </label>
         </div>
         <div className="form-group">
           <label>
-<<<<<<< Updated upstream
-            email:
-            <input
-              label="Password"
-              type="password"
-              required
-              name="password-signin"
-=======
             Password:
             <input
               className="form-control"
@@ -123,7 +97,6 @@ function SignIn() {
               onChange={handleChange}
               value={password}
               name="password"
->>>>>>> Stashed changes
             />
           </label>
         </div>

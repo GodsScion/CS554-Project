@@ -13,18 +13,11 @@ module.exports = {
 
 function validateSignUp(requestBody) {
   const schema = Joi.object().keys({
-<<<<<<< Updated upstream
-    firstName: Joi.string().alphanum().min(3).max(20).required(),
-    lastName: Joi.string().alphanum().min(1).max(20).required(),
-    email: Joi.string().email().required(),
-    password: Joi.string().required(),
-=======
     firstName: Joi.string().alphanum(),
     lastName: Joi.string().alphanum(),
     email: Joi.string().email(),
     password: Joi.string(),
     flag: Joi.string(),
->>>>>>> Stashed changes
   });
   const { error } = schema.validate(requestBody);
   if (error) return { isInvalid: true, message: error.message };

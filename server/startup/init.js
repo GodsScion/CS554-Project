@@ -32,10 +32,6 @@ module.exports = async function init(app) {
       cookie: { maxAge: 600000 },
     })
   );
-<<<<<<< Updated upstream
-
-=======
->>>>>>> Stashed changes
   // Intializing json for req.body
   app.use(express.json({ limit: "50mb" }));
 

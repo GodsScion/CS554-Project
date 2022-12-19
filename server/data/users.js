@@ -35,11 +35,6 @@ async function getUser(req, res, next) {
 async function login(req, res, next) {
   try {
     const reqBody = req.body;
-<<<<<<< Updated upstream
-
-=======
-    console.log(reqBody);
->>>>>>> Stashed changes
     const { isInvalid, message } = validateLogin(reqBody);
     if (isInvalid) {
       throw new ClientError(message);
@@ -83,54 +78,16 @@ async function logout(req, res, next) {
 async function signUp(req, res, next) {
   try {
     const requestBody = req.body;
-<<<<<<< Updated upstream
-
-=======
-    /* if (flag === "G") {
-      email = email.toLowerCase().trim();
-      try {
-        checkIsEmail(email);
-      } catch (e) {
-        return res.status(400).send(String(e));
-      }
-    }
-*/
->>>>>>> Stashed changes
-    const { isInvalid, message } = validateSignUp(requestBody);
-    if (isInvalid) {
-      throw new ServerError(400, message);
-    }
-<<<<<<< Updated upstream
-=======
-    //console.log("requestBody.username");
-    //console.log(requestBody.username);
->>>>>>> Stashed changes
-
-    const username = requestBody.username.toLowerCase();
-    const email = requestBody.email.toLowerCase();
-    let password = requestBody.password;
     if (requestBody.flag !== "G") {
-      const user = await Users.findOne({ email: email });
+      const password = await bcrypt.hash(requestBody.password, salt);
 
-<<<<<<< Updated upstream
-    const user = await Users.findOne({ username: username });
-
-    if (user)
-      throw new ServerError(400, "User already exists with given username");
-
-    const password = await bcrypt.hash(requestBody.password, salt);
-=======
       if (user) throw new ClientError("User already exists with given email");
->>>>>>> Stashed changes
 
       password = await bcrypt.hash(password, salt);
     }
     const response = await Users.create({
       firstName: requestBody.firstName,
       lastName: requestBody.lastName,
-      name: `${requestBody.firstName} ${requestBody.lastName}`,
-      username: username,
-      email: email,
       password: password,
     });
     //retResponse = response.data.insertedId.toString();

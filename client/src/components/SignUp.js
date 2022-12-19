@@ -15,7 +15,7 @@ const defaultFormFields = {
 
 function SignUp() {
   const [formFields, setFormFields] = useState(defaultFormFields);
-  const { firstName, lastName, email, username, password } = formFields;
+  const { firstName, lastName, email, password } = formFields;
   const [formErrors, setFormErrors] = useState({});
   const [isSubmit, setIsSubmit] = useState(false);
   const { currentUser } = useContext(AuthContext);
@@ -40,31 +40,10 @@ function SignUp() {
       lastName: lastName,
       email: email,
 
-      username: username,
       password: password,
     };
     console.log(email.value);
     try {
-<<<<<<< Updated upstream
-      const { data } = await axios.post("http://localhost:4000/users/signup",
-        {
-          data: dataBody,
-        }
-      );
-      console.log(data)
-    } catch (error) {
-      console.log(error);
-      // alert(error.response.data);
-      return;
-    }
-    try {
-      await doCreateUserWithEmailAndPassword(
-        email.value,
-        password.value,
-        username
-      );
-      resetFormFields();
-=======
       await doCreateUserWithEmailAndPassword(email, password);
       resetFormFields();
     } catch (error) {
@@ -76,7 +55,6 @@ function SignUp() {
         dataBody
       );
       console.log(data.data.id);
->>>>>>> Stashed changes
     } catch (error) {
       console.log(error);
       // alert(error.response.data);
@@ -118,26 +96,10 @@ function SignUp() {
               name="lastName"
               type="text"
               placeholder="LastName"
-<<<<<<< Updated upstream
             />
           </label>
         </div>
-        <div className="form-group">
-          <label>
-            Username:
-            <input
-              className="form-control"
-              required
-              onChange={handleChange}
-              value={username}
-              name="username"
-              type="text"
-              placeholder="UserName"
-=======
->>>>>>> Stashed changes
-            />
-          </label>
-        </div>
+
         <div className="form-group">
           <label>
             Email:
