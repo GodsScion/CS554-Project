@@ -9,6 +9,15 @@ db.users.insertOne({
   "password": "$2b$10$5lJPBdFwIWopdMNW10rzg.cs1U8uI1zqFqeQrviyjCu9TtmXHJ28m"
 });
 
+db.users.insertOne({
+  '_id': ObjectId("13117e3a36ef23055edbf094"),
+  "firstName": "Corstash",
+  "lastName": "Admin",
+  "name": "Corstash Admin",
+  "email": "admin@corstash.com",
+  "password": "$2b$10$5lJPBdFwIWopdMNW10rzg.cs1U8uI1zqFqeQrviyjCu9TtmXHJ28m"
+});
+
 db.courses.insertOne({
   "_id": ObjectId('63117e3a36ef23055edbf086'),
   "name": "Web Programming 1",

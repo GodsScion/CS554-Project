@@ -1,3 +1,4 @@
 {
-  "mongoUrl": "mongodb://localhost:27017/cs554_final_project"
+  "mongoUrl": "mongodb://localhost:27017/cs554_final_project",
+  "adminId": "13117e3a36ef23055edbf094"
 }

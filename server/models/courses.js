@@ -55,12 +55,12 @@ const schema = new mongoose.Schema(
         },
         rating: {
             type: Number,
-            min: 1,
+            min: 0,
             max: 5,
-            required: true,
+            default: 0
         },
-        professors: [professorSchema],
-        reviews: [reviewSchema]
+        courses: { type: [professorSchema], default: [] },
+        reviews: { type: [reviewSchema], default: [] },
     }
 );
 
