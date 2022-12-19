@@ -56,6 +56,7 @@ function SignUp() {
       );
       console.log(data.data.id);
     } catch (error) {
+      console.log(error);
       // alert(error.response.data);
       return;
     }

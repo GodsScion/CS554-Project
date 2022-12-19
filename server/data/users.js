@@ -78,20 +78,21 @@ async function logout(req, res, next) {
 
 async function signUp(req, res, next) {
   try {
-    const reqBody = xss(req.body);
+    const requestBody = req.body;
 
     const { isInvalid, message } = validateSignUp(requestBody);
     if (error) {
       throw new ServerError(400, error.message);
     }
 
-    const email = reqBody.email.toLowerCase();
+    const username = requestBody.username.toLowerCase();
+    const email = requestBody.email.toLowerCase();
 
-    const user = await Users.findOne({ email: email });
+    const user = await Users.findOne({ username: username });
 
     if (user) throw new ClientError("User already exists with given email");
 
-    const password = await bcrypt.hash(reqBody.password, salt);
+    const password = await bcrypt.hash(requestBody.password, salt);
 
     const response = await Users.create({
       firstName: reqBody.firstName,

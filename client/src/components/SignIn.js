@@ -29,7 +29,6 @@ function SignIn() {
       email: email,
       password: password,
     };
-    console.log(dataBody);
     try {
       await axios
         .post("http://localhost:4000/users/login", dataBody)
