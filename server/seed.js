@@ -6,7 +6,7 @@ db.users.insertOne({
   "lastName": "Hill",
   "name": "Patrick Hill",
   "email": "hpatrick@stevens.edu",
-  "password": "$2b$10$qLdIcUnY3vUu6sr4F4WKmux7RUWVRHSoWTryhJaSSVhl/SzzGbqey"
+  "password": "$2b$10$5lJPBdFwIWopdMNW10rzg.cs1U8uI1zqFqeQrviyjCu9TtmXHJ28m"
 });
 
 db.courses.insertOne({
