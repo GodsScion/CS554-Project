@@ -6,7 +6,7 @@ const bcrypt = require("bcrypt");
 const sendResponse = require("../helpers/sendResponse");
 const { isValidObjectId: isObjectId } = require("mongoose");
 const salt = 10;
-
+const xss = require("xss");
 module.exports = {
   login,
   getUserById,
@@ -113,4 +113,4 @@ async function signUp(req, res, next) {
 async function getUserById(id) {
   const user = await Users.findOne({ _id: id });
   return user;
-};
+}
