@@ -1,17 +1,18 @@
 import React from "react";
 import '../App.css';
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const Page404 = () => {
+    const navigate = useNavigate()
     return (
-        <div>
+        <div className="container m-5 p-2 bg-body rounded">
             <br />
-            <h1>404: Resource not found!</h1>
+            <h1>404</h1>
             <br />
             <p>
-                Checkout your character history here:
+                Resource not found!
             </p>
-            <Link className="link-text" to="characters/history">Characters history</Link>
+            <button className="btn btn-primary" onClick={navigate('/')}>Home</button>
         </div>
     )
 }
