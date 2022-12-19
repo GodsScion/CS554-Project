@@ -63,6 +63,12 @@ const Navigation = () => {
           <li>
             <NavLink to="/">Landing</NavLink>
           </li>
+         <li>
+          <NavLink to="/courses">Courses page</NavLink>
+        </li>
+        <li>
+          <NavLink to="/discussions">Discussions</NavLink>
+        </li>
           <li>
             <NavLink to="/signup">Sign-up</NavLink>
           </li>
