@@ -8,6 +8,9 @@ import SignUp from "./components/SignUp";
 //import { AuthProvider } from "./firebase/Auth";
 //import PrivateRoute from "./components/PrivateRoute";
 import CoursePage from "./components/courses/CoursePage";
+import CoursesListPage from "./components/courses/CoursesListPage";
+import ProfessorPage from "./components/professors/ProfessorPage";
+import ProfessorsListPage from "./components/professors/ProfessorsListPage";
 import Page404 from "./components/Page404";
 import Page400 from "./components/Pg400";
 import Discussions from "./components/discussions/Discussions";
@@ -32,10 +35,16 @@ const App = () => {
           <Route path="/signup" element={<SignUp />}></Route>
 
           <Route path="/courses/:id" element={<CoursePage />}></Route>
+          <Route path="/courses" element={<CoursesListPage />}></Route>
+
+          <Route path="/professors/:id" element={<ProfessorPage />}></Route>
+          <Route path="/professors" element={<ProfessorsListPage />}></Route>
+          
+          <Route path="/discussions" element={<Discussions />} />
+          <Route path="/discussions/:roomId" element={<ChatRoom />} />
+          
           <Route path="/pg404" element={<Page404 />}></Route>
           <Route path="/pg400/:msg" element={<Page400 />}></Route>
-           <Route path="/discussions" element={<Discussions />} />
-           <Route path="/discussions/:roomId" element={<ChatRoom />} />
           <Route path="*" element={<Page404 />}></Route>
         </Routes>
       </div>

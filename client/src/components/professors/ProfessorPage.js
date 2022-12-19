@@ -5,7 +5,7 @@ const xss = require('xss');
 
 
 
-const CoursePage = () => {
+const ProfessorPage = () => {
     const navigate = useNavigate()
     const id = useParams().id || 1
     const[data, setData] = useState(undefined)
@@ -143,4 +143,4 @@ const CoursePage = () => {
     );
 }
 
-export default CoursePage;
+export default ProfessorPage;

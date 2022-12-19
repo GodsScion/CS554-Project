@@ -3,7 +3,7 @@ import axios from "axios"
 import { useNavigate } from "react-router-dom"
 const xss = require('xss')
 
-const CoursesListPage = () => {
+const ProfessorsListPage = () => {
     const [data, setData] = useState(undefined)
     const [search, setSearch] = useState("")
     const navigate = useNavigate()
@@ -81,4 +81,4 @@ const CoursesListPage = () => {
 
 }
 
-export default CoursesListPage
+export default ProfessorsListPage
