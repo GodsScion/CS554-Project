@@ -12,7 +12,7 @@ const Page404 = () => {
             <p>
                 Resource not found!
             </p>
-            <button className="btn btn-primary" onClick={navigate('/')}>Home</button>
+            <button className="btn btn-primary" onClick={()=>{navigate('/')}}>Home</button>
         </div>
     )
 }

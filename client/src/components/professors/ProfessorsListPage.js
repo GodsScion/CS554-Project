@@ -52,7 +52,7 @@ const ProfessorsListPage = () => {
                         })}
                 </div>
                 {data && data.length>0 && data.filter(professor => professor.name.toLowerCase().includes(search.toLowerCase()).length < 1)
-                 && <p>Looks like nothings matching <strong>"{search}"</strong>!, Try a different name..</p>}
+                 && <p>Looks like nothings matching <strong>"{search}"</strong>! Try a different name.</p>}
             </div>}
             {(!search || search.length < 1) && 
             <div className="container">
