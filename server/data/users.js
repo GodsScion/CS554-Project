@@ -9,6 +9,7 @@ const salt = 10;
 
 module.exports = {
   login,
+  getUserById,
   signUp,
   getUser,
   logout,
@@ -77,27 +78,39 @@ async function logout(req, res, next) {
 
 async function signUp(req, res, next) {
   try {
-    const requestBody = req.body;
-    if (requestBody.flag !== "G") {
-      const password = await bcrypt.hash(requestBody.password, salt);
+    const reqBody = xss(req.body);
 
-      if (user) throw new ClientError("User already exists with given email");
-
-      password = await bcrypt.hash(password, salt);
+    const { isInvalid, message } = validateSignUp(reqBody);
+    if (isInvalid) {
+      throw new ClientError(message);
     }
+
+    const email = reqBody.email.toLowerCase();
+
+    const user = await Users.findOne({ email: email });
+
+    if (user) throw new ClientError("User already exists with given email");
+
+    const password = await bcrypt.hash(reqBody.password, salt);
+
     const response = await Users.create({
-      firstName: requestBody.firstName,
-      lastName: requestBody.lastName,
+      firstName: reqBody.firstName,
+      lastName: reqBody.lastName,
+      name: `${reqBody.firstName} ${reqBody.lastName}`,
+      email: email,
       password: password,
     });
-    //retResponse = response.data.insertedId.toString();
-    return sendResponse(res, { id: response._id });
 
-    //return response.insertedId.toString();
+    return sendResponse(res, response);
   } catch (error) {
-    if (error instanceof ServerError) {
+    if (error instanceof ClientError) {
       return next(error);
     }
     return next(new ServerError(500, error.message));
   }
 }
+
+async function getUserById(id) {
+  const user = await Users.findOne({ _id: id });
+  return user;
+};
