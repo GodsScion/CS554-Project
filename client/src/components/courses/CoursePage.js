@@ -112,7 +112,7 @@ const CoursePage = () => {
 
 
     return (
-        <div className="container m-5 mt-0 p-2 bg-body rounded">
+        <div className="container m-5 p-2 bg-body rounded">
             <hr/>
             <h1><strong>{data && data.name}</strong></h1>
             <hr/>

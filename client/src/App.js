@@ -21,8 +21,6 @@ const App = () => {
         <header className="App-header">
           <Navigation />
         </header>
-        <br />
-        <br />
       </div>
       <div className="App-body">
         <Routes>
