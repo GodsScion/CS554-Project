@@ -1,13 +1,16 @@
 const Courses = require("../models/courses");
-const { getUserById } = require('./users');
+const { validatePostreview } = require('../validators/courses');
 const ClientError = require("../helpers/client-error");
 const ServerError = require("../helpers/server-error");
 const sendResponse = require("../helpers/sendResponse");
 const { isValidObjectId: isObjectId } = require("mongoose");
+const { getUserById } = require('./users');
+const xss = require('../helpers/xss');
 
 module.exports = {
     getAllCourses,
     getCourse,
+    postReview,
 };
 
 async function getAllCourses(req, res, next) {
@@ -36,7 +39,7 @@ async function getAllCourses(req, res, next) {
 async function getCourse(req, res, next) {
     try {
         const courseId = req.params.id;
-        if (!isObjectId(courseId)) throw ClientError("ID is not a valid objectId");
+        if (!isObjectId(courseId)) throw new ClientError("Course does not exists with given id", 404);
 
         let course = await Courses.findOne({ _id: courseId });
 
@@ -71,6 +74,50 @@ async function getCourse(req, res, next) {
             reviews: reviews,
         }
         return sendResponse(res, course);
+    } catch (error) {
+        if (error instanceof ClientError) {
+            return next(error);
+        }
+        return next(new ServerError(error.message));
+    }
+};
+
+async function postReview(req, res, next) {
+    try {
+        const courseId = req.params.id;
+        const reqBody = xss(req.body);
+
+        const userId = req.session.user.id;
+
+        if (!isObjectId(courseId)) throw new ClientError("Course does not exists with given id", 404);
+
+        const { error } = validatePostreview(reqBody);
+        if (error) {
+            throw new ClientError(error.message);
+        }
+
+        let course = await Courses.findOne({ _id: courseId });
+
+        if (!course) throw new ClientError("Course does not exists with given id", 404);
+
+        const reviewsSize = course.reviews.length;
+
+        const review = {
+            rating: reqBody.rating,
+            review: reqBody.review,
+            userId: userId
+        }
+
+        const updateQuery = {
+            $set: {
+                rating: parseFloat(((course.rating * reviewsSize) + review.rating) / (reviewsSize + 1).toFixed(2))
+            },
+            $push: { reviews: review }
+        }
+
+        const result = await Courses.updateOne({ _id: courseId }, updateQuery);
+
+        return sendResponse(res, result);
     } catch (error) {
         if (error instanceof ClientError) {
             return next(error);

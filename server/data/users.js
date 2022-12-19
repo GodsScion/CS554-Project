@@ -6,6 +6,7 @@ const bcrypt = require("bcrypt");
 const sendResponse = require("../helpers/sendResponse");
 const { isValidObjectId: isObjectId } = require("mongoose");
 const salt = 10;
+const xss = require('../helpers/xss');
 
 module.exports = {
   login,
@@ -35,8 +36,8 @@ async function getUser(req, res, next) {
 
 async function login(req, res, next) {
   try {
-    const reqBody = req.body.data;
-    console.log(reqBody);
+    const reqBody = xss(req.body);
+
     const { isInvalid, message } = validateLogin(reqBody);
     if (isInvalid) {
       throw new ClientError(message);
@@ -57,6 +58,9 @@ async function login(req, res, next) {
       throw new ClientError("User email or password Incorrect!");
     }
 
+    req.session.user = {
+      id: user.id,
+    }
     return sendResponse(res, user);
   } catch (error) {
     if (error instanceof ClientError) {
@@ -68,6 +72,7 @@ async function login(req, res, next) {
 
 async function logout(req, res, next) {
   try {
+    res.session.destroy();
     return res.redirect("/");
   } catch (error) {
     if (error instanceof ClientError) {
@@ -79,35 +84,25 @@ async function logout(req, res, next) {
 
 async function signUp(req, res, next) {
   try {
-    const requestBody = req.body.data;
-    if (flag === "G") {
-      email = email.toLowerCase().trim();
-      try {
-        checkIsEmail(email);
-      } catch (e) {
-        return res.status(400).send(String(e));
-      }
-    }
+    const reqBody = xss(req.body);
 
-    const { isInvalid, message } = validateSignUp(requestBody);
+    const { isInvalid, message } = validateSignUp(reqBody);
     if (isInvalid) {
       throw new ClientError(message);
     }
-    //console.log("requestBody.username");
-    console.log(requestBody.username);
 
-    const email = requestBody.email.toLowerCase();
+    const email = reqBody.email.toLowerCase();
 
     const user = await Users.findOne({ email: email });
 
     if (user) throw new ClientError("User already exists with given email");
 
-    const password = await bcrypt.hash(requestBody.password, salt);
+    const password = await bcrypt.hash(reqBody.password, salt);
 
     const response = await Users.create({
-      firstName: requestBody.firstName,
-      lastName: requestBody.lastName,
-      name: `${requestBody.firstName} ${requestBody.lastName}`,
+      firstName: reqBody.firstName,
+      lastName: reqBody.lastName,
+      name: `${reqBody.firstName} ${reqBody.lastName}`,
       email: email,
       password: password,
     });

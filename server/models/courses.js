@@ -1,7 +1,11 @@
 const mongoose = require('mongoose');
+const moment = require('moment');
 
 const professorSchema = new mongoose.Schema({
-    _id: mongoose.Schema.Types.ObjectId,
+    _id: {
+        type: mongoose.Schema.Types.ObjectId,
+        required: true,
+    },
     name: {
         type: String,
         min: 3,
@@ -12,10 +16,13 @@ const professorSchema = new mongoose.Schema({
 const reviewSchema = new mongoose.Schema({
     review: {
         type: String,
-        min: 3,
+        min: 2,
         required: true,
     },
-    userId: mongoose.Schema.Types.ObjectId,
+    userId: {
+        type: mongoose.Schema.Types.ObjectId,
+        required: true,
+    },
     rating: {
         type: Number,
         min: 1,
@@ -25,6 +32,7 @@ const reviewSchema = new mongoose.Schema({
     createdAt: {
         type: Number,
         required: true,
+        default: moment().unix(),
     },
     votes: {
         type: Number,

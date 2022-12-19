@@ -11,6 +11,8 @@ module.exports = function connect() {
     maxPoolSize: 50,
   };
 
+  mongoose.set('strictQuery', true);
+
   // Initial connection
   mongoose.connect(mongoUrl, options)
     .then(
