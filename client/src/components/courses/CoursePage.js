@@ -4,6 +4,7 @@ import check from "../validations"
 import { useParams , useNavigate, Link } from "react-router-dom"
 
 
+
 const CoursePage = () => {
     const navigate = useNavigate()
     const id = useParams().id || 1
@@ -22,7 +23,7 @@ const CoursePage = () => {
             return navigate(`/pg400/${error.message || error}`);
         }
         try {
-            // const { data } = await axios.get(`http://localhost:4000/api/characters/${id}`);
+            // const { data } = await axios.get(`http://localhost:4000/courses/${id}`);
             const {data} = { "data": {
                                         "id": 67899384934793493484,
                                         "name": "CS 554 - Web Programming",
@@ -63,7 +64,7 @@ const CoursePage = () => {
                                                     }
                                                 ],
                                         "rating": 5.0,
-                                        "isLoggedIn": false
+                                        "isLoggedIn": true
                                     } 
                               }
             setReviewsData(data.reviews)
@@ -74,19 +75,22 @@ const CoursePage = () => {
         }
     }
 
-    useEffect(getData,[])
+    useEffect(() => {getData()},[])
 
-    useEffect(async () => {
+    useEffect(() => {
         setReviewsDataShow(
-        <div className="card onHoverShadow">
-            {data.reviews.map(
+        <div className="container">
+            {data && data.reviews.map(
             (review) => {
-                return <div className="card-body onHoverShadow" >
-                            <h3 className="card-title">{review.user.name}</h3>
-                            <h4 className="card-title">{review.rating}</h4>
+                return <div className="card mb-2">
+                        <div className="card-body onHoverShadow" >
+                            <h4 className="card-title">{review.user.name}</h4>
+                            <h5 className="card-title">Rating: {review.rating} / 5</h5>
                             <p className="card-text">{review.review}</p>
-                            <h5 className="card-subtitle mb-2 text-muted">{review.createdAt}</h5>
-                </div> }
+                            <h6 className="card-subtitle text-muted subtitle">{review.createdAt}</h6>
+                        </div>
+                       </div> 
+                       }
             )}
         </div>)
     },[reviewsData])
@@ -98,7 +102,7 @@ const CoursePage = () => {
                 "rating": rating,
                 "review": message,
             }
-            const res = await axios.post(`http://localhost:3000/courses/${data.id}/reviews`,sendData);
+            const res = await axios.post(`http://localhost:4000/courses/${data.id}/reviews`,sendData);
             getData()
         } catch (error) {
             console.error(error.message || error);
@@ -108,14 +112,11 @@ const CoursePage = () => {
 
 
     return (
-        <div className="container-fluid m-5 p-2">
+        <div className="container m-5 p-2 bg-body rounded">
             <hr/>
-            <div className="row col-12">
-                <h1 className="col-9">{data && data.name}</h1>
-                <h1 className="rating col-9">{data && data.rating}</h1>
-            </div>
+            <h1><strong>{data && data.name}</strong></h1>
             <hr/>
-            <br/>
+            <h2 className="col-3"><strong>Rating: </strong>{data && data.rating} / 5.0</h2>
             <hr/>
             <div className="container">
                 <h2>Description:</h2>
@@ -123,19 +124,35 @@ const CoursePage = () => {
             </div>
             <hr/>
             <div className="container">
-                <h2>Professors:</h2>
+                <h3>Professors:</h3>
+                {/* data-bs-toggle="tooltip" data-bs-placement="right" data-bs-title={`Click for more info on ${professor.name}`} */}
                 {data ? 
                 <ul className="list-group">{data.professors.map(
-                    (professor) => { return <li className="list-group-item" onClick={() => navigate(`/professors/${professor.id}`)}>{professor.name}</li> }
+                    (professor) => { return <li className="list-group-item list-group-item-dark list-group-item-action col-5" 
+                                                onClick={() => navigate(`/professors/${professor.id}`)} >{professor.name}</li> }
                 )}</ul> 
                 : 
                 <p>Currently no professors are teaching this course!</p>}
+                {data && <span className="subtitle"><aside>Click on professor for more info</aside></span>}
             </div>
             <hr/>
-            
+            <div className="container border rounded p-2">
+                <div className="row mb-2 justify-content-between aligin-items-end">
+                    <h3 className="col-8 align-text-end">Reviews:</h3>
+                    {data && data.isLoggedIn && <button type="button" className="btn btn-primary col-3 me-3" data-bs-toggle="modal" data-bs-target="#createReviewModal">Add Review</button>}
+                </div>
+                <div className="row">
+                   {data && reviewsDataShow}
+                </div>
+            </div>
+            <br/>
+            <hr/>
+
+
             {/* <!-- Vertically centered modal --> */}
             {data && data.isLoggedIn && 
-                <div id="createReviewModal" className="modal-dialog modal-dialog-centered">
+             <div className="modal fade" id="createReviewModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div className="modal-dialog modal-dialog-centered">
                   <div className="modal-content">
                     <div className="modal-header">
                         <h1 className="modal-title fs-5" id="exampleModalLabel">Your Review</h1>
@@ -145,7 +162,7 @@ const CoursePage = () => {
                         <form onSubmit={sendReviewData}>
                             <div className="mb-3">
                                 <label for="rating" className="col-form-label">Select your rating:</label>
-                                <select id="rating" name="rating" class="form-select col-2" aria-label="Rating" onChange={()=>{setRating(Event.target.value)}}>
+                                <select id="rating" name="rating" class="form-select col-1" aria-label="Rating" onChange={()=>{setRating(Event.target.value)}}>
                                 <option value={5}>5 / 5</option>
                                 <option value={4}>4 / 5</option>
                                 <option value={3}>3 / 5</option>
@@ -157,24 +174,17 @@ const CoursePage = () => {
                                 <label for="message" className="col-form-label">Type your review:</label>
                                 <textarea className="form-control" id="message" name="message" onChange={()=>{setMessage(Event.target.value)}}></textarea>
                             </div>
-                            <button type="submit" className="btn btn-primary">Add Review</button>
-                            <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                            <button type="submit" className="btn btn-primary me-2 col-3 col-sm-4">Add Review</button>
+                            <button type="button" className="btn btn-secondary col-3 col-sm-4" data-bs-dismiss="modal">Cancel</button>
                         </form>
                     </div>
                     <div className="modal-footer">
-                        <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="button" className="btn btn-secondary col-3 col-sm-4" data-bs-dismiss="modal">Close</button>
                     </div>
                   </div>
                 </div>
+             </div>
             }
-            <div className="container bg-body rounded">
-                <h2>Reviews:</h2>
-                {data && data.isLoggedIn && <button type="button" className="btn btn-primary" data-bs-toggle="modal" data-bs-target="#createReviewModal">Add Review</button>}
-                {data && reviewsDataShow}
-            </div>
-            <hr/>
-
-
         </div>
     );
 }
