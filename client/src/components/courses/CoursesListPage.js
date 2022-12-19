@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react"
 import axios from "axios"
-import check from "../validations"
 import { useParams , useNavigate } from "react-router-dom"
 
 const CoursesListPage = () => {
@@ -11,57 +10,9 @@ const CoursesListPage = () => {
 
     async function getData() {
         try {
-            check.isValidNum(id);
-        } catch (error) {
-            console.error(error.message || error);
-            return navigate(`/pg400/${error.message || error}`);
-        }
-        try {
-            // const { data } = await axios.get(`http://localhost:4000/courses`);
-            const {data} = { "data": {
-                                        "id": 67899384934793493484,
-                                        "name": "CS 554 - Web Programming",
-                                        "description": "Something hamana hamana hamana...",
-                                        "rating": 5.0,
-                                        "professors": [
-                                            {
-                                                "id": "878799238928932",
-                                                "name": "P1",
-                                            },
-                                            {
-                                                "id": "878799238928932",
-                                                "name": "P1",
-                                            }
-                                        ],
-                                        "reviews":  [
-                                                    {
-                                                        "id": 32332232323234554,
-                                                        "user": {
-                                                                  "id": 23234234234234236,
-                                                                  "name": "User 1",
-                                                                },
-                                                        "rating": 4,
-                                                        "review": "Hamana hamana hamana...",
-                                                        "votes": 0,
-                                                        "createdAt": 2352590245
-                                                    },
-                                                    {
-                                                        "id": 98732233333234554,
-                                                        "user": {
-                                                                  "id": 232342342342342332,
-                                                                  "name": "User 2",
-                                                                },
-                                                        "rating": 2,
-                                                        "review": "Hamana2 hamana2 hamana2...",
-                                                        "votes": 0,
-                                                        "createdAt": 2352590245
-                                                    }
-                                                ],
-                                        "rating": 5.0,
-                                        "isLoggedIn": true
-                                    } 
-                              }
-            setData(data);
+            const { data } = await axios.get(`http://localhost:4000/courses`);
+            let varsi = {"data":[{"id":"63117e3a36ef23055edbf086","name":"Web Programming 1","rating":5}]}
+            setData(data.data);
         } catch (error) {
             console.error(error.message || error);
             return navigate("/pg404")
@@ -76,6 +27,7 @@ const CoursesListPage = () => {
                 <button class="btn btn-outline-success" type="submit">Search</button>
             </form>
             <hr/>
+
         </div>
     )
 
