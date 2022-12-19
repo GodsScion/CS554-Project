@@ -21,7 +21,7 @@ const Navigation = () => {
     <>
       <nav className="navigation">
         <div className="flex">
-          <h3 className="App-title">RMC</h3>
+          <h1 className="App-title">RMC</h1>
         </div>
         <ul>
 
