@@ -17,15 +17,15 @@ const CoursePage = () => {
     async function getData() {
         try {
             const { data } = await axios.get(`http://localhost:4000/courses/${id}`);
-            setReviewsData(data.reviews)
-            setData(data);
+            setReviewsData(data.data.reviews)
+            setData(data.data);
         } catch (error) {
             console.error(error.message || error);
             return navigate("/pg404")
         }
     }
 
-    useEffect(() => {getData()},[id])
+    useEffect((id) => {getData()},[id])
 
     useEffect(() => {
         setReviewsDataShow(
