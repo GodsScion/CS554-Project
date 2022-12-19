@@ -10,6 +10,8 @@ import SignUp from "./components/SignUp";
 import CoursePage from "./components/courses/CoursePage";
 import Page404 from "./components/Page404";
 import Page400 from "./components/Pg400";
+import Discussions from "./components/discussions/Discussions";
+import ChatRoom from "./components/discussions/ChatRoom";
 import { BrowserRouter as Router, Route, Routes, Link } from "react-router-dom";
 
 // removed from package.json in dependencies "web-vitals": "^2.1.4"
