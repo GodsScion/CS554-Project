@@ -14,6 +14,7 @@ module.exports = {
   getUser,
   logout,
   getUserById,
+  getUserStatus,
 };
 
 async function getUser(req, res, next) {
@@ -34,6 +35,18 @@ async function getUser(req, res, next) {
   }
 }
 
+async function getUserStatus(req, res, next) {
+  try {
+    const isUserLoggedIn = req.session.user ? true : false;
+    if (!isUserLoggedIn) return sendResponse(res, { isUserLoggedIn: false, id: '' });
+    return sendResponse(res, { isUserLoggedIn: true, id: req.session.user.id });
+  } catch (error) {
+    if (error instanceof ClientError) {
+      return next(error);
+    }
+    return next(new ServerError(error.message));
+  }
+}
 async function login(req, res, next) {
   try {
     const reqBody = xss(req.body);
