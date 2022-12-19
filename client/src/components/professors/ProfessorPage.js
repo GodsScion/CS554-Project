@@ -5,7 +5,7 @@ const xss = require('xss');
 
 
 
-const CoursePage = () => {
+const ProfessorPage = () => {
     const navigate = useNavigate()
     const id = useParams().id || 1
     const[data, setData] = useState(undefined)
@@ -93,9 +93,7 @@ const CoursePage = () => {
                 <div className="row mb-2 justify-content-between aligin-items-end">
                     <h3 className="col-8 align-text-end">Reviews:</h3>
                     {data && data.isLoggedIn && <button type="button" className="btn btn-primary col-3 me-3" data-bs-toggle="modal" data-bs-target="#createReviewModal">Add Review</button>}
-                    {data && !data.isLoggedIn && <button type="button" className="btn btn-primary col-3 me-3" onClick={()=>{navigate('/signin')}}>Login</button>}
                 </div>
-                {data && !data.isLoggedIn && <span className="subtitle"><aside>Only logged in users can post reviews!</aside></span>}
                 <div className="row">
                    {data && reviewsDataShow}
                 </div>
@@ -145,4 +143,4 @@ const CoursePage = () => {
     );
 }
 
-export default CoursePage;
+export default ProfessorPage;
