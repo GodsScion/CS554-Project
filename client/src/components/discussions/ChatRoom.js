@@ -1,11 +1,19 @@
 import React, { useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useLocation } from "react-router-dom";
 import "./ChatRoom.css";
 import useChat from "../../useChat";
 
-function ChatRoom(props) {
+function ChatRoom() {
   const { roomId } = useParams();
-  const { messages, sendMessage } = useChat(roomId);
+  const location = useLocation();
+  var userName = "";
+  if (location.state === null) {
+    userName = "Anonymous"
+  } else {
+    const { username } = location.state;
+    userName = username;
+  }
+  const { messages, sendMessage } = useChat(roomId, userName);
   const [newMessage, setNewMessage] = useState("");
 
   const handleNewMessageChange = (event) => {
@@ -18,7 +26,7 @@ function ChatRoom(props) {
   };
   return (
     <div className="chat-room-container">
-    <h1 className="room-name">Room: {roomId}</h1>
+    <h1 className="room-name">Room: {roomId}, Joined as: {userName}</h1>
     <div className="messages-container">
       <ol className="messages-list">
         {messages.map((message, i) => (
@@ -28,11 +36,12 @@ function ChatRoom(props) {
               message.ownedByCurrentUser ? "my-message" : "received-message"
             }`}
           >
-            {message.body}
+          {message.userName}:{message.body}
           </li>
         ))}
       </ol>
     </div>
+    {/* <p>{userName}</p> */}
     <textarea
       value={newMessage}
       onChange={handleNewMessageChange}
