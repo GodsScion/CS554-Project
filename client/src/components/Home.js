@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 
 const Home = () => {
     return (
-        <div>
+        <div className="container bg-body rounded">
             <h1>Home</h1>
             <br />
             <p>
@@ -23,20 +23,16 @@ const Home = () => {
             <br />
             <p>Some useful links:</p>
             <nav>
-                <Link className="link-text" to='/characters/page/1'>
-                    Characters Listing
+                <Link className="link-text" to='/courses'>
+                    All Courses Page
                 </Link>
                 <br />
-                <Link className="link-text" to='/comics/page/1'>
-                    Comics Listing
+                <Link className="link-text" to='/professors'>
+                    All Professors Page
                 </Link>
                 <br />
-                <Link className="link-text" to='/stories/page/1'>
-                    Stories Listing
-                </Link>
-                <br />
-                <Link className="link-text" to='/characters/history'>
-                    Character History
+                <Link className="link-text" to='/discussions'>
+                    All Discussions
                 </Link>
                 <br />
             </nav>
