@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react"
 import axios from "axios"
-import check from "../validations"
 import { useParams , useNavigate } from "react-router-dom"
 
 
@@ -16,12 +15,6 @@ const CoursePage = () => {
 
 
     async function getData() {
-        try {
-            check.isValidNum(id);
-        } catch (error) {
-            console.error(error.message || error);
-            return navigate(`/pg400/${error.message || error}`);
-        }
         try {
             // const { data } = await axios.get(`http://localhost:4000/courses/${id}`);
             const {data} = { "data": {
@@ -75,7 +68,7 @@ const CoursePage = () => {
         }
     }
 
-    useEffect(() => {getData()},[])
+    useEffect(() => {getData()},[id])
 
     useEffect(() => {
         setReviewsDataShow(
@@ -98,16 +91,16 @@ const CoursePage = () => {
     async function sendReviewData(event) {
         event.preventDefault();
         try {
+            let review = message && message.length > 1 ? toString(message).trim() : "";
             let sendData = {
                 "rating": rating,
-                "review": message,
+                "review": review,
             }
-            
             const res = await axios.post(`http://localhost:4000/courses/${data.id}/reviews`,sendData);
             getData()
         } catch (error) {
-            console.error(error.message || error);
-            alert(error.message || error);
+            console.error("Failed to add review.\n" + (error.message || error));
+            alert("Failed to add review.\n" + (error.message || error));
         }
     }
 
@@ -177,7 +170,7 @@ const CoursePage = () => {
                                 <textarea className="form-control" id="message" name="message" onChange={(e)=>{setMessage(e.target.value)}} 
                                 minLength="2" required></textarea>
                             </div>
-                            <button type="submit" className="btn btn-primary me-2 col-3 col-sm-4">Add Review</button>
+                            <button type="submit" className="btn btn-primary me-2 col-3 col-sm-4" data-bs-dismiss="modal">Add Review</button>
                             <button type="button" className="btn btn-secondary col-3 col-sm-4" data-bs-dismiss="modal">Cancel</button>
                         </form>
                     </div>

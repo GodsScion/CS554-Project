@@ -1,11 +1,12 @@
 import React from "react";
 import '../App.css';
-import { Link, useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
 const Page400 = () => {
+    const navigate = useNavigate();
     let msg = useParams().msg || "Please don't do anything funny!";
     return (
-        <div>
+        <div className="container m-5 p-2 bg-body rounded">
             <br />
             <h1>400: Bad Request!</h1>
             <br />
@@ -13,10 +14,7 @@ const Page400 = () => {
                 {msg}
             </p>
             <br />
-            <p>
-                Checkout your character history here:
-            </p>
-            <Link className="link-text" to="characters/history">Characters history</Link>
+            <button className="btn btn-primary" onClick={navigate('/')}>Home</button>
         </div>
     )
 }
