@@ -50,6 +50,7 @@ async function getUserStatus(req, res, next) {
     return next(new ServerError(error.message));
   }
 }
+
 async function login(req, res, next) {
   try {
     const reqBody = xss(req.body);
@@ -81,7 +82,7 @@ async function login(req, res, next) {
     await client.expire(isUserLoggedIn, expiryTime);
     await client.expire(loggedInUserId, expiryTime);
 
-    return sendResponse(res, { id: userId, name: user.name, img: '' });
+    return sendResponse(res, { id: userId, name: user.name, img: user.img || '' });
   } catch (error) {
     if (error instanceof ClientError) {
       return next(error);
@@ -126,6 +127,7 @@ async function signUp(req, res, next) {
       name: `${reqBody.firstName} ${reqBody.lastName}`,
       email: email,
       password: password,
+      img: reqBody.img
     });
 
     return sendResponse(res, response);

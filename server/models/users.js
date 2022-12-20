@@ -26,6 +26,10 @@ const schema = new mongoose.Schema(
       type: String,
       min: 3,
       required: true,
+    },
+    img: {
+      type: String,
+      required: true,
     }
   },
   { strict: true }
