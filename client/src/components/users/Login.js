@@ -1,31 +1,46 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
+import axios from 'axios';
 const xss = require('xss');
 
 const Login = () => {
     const navigate = useNavigate()
+    const [email,setEmail] = useState("")
+    const [password,setPassword] = useState("")
 
     async function hangleLogin(e){
-        e.preventDefault();
-
-console.log(e)
+        try {
+            e.preventDefault();
+            const sendData = {
+                email: email,
+                password: password
+            }
+            const res = await axios.post('http://localhost:4000/login',sendData);
+            if(res){navigate('/')}
+        } catch (error) {
+            console.log(error)
+            alert(error.message || error)    
+        }
     }
 
     return(
             <div className="card position-absolute top-50 start-50 translate-middle p-3">
             <div className="card-body" >
-                <h2 className="card-title">Please enter your details</h2>
+                <h1 className="card-title mb-3">Login</h1>
                 <form>
-                    <label htmlFor='email'>Email: </label>
-                    <input id="email" name="email" type="email" className='form-control mb-3' placeholder='email' required></input>
-                    <label htmlFor='password'>Email: </label>
-                    <input id="password" name="password" type="password" className='form-control mb-3' placeholder='password' required></input>
-                    <div className='form-text'>email and password are required</div>
+                    <label htmlFor='email'>Please enter the email you signed-up with: </label>
+                    <input id="email" name="email" type="email" className='form-control mb-3' placeholder='email' onChange={(e)=>{setEmail(xss(e.target.value))}} required></input>
+                    <label htmlFor='password'>Please enter your password: </label>
+                    <input id="password" name="password" type="password" className='form-control mb-3' placeholder='password' onChange={(e)=>{setPassword(xss(e.target.value))}} required></input>
+                    <div className='form-text'>Email and password are required.</div>
                     <br/>
-                    <button className='btn btn-primary' onClick={hangleLogin}>Login</button>
+                    <button className='btn btn-primary mb-3 col-sm-4' onClick={hangleLogin}>Login</button>
                 </form>
+                <br/>
+                <div>Don't have an account?</div>
+                <div className='mb-2'>Click on Sign Up to create your account:</div>
+                <button className='btn btn-primary mb-3 col-sm-4' onClick={()=>{navigate('/register')}}>Sign Up</button>
             </div>
-            <button className='btn btn-primary' onClick={()=>{navigate('/register')}}>Sign Up</button>
             </div>
             
     )

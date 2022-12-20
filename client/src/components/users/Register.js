@@ -11,8 +11,8 @@ const Register = () => {
             <div className="card-body" >
                 <h2 className="card-title">Please enter your details</h2>
                 <form>
-                    <input id="name" name="name" className='form-control' placeholder='How would you like to be called?'>xss()</input>
-
+                    
+                    <input id="name" name="name" className='form-control' placeholder='How would you like to be called?'></input>
                 </form>
             </div>
             </div>

@@ -31,7 +31,6 @@ const ProfessorPage = () => {
         try {
             const { data } = await axios.get(`http://localhost:4000/users/status`);
             setLoggedIn(data.data.isUserLoggedIn)
-            setLoggedIn(true)
         } catch (error) {
             console.error(error.message || error);
 
