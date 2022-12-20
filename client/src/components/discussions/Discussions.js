@@ -1,28 +1,135 @@
-import React, { useState, } from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
+import axios from "axios";
 import "./Discussions.css";
 
 function Discussions() {
+  const [roomName, setRoomName] = useState("");
+  const [userName, setUserName] = useState("");
+  const [happy, setHappy] = useState(true);
+  const [availableRooms, setAvailableRooms] = useState([]);
 
-    const [roomName, setRoomName ] = useState("");
-    const [userName, setUserName] = useState("");
-    const handleRoomChange = (e) => {
-        setRoomName(e.target.value);
-    }
 
-    const handleUserChange = (e) => {
-        setUserName(e.target.value);
-    }
+  useEffect (() => {
+    async function fetchData() {
+        const {data} = await axios.get(`http://localhost:4000/courses`);
+        setAvailableRooms(data.data);
+    };
+    fetchData()
+  },[availableRooms]);
 
-    return(
-        <div className="home-container">
-            <p>This is socket.io Discussions tab</p>
-            <input type="text" value={userName} onChange={handleUserChange} className="text-input-field" placeholder="chat as ..."/>
-            <input type="text" value={roomName} placeholder="search Room" onChange={handleRoomChange} className="text-input-field"/>
-            <br />
-            <Link to={`/discussions/${roomName}`} className="enter-room-button" state={{username: userName}}>Join!</Link>
-        </div>
-    )
+  const handleRoomChange = (e) => {
+    setRoomName(e.target.value);
+  };
+
+  const handleUserChange = (e) => {
+    setUserName(e.target.value);
+  };
+
+  function createRoom() {
+    setHappy(!happy);
+  }
+
+  function addRoom(roomName) {
+    // setAvailableRoom(availableRooms.push(roomName));
+    // console.log(availableRooms);
+    availableRooms.push(roomName);
+    console.log(availableRooms);
+  }
+
+  return (
+    <div className="home-container-main">
+      <h1>Available Rooms:</h1>
+      <ul>
+        {availableRooms.map((room, index) => {
+          return (
+            <Link key={index} to={`/mediator/${room.name}`}>
+              <li className="yellow-text">{room.name}</li>
+            </Link>
+          );
+        })}
+      </ul>
+      {/* <h2>You can create a different room</h2>
+      <h3>If you don't want to join the above rooms:</h3>
+      <button onClick={createRoom}>create room!</button> */}
+    </div>
+  );
+
+  // if (happy === true) {
+  //   return (
+  //     <div className="home-container-main">
+  //       <h1>Available Rooms:</h1>
+  //       <ul>
+  //         {availableRooms.map((room, index) => {
+  //           return (
+  //             <Link key={index} to={`/discussions/${room.name}`}>
+  //               <li className="yellow-text">{room.name}</li>
+  //             </Link>
+  //           );
+  //         })}
+  //       </ul>
+  //       <h2>You can create a different room</h2>
+  //       <h3>If you don't want to join the above rooms:</h3>
+  //       <button onClick={createRoom}>create room!</button>
+  //     </div>
+  //   );
+  // } else {
+  //   return (
+  //     <div className="home-container">
+  //       {/* <h2>If you didn't find your desired room, Create your own rooms:</h2> */}
+  //       <label htmlFor="myinput1"></label>
+  //       <input
+  //         id="myinput1"
+  //         type="text"
+  //         value={userName}
+  //         onChange={handleUserChange}
+  //         className="text-input-field"
+  //         placeholder="chat as ..."
+  //       />
+  //       <label htmlFor="myinput2"></label>
+  //       <input
+  //         id="myinput2"
+  //         type="text"
+  //         value={roomName}
+  //         placeholder="search Room"
+  //         onChange={handleRoomChange}
+  //         className="text-input-field"
+  //       />
+  //       <br />
+  //       <Link
+  //         to={`/discussions/${roomName}`}
+  //         className="enter-room-button"
+  //         state={{ username: userName }}
+  //         onClick={addRoom(roomName)}
+  //       >
+  //         Join!
+  //       </Link>
+  //       <button onClick={createRoom} className="enter-room-button">
+  //         Go back to availableRooms
+  //       </button>
+  //     </div>
+  //   );
+  // }
+
+  // return(
+  //     <div className="home-container">
+  //     <div>
+  //         <h1>Available Rooms:</h1>
+  //         <ul>
+  //             {availableRooms.map((room,index) => {
+  //                 return(<Link to={`discussions/${room}`}><li key={index}>{room}</li></Link>)
+  //             })}
+  //         </ul>
+  //     </div>
+  //         <h2>If you didn't find your desired room, Create your own rooms:</h2>
+  //         <label htmlFor="myinput1"></label>
+  //         <input id = "myinput1" type="text" value={userName} onChange={handleUserChange} className="text-input-field" placeholder="chat as ..."/>
+  //         <label htmlFor="myinput2"></label>
+  //         <input id = "myinput2" type="text" value={roomName} placeholder="search Room" onChange={handleRoomChange} className="text-input-field"/>
+  //         <br />
+  //         <Link to={`/discussions/${roomName}`} className="enter-room-button" state={{username: userName}}>Join!</Link>
+  //     </div>
+  // )
 }
 
 export default Discussions;
