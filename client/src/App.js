@@ -18,6 +18,7 @@ import ChatRoom from "./components/discussions/ChatRoom";
 
 import Page404 from "./components/Page404";
 import Page400 from "./components/Pg400";
+import Mediator from "./components/discussions/Mediator";
 
 import { BrowserRouter as Router, Route, Routes, Link } from "react-router-dom";
 
@@ -95,6 +96,7 @@ const App = () => {
 
           <Route path="/discussions" element={<Discussions />} />
           <Route path="/discussions/:roomId" element={<ChatRoom />} />
+          <Route path="/mediator/:roomName" element={<Mediator />} />  
 
           <Route path="/pg404" element={<Page404 />}></Route>
           <Route path="/pg400/:msg" element={<Page400 />}></Route>
