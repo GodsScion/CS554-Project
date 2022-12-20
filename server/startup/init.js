@@ -2,7 +2,6 @@ const express = require("express");
 const mongoInit = require("./mongoInit");
 const cors = require("cors");
 const logging = require('../middlewares/logging');
-const { isAuthenticated } = require('../middlewares/auth');
 const errorHandler = require('../middlewares/error-handler');
 const redisClient = require('./redisClient');
 const routes = require('../routes');
@@ -37,9 +36,6 @@ module.exports = async function init(app) {
 
   // Intializing Logging middleware
   app.use(logging);
-
-  // Intializing Auth middleware
-  app.use(isAuthenticated);
 
   // Intializing Router
   routes(app);

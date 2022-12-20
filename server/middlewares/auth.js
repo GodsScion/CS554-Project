@@ -1,6 +1,7 @@
-const { isValidObjectId: isObjectId } = require("mongoose");
 const ClientError = require('../helpers/client-error');
-const { adminId } = require('../config/default.json');
+const { client } = require('../startup/redisClient');
+const { getUserById } = require('../data/users');
+const { isUserLoggedIn, loggedInUserId } = require('../helpers/enums');
 
 module.exports = {
     isAuthenticated,
@@ -8,13 +9,33 @@ module.exports = {
 };
 
 async function isAuthenticated(req, res, next) {
-    const url = req.originalUrl;
-    next();
+    try {
+        const isUserLoggedInValue = await client.get(isUserLoggedIn);
+        if (!isUserLoggedInValue || isUserLoggedInValue != 'true') throw new ClientError('Not authorized!', 403);
+        const userId = await client.get(loggedInUserId);
+        const user = await getUserById(userId);
+        if (!user) throw new ClientError('Not authorized!', 403);
+        req.user = {
+            id: user._id.toString(),
+            name: user.name,
+        };
+        next();
+    } catch (error) {
+        next(error);
+    }
 }
 
 async function isAdmin(req, res, next) {
     try {
-        if (!req.session.user || req.session.user.id != adminId) throw new ClientError('Not authorized!', 403);
+        const isUserLoggedInValue = await client.get(isUserLoggedIn);
+        if (!isUserLoggedInValue || isUserLoggedInValue != 'true') throw new ClientError('Not authorized!', 403);
+        const userId = await client.get(loggedInUserId);
+        const user = await getUserById(userId);
+        if (!user || user.email != 'admin@corstash.com') throw new ClientError('Not authorized!', 403);
+        req.user = {
+            id: user._id.toString(),
+            name: user.name,
+        };
         next();
     } catch (error) {
         next(error);

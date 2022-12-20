@@ -1,5 +1,5 @@
 const Users = require("../models/users");
-const { validateLogin, validateSignUp } = require("../validators/users");
+const { validateLogin, validateSignUp, validateEditUser } = require("../validators/users");
 const ClientError = require("../helpers/client-error");
 const ServerError = require("../helpers/server-error");
 const bcrypt = require("bcrypt");
@@ -7,6 +7,8 @@ const sendResponse = require("../helpers/sendResponse");
 const { isValidObjectId: isObjectId } = require("mongoose");
 const salt = 10;
 const xss = require('../helpers/xss');
+const { client } = require('../startup/redisClient');
+const { isUserLoggedIn, loggedInUserId, expiryTime } = require('../helpers/enums');
 
 module.exports = {
   login,
@@ -15,6 +17,7 @@ module.exports = {
   logout,
   getUserById,
   getUserStatus,
+  editUser,
 };
 
 async function getUser(req, res, next) {
@@ -71,9 +74,11 @@ async function login(req, res, next) {
       throw new ClientError("User email or password Incorrect!");
     }
 
-    req.session.user = {
-      id: user.id,
-    }
+    await client.set(isUserLoggedIn, 'true');
+    await client.set(loggedInUserId, user.id);
+    await client.expire(isUserLoggedIn, expiryTime);
+    await client.expire(loggedInUserId, expiryTime);
+
     return sendResponse(res, user);
   } catch (error) {
     if (error instanceof ClientError) {
@@ -85,8 +90,9 @@ async function login(req, res, next) {
 
 async function logout(req, res, next) {
   try {
-    res.session.destroy();
-    return res.redirect("/");
+    await client.del(isUserLoggedIn);
+    await client.del(loggedInUserId);
+    return sendResponse(res, 'User has been successfully logged out');
   } catch (error) {
     if (error instanceof ClientError) {
       return next(error);
@@ -130,6 +136,48 @@ async function signUp(req, res, next) {
 }
 
 async function getUserById(id) {
-  const user = await Users.findOne({ _id: id });
+  const user = await Users.findOne({ _id: id }).lean();
   return user;
 };
+
+async function editUser(req, res, next) {
+  try {
+    const reqBody = xss(req.body);
+
+    const { isInvalid, message } = validateEditUser(reqBody);
+    if (isInvalid) {
+      throw new ClientError(message);
+    }
+
+    const userId = req.params.id;
+    if (!isObjectId(userId)) throw ClientError("ID is not a valid objectId");
+
+    if (req.user.id != userId) throw ClientError("Not Authorized", 401);
+
+    const user = await Users.findOne({ _id: userId });
+
+    if (!user) throw new ClientError("User does not exists with given Id");
+
+    if (!(await bcrypt.compare(reqBody.oldPassword, user.password))) {
+      throw new ClientError("User password Incorrect!");
+    }
+
+    const password = await bcrypt.hash(reqBody.newPassword, salt);
+
+    const response = await Users.updateOne({ _id: userId }, {
+      $set: {
+        firstName: reqBody.firstName,
+        lastName: reqBody.lastName,
+        name: `${reqBody.firstName} ${reqBody.lastName}`,
+        password: password,
+      }
+    });
+
+    return sendResponse(res, response);
+  } catch (error) {
+    if (error instanceof ClientError) {
+      return next(error);
+    }
+    return next(new ServerError(error.message));
+  }
+}
