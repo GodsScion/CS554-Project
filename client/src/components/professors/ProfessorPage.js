@@ -1,9 +1,8 @@
 import React, { useEffect, useState } from "react"
 import axios from "axios"
 import { useParams , useNavigate } from "react-router-dom"
+import $ from "jquery"
 const xss = require('xss');
-
-
 
 const ProfessorPage = () => {
     const navigate = useNavigate()
@@ -13,11 +12,13 @@ const ProfessorPage = () => {
     const[reviewsDataShow, setReviewsDataShow] = useState(<p>No reviews posted!</p>)
     const[rating, setRating] = useState(5)
     const[message, setMessage] = useState("")
+    const[isLoggedIn, setLoggedIn] = useState(false)
 
 
     async function getData() {
         try {
-            const { data } = await axios.get(`http://localhost:4000/courses/${id}`);
+            const { data } = await axios.get(`http://localhost:4000/professors/${id}`);
+            getStatus()
             setReviewsData(data.data.reviews)
             setData(data.data);
         } catch (error) {
@@ -26,7 +27,17 @@ const ProfessorPage = () => {
         }
     }
 
-    useEffect((id) => {getData()},[id])
+    async function getStatus(){
+        try {
+            const { data } = await axios.get(`http://localhost:4000/users/status`);
+            setLoggedIn(data.data.isUserLoggedIn)
+        } catch (error) {
+            console.error(error.message || error);
+
+        }
+      }
+
+    useEffect(() => {getData()},[id])
 
     useEffect(() => {
         setReviewsDataShow(
@@ -54,7 +65,11 @@ const ProfessorPage = () => {
                 "rating": rating,
                 "review": review,
             }
-            const res = await axios.post(`http://localhost:4000/courses/${data.id}/reviews`,sendData);
+            const res = await axios.post(`http://localhost:4000/professors/${data.id}/reviews`,sendData);
+            if(res){
+                $('#createReviewModal').modal('hide');
+                alert("Successfully added review!");
+            }
             getData()
         } catch (error) {
             console.error("Failed to add review.\n" + (error.message || error));
@@ -71,29 +86,31 @@ const ProfessorPage = () => {
             <h2 className="col-3"><strong>Rating: </strong>{data && data.rating} / 5</h2>
             <hr/>
             <div className="container">
-                <h2>Description:</h2>
+                <h2>Bio:</h2>
                 <p>{data && data.description}</p>
             </div>
             <hr/>
             <div className="container">
-                <h3>Professors teaching this course:</h3>
+                <h3>Courses taught by the professor:</h3>
                 
                 {/* data-bs-toggle="tooltip" data-bs-placement="right" data-bs-title={`Click for more info on ${professor.name}`} */}
                 {data ? 
-                <ul className="list-group">{data.professors.map(
-                    (professor) => { return <li key={professor.id} className="list-group-item list-group-item-dark list-group-item-action col-5" 
-                                                onClick={() => navigate(`/professors/${professor.id}`)} >{professor.name}</li> }
+                <ul className="list-group">{data.courses.map(
+                    (course) => { return <li key={course.id} className="list-group-item list-group-item-dark list-group-item-action col-5" 
+                                                onClick={() => navigate(`/courses/${course.id}`)} >{course.name}</li> }
                 )}</ul> 
                 : 
-                <p>Currently no professors are teaching this course!</p>}
-                {data && <span className="subtitle"><aside>Click on professor for more info</aside></span>}
+                <p>Currently no courses are teached by this professor!</p>}
+                {data && <span className="subtitle"><aside>Click on course for more info</aside></span>}
             </div>
             <hr/>
             <div className="container border rounded p-2">
                 <div className="row mb-2 justify-content-between aligin-items-end">
                     <h3 className="col-8 align-text-end">Reviews:</h3>
-                    {data && data.isLoggedIn && <button type="button" className="btn btn-primary col-3 me-3" data-bs-toggle="modal" data-bs-target="#createReviewModal">Add Review</button>}
+                    {data && isLoggedIn && <button type="button" className="btn btn-primary col-3 me-3" data-bs-toggle="modal" data-bs-target="#createReviewModal">Add Review</button>}
+                    {data && !isLoggedIn && <button type="button" className="btn btn-primary col-3 me-3" onClick={()=>{navigate('/login')}}>Login</button>}
                 </div>
+                {data && !isLoggedIn && <span className="subtitle"><aside>Only logged in users can post reviews!</aside></span>}
                 <div className="row">
                    {data && reviewsDataShow}
                 </div>
@@ -103,7 +120,7 @@ const ProfessorPage = () => {
 
 
             {/* <!-- Vertically centered modal --> */}
-            {data && data.isLoggedIn && 
+            {data && isLoggedIn && 
              <div className="modal fade" id="createReviewModal" tabIndex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div className="modal-dialog modal-dialog-centered">
                   <div className="modal-content">
@@ -113,9 +130,12 @@ const ProfessorPage = () => {
                     </div>
                     <div className="modal-body">
                         <form onSubmit={sendReviewData}>
+                            <br/>
+                            <p className="text-decoration-underline is-red rating">Once a review is posted, it can't be deleted or updated!!! *</p>
+                            <br/>
                             <div className="mb-3">
                                 <label htmlFor="rating" className="col-form-label">Select your rating:</label>
-                                <select id="rating" name="rating" className="form-select col-1" aria-label="Rating" onChange={(e)=>{setRating(xss(e.target.value))}}>
+                                <select id="rating" name="rating" className="form-select col-1" aria-label="Rating" onChange={(e)=>{setRating(e.target.value)}}>
                                     <option value={5}>5 / 5</option>
                                     <option value={4}>4 / 5</option>
                                     <option value={3}>3 / 5</option>
@@ -128,7 +148,7 @@ const ProfessorPage = () => {
                                 <textarea className="form-control" id="message" name="message" onChange={(e)=>{setMessage(xss(e.target.value))}} 
                                 minLength="2" required></textarea>
                             </div>
-                            <button type="submit" className="btn btn-primary me-2 col-3 col-sm-4" data-bs-dismiss="modal">Add Review</button>
+                            <button type="submit" className="btn btn-primary me-2 col-3 col-sm-4">Add Review</button>
                             <button type="button" className="btn btn-secondary col-3 col-sm-4" data-bs-dismiss="modal">Cancel</button>
                         </form>
                     </div>

@@ -28,7 +28,7 @@ const ProfessorsListPage = () => {
     return(
         <div className="container m-5 p-2 bg-body rounded">
             <hr/>
-            <h1>professors: </h1>
+            <h1>Professors: </h1>
             <hr/>
             <form className="d-flex col-md-4 col-lg-4 offset-md-4 offest-lg-4" role="search" onSubmit={handleSearch}>
                 <input className="form-control me-2" type="search" placeholder="Search professors name" aria-label="Search" onChange={(e) => {setSearch(xss(e.target.value).trim())}}/>
