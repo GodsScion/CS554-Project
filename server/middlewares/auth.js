@@ -15,6 +15,7 @@ async function isAuthenticated(req, res, next) {
         const userId = await client.get(loggedInUserId);
         const user = await getUserById(userId);
         if (!user) throw new ClientError('Not authorized!', 403);
+
         req.user = {
             id: user._id.toString(),
             name: user.name,

@@ -25,9 +25,9 @@ async function getUser(req, res, next) {
     const userId = req.params.id;
     if (!isObjectId(userId)) throw new ClientError("ID is not a valid objectId");
 
-    const user = await Users.findOne({ _id: userId }).lean();
+    if (userId != req.user.id) throw new ClientError('Not authorized!', 403);
 
-    if (!user) throw new ClientError("User does not exists with given id");
+    const user = await Users.findOne({ _id: userId }).lean();
 
     return sendResponse(res, user);
   } catch (error) {
@@ -148,15 +148,15 @@ async function editUser(req, res, next) {
   try {
     const reqBody = xss(req.body);
 
+    const userId = req.params.id;
+    if (userId != req.user.id) throw new ClientError('Not authorized!', 403);
+
+    if (!isObjectId(userId)) throw ClientError("ID is not a valid objectId");
+
     const { isInvalid, message } = validateEditUser(reqBody);
     if (isInvalid) {
       throw new ClientError(message);
     }
-
-    const userId = req.params.id;
-    if (!isObjectId(userId)) throw ClientError("ID is not a valid objectId");
-
-    if (req.user.id != userId) throw ClientError("Not Authorized", 401);
 
     const user = await Users.findOne({ _id: userId });
 
@@ -174,6 +174,7 @@ async function editUser(req, res, next) {
         lastName: reqBody.lastName,
         name: `${reqBody.firstName} ${reqBody.lastName}`,
         password: password,
+        img: reqBody.img,
       }
     });
 

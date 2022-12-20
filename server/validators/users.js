@@ -41,6 +41,7 @@ function validateEditUser(requestBody) {
     lastName: Joi.string().alphanum().min(1).max(20).required(),
     oldPassword: Joi.string().required(),
     newPassword: Joi.string().required(),
+    img: Joi.string().required(),
   });
   const { error } = schema.validate(requestBody);
   if (error) return { isInvalid: true, message: error.message };
