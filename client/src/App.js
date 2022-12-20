@@ -1,8 +1,9 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import "./App.css";
 
-import SignIn from "./components/SignIn";
-import SignUp from "./components/SignUp";
+import Login from "./components/users/Login";
+import Logout from "./components/users/Logout";
+import Register from "./components/users/Register";
 
 import Home from "./components/Home";
 
@@ -18,44 +19,65 @@ import ChatRoom from "./components/discussions/ChatRoom";
 import Page404 from "./components/Page404";
 import Page400 from "./components/Pg400";
 
-import { BrowserRouter as Router, Route, Routes, Link } from "react-router-dom";
+import { BrowserRouter as Router, Route, Routes, Link} from "react-router-dom";
+
+import axios from "axios"
+
+
+const logo = require('./components/img/logo.png')
+
 
 // removed from package.json in dependencies "web-vitals": "^2.1.4"
 
 const App = () => {
+  const [isLoggedIn,setLoggedIn] = useState(false)
+
+  useEffect(() => {getStatus()},[])
+  
+  async function getStatus(){
+    try {
+        const { data } = await axios.get(`http://localhost:4000/users/status`);
+        setLoggedIn(data.data.isUserLoggedIn)
+    } catch (error) {
+        console.error(error.message || error);
+    }
+  }
+
+  
   return (
     <Router>
       <div className="App">
       <header className='App-header'>
-            <div className='flex'> 
-              <img src={logo} className='logo' alt='logo'></img>
-              <h3 className='App-title'>Marvel API</h3>    
-            </div>
-            <nav>
-              <Link className='showlink' to='/courses/67899384934793493484'>
-                Course
-              </Link>
-              <Link className='showlink' to='/'>
-                Home
-              </Link>
-              <Link className='showlink' to='/characters/page/1'>
-                Characters
-              </Link>
-              <Link className='showlink' to='/comics/page/1'>
-                Comics
-              </Link>
-              <Link className='showlink' to='/stories/page/1'>
-                Stories
-              </Link>
+            <img src={logo} className='logo' alt='logo'></img>   
+            <nav className="flex">
+                <Link className="showlink" to='/'>
+                    Home
+                </Link>
+
+                <Link className="showlink" to='/courses'>
+                    All Courses
+                </Link>
+                
+                <Link className="showlink" to='/professors'>
+                    All Professors
+                </Link>
+                
+                <Link className="showlink" to='/discussions'>
+                    All Discussions
+                </Link>
             </nav>
+            {!isLoggedIn && <Link className="btn btn-primary me-4" to='/login'>Login</Link>}
+            {isLoggedIn && <Link className="btn btn-primary me-4" to='/logout'>Logout</Link>}
 				</header>
       </div>
       <div className="App-body">
         <Routes>
           <Route path="/" element={<Home />}></Route>
 
-          <Route path="/signin" element={<SignIn />}></Route>
-          <Route path="/signup" element={<SignUp />}></Route>
+          <Route path="/login" element={<Login />}></Route>
+          <Route path="/register" element={<Logout />}></Route>
+          <Route path="/logout" element={<Register />}></Route>
+
 
           <Route path="/courses/:id" element={<CoursePage />}></Route>
           <Route path="/courses" element={<CoursesListPage />}></Route>
