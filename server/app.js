@@ -1,9 +1,15 @@
 const express = require('express');
-const app = express();
+const expressServer = express();
+const socketServer = require("http").createServer();
 const init = require('./startup/init');
+const socketInit = require('./startup/socketInit');
 
-app.listen(4000, async () => {
-    console.log("We've now got a server!");
-    console.log('Your routes will be running on http://localhost:4000');
-    await init(app);
+expressServer.listen(4000, async () => {
+    console.log('Express server is up and running on http://localhost:4000');
+    await init(expressServer);
+});
+
+socketServer.listen(4001, async () => {
+    console.log("Socket server is up and running on http://localhost:4001");
+    await socketInit(socketServer);
 });

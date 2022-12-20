@@ -11,7 +11,7 @@ const session = require("express-session");
  *
  * @param {*} app
  */
-module.exports = async function init(app) {
+module.exports = async (app) => {
   // Intializing Mongo connection
   mongoInit();
 

@@ -19,7 +19,7 @@ import ChatRoom from "./components/discussions/ChatRoom";
 import Page404 from "./components/Page404";
 import Page400 from "./components/Pg400";
 
-import { BrowserRouter as Router, Route, Routes, Link} from "react-router-dom";
+import { BrowserRouter as Router, Route, Routes, Link } from "react-router-dom";
 
 import axios from "axios"
 
@@ -30,53 +30,53 @@ const logo = require('./components/img/logo.png')
 // removed from package.json in dependencies "web-vitals": "^2.1.4"
 
 const App = () => {
-  const [isLoggedIn,setLoggedIn] = useState(false)
-  const [img,setImg] = useState(require('./components/img/default.jpg'))
+  const [isLoggedIn, setLoggedIn] = useState(false)
+  const [img, setImg] = useState(require('./components/img/default.jpg'))
 
-  useEffect(() => {getStatus()},[])
-  
-  async function getStatus(){
+  useEffect(() => { getStatus() })
+
+  async function getStatus() {
     try {
-        const { data } = await axios.get(`http://localhost:4000/users/status`);
-        // >>>>>>>>>>>>>>>>>>>>>>>>>-----------------Code to be uncommented when implemented in backend----------------<<<<<<<<<<
-        // if(data && data.image && data.image !== null && data.image !== undefined) {
-        //   setImg(data.image)
-        // }
-        setLoggedIn(data.data.isUserLoggedIn)
-        // setLoggedIn(true) //-----Comment
+      const { data } = await axios.get(`http://localhost:4000/users/status`);
+      // >>>>>>>>>>>>>>>>>>>>>>>>>-----------------Code to be uncommented when implemented in backend----------------<<<<<<<<<<
+      // if(data && data.image && data.image !== null && data.image !== undefined) {
+      //   setImg(data.image)
+      // }
+      setLoggedIn(data.data.isUserLoggedIn)
+      // setLoggedIn(true) //-----Comment
     } catch (error) {
-        console.error(error.message || error);
+      console.error(error.message || error);
     }
   }
 
-  
+
   return (
     <Router>
       <div className="App">
-      <header className='App-header'>
-            <img src={logo} className='logo' alt='logo'></img>   
-            <nav className="flex">
-                <Link className="showlink" to='/'>
-                    Home
-                </Link>
+        <header className='App-header'>
+          <img src={logo} className='logo' alt='logo'></img>
+          <nav className="flex">
+            <Link className="showlink" to='/'>
+              Home
+            </Link>
 
-                <Link className="showlink" to='/courses'>
-                    All Courses
-                </Link>
-                
-                <Link className="showlink" to='/professors'>
-                    All Professors
-                </Link>
-                
-                <Link className="showlink" to='/discussions'>
-                    All Discussions
-                </Link>
-            </nav>
-            {!isLoggedIn && <Link className="btn btn-primary me-4 col-3" to='/login'>Login</Link>}
-            {isLoggedIn && <img src={img} className="headerPic rounded-circle me-2" alt='profile pic'></img>}
-            {isLoggedIn && <Link className="btn btn-warning me-4 col-3" to='/logout'>Logout</Link>}
-            
-				</header>
+            <Link className="showlink" to='/courses'>
+              All Courses
+            </Link>
+
+            <Link className="showlink" to='/professors'>
+              All Professors
+            </Link>
+
+            <Link className="showlink" to='/discussions'>
+              All Discussions
+            </Link>
+          </nav>
+          {!isLoggedIn && <Link className="btn btn-primary me-4 col-3" to='/login'>Login</Link>}
+          {isLoggedIn && <img src={img} className="headerPic rounded-circle me-2" alt='profile pic'></img>}
+          {isLoggedIn && <Link className="btn btn-warning me-4 col-3" to='/logout'>Logout</Link>}
+
+        </header>
       </div>
       <div className="App-body">
         <Routes>
@@ -92,10 +92,10 @@ const App = () => {
 
           <Route path="/professors/:id" element={<ProfessorPage />}></Route>
           <Route path="/professors" element={<ProfessorsListPage />}></Route>
-          
+
           <Route path="/discussions" element={<Discussions />} />
           <Route path="/discussions/:roomId" element={<ChatRoom />} />
-          
+
           <Route path="/pg404" element={<Page404 />}></Route>
           <Route path="/pg400/:msg" element={<Page400 />}></Route>
           <Route path="*" element={<Page404 />}></Route>

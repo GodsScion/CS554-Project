@@ -8,7 +8,7 @@ const ProfessorsListPage = () => {
     const [search, setSearch] = useState("")
     const navigate = useNavigate()
 
-    useEffect(() => {getData()},[])
+    useEffect(() => { getData() })
 
     async function getData() {
         try {
@@ -25,57 +25,57 @@ const ProfessorsListPage = () => {
     }
 
 
-    return(
+    return (
         <div className="container m-5 p-2 bg-body rounded">
-            <hr/>
+            <hr />
             <h1>Professors: </h1>
-            <hr/>
+            <hr />
             <form className="d-flex col-md-4 col-lg-4 offset-md-4 offest-lg-4" role="search" onSubmit={handleSearch}>
-                <input className="form-control me-2" type="search" placeholder="Search professors name" aria-label="Search" onChange={(e) => {setSearch(xss(e.target.value).trim())}}/>
+                <input className="form-control me-2" type="search" placeholder="Search professors name" aria-label="Search" onChange={(e) => { setSearch(xss(e.target.value).trim()) }} />
                 <button className="btn btn-primary" type="submit">Search</button>
             </form>
-            <hr/>
-            {search && search.length > 0 && 
-            <div className="container">
-               <h2>Results for "{search}" </h2>
-               <br/>
-               {data && data.length>0 && data.filter(professor => professor.name.toLowerCase().includes(search.toLowerCase())).length > 0 && <span className="subtitle"><aside>Click on professor for more info</aside></span>}
-               <div>
-                    {data.filter(professor => professor.name.toLowerCase().includes(search.toLowerCase())).map(
-                        (professor) => {
-                            return <div key={professor.id} className="card mb-2" onClick={() => {navigate(`/professors/${professor.id}`)}}>
-                                            <div className="card-body onHoverShadow" >
-                                                <h3 className="card-title">{professor.name}</h3>
-                                                <h4 className="card-title">Rating: {professor.rating} / 5</h4>
-                                            </div>
-                                    </div> 
-                        })}
+            <hr />
+            {search && search.length > 0 &&
+                <div className="container">
+                    <h2>Results for "{search}" </h2>
+                    <br />
+                    {data && data.length > 0 && data.filter(professor => professor.name.toLowerCase().includes(search.toLowerCase())).length > 0 && <span className="subtitle"><aside>Click on professor for more info</aside></span>}
+                    <div>
+                        {data.filter(professor => professor.name.toLowerCase().includes(search.toLowerCase())).map(
+                            (professor) => {
+                                return <div key={professor.id} className="card mb-2" onClick={() => { navigate(`/professors/${professor.id}`) }}>
+                                    <div className="card-body onHoverShadow" >
+                                        <h3 className="card-title">{professor.name}</h3>
+                                        <h4 className="card-title">Rating: {professor.rating} / 5</h4>
+                                    </div>
+                                </div>
+                            })}
+                    </div>
+                    {data && data.length > 0 && data.filter(professor => professor.name.toLowerCase().includes(search.toLowerCase()).length < 1)
+                        && <p>Looks like nothings matching <strong>"{search}"</strong>! Try a different name.</p>}
+                </div>}
+            {(!search || search.length < 1) &&
+                <div className="container">
+                    <h2>List of all professors: </h2>
+                    <br />
+                    <div className="container rounded border p-2">
+                        {data && data.length > 0 && <span className="subtitle"><aside>Click on professor for more info</aside></span>}
+                        {data && data.length > 0 && data.map(
+                            (professor) => {
+                                return <div key={professor.id} className="card mb-2" onClick={() => { navigate(`/professors/${professor.id}`) }}>
+                                    <div className="card-body onHoverShadow" >
+                                        <h3 className="card-title">{professor.name}</h3>
+                                        <h4 className="card-title">Rating: {professor.rating} / 5</h4>
+                                    </div>
+                                </div>
+                            }
+                        )}
+                        {(!data || data.length < 1) && <p>LOL, looks like no professors are available! Happy holidays.</p>}
+                    </div>
                 </div>
-                {data && data.length>0 && data.filter(professor => professor.name.toLowerCase().includes(search.toLowerCase()).length < 1)
-                 && <p>Looks like nothings matching <strong>"{search}"</strong>! Try a different name.</p>}
-            </div>}
-            {(!search || search.length < 1) && 
-            <div className="container">
-                <h2>List of all professors: </h2>
-                <br/>
-                <div className="container rounded border p-2">
-                    {data && data.length>0 && <span className="subtitle"><aside>Click on professor for more info</aside></span>}
-                    {data && data.length>0 && data.map(
-                        (professor) => {
-                            return <div key={professor.id} className="card mb-2" onClick={() => {navigate(`/professors/${professor.id}`)}}>
-                                            <div className="card-body onHoverShadow" >
-                                                <h3 className="card-title">{professor.name}</h3>
-                                                <h4 className="card-title">Rating: {professor.rating} / 5</h4>
-                                            </div>
-                                    </div> 
-                        }
-                    )}
-                    {(!data || data.length<1) && <p>LOL, looks like no professors are available! Happy holidays.</p> }
-                </div>
-            </div>
             }
-        <br/>
-        <br/>
+            <br />
+            <br />
         </div>
     )
 
