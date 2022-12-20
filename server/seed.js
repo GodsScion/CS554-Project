@@ -50,6 +50,288 @@ db.courses.insertOne({
   ]
 });
 
+db.courses.insertOne({
+  "_id": ObjectId('63117e3a36ef23055edbf085'),
+  "name": "Molecular Biology",
+  "description": "Something hamana hamana hamana...",
+  "rating": 5.0,
+  "professors": [
+    {
+      "_id": ObjectId('53117e3a36ef23055edbf097'),
+      "name": "John Doe",
+    }
+  ],
+  "reviews": [
+    {
+      "_id": ObjectId("63117e3a36ef23055edbf096"),
+      "userId": ObjectId("63117e3a36ef23055edbf094"),
+      "rating": 4.5,
+      "review": "Hamana hamana hamana...",
+      "votes": 0,
+      "createdAt": 1671330599
+    },
+    {
+      "_id": ObjectId("63117e3a36ef23055edbf095"),
+      "userId": ObjectId("63117e3a36ef23055edbf094"),
+      "rating": 2.5,
+      "review": "Hamana2 hamana2 hamana2...",
+      "votes": 0,
+      "createdAt": 1671330599
+    }
+  ]
+});
+
+
+db.courses.insertOne({
+  "_id": ObjectId('63117e3a36ef23055edbf084'),
+  "name": "Fundamentals of Java",
+  "description": "Something hamana hamana hamana...",
+  "rating": 5.0,
+  "professors": [
+    {
+      "_id": ObjectId('53117e3a36ef23055edbf098'),
+      "name": "Dr. Smith",
+    }
+  ],
+  "reviews": [
+    {
+      "_id": ObjectId("63117e3a36ef23055edbf096"),
+      "userId": ObjectId("63117e3a36ef23055edbf094"),
+      "rating": 4.5,
+      "review": "Hamana hamana hamana...",
+      "votes": 0,
+      "createdAt": 1671330599
+    },
+    {
+      "_id": ObjectId("63117e3a36ef23055edbf095"),
+      "userId": ObjectId("63117e3a36ef23055edbf094"),
+      "rating": 2.5,
+      "review": "Hamana2 hamana2 hamana2...",
+      "votes": 0,
+      "createdAt": 1671330599
+    }
+  ]
+});
+
+
+
+db.courses.insertOne({
+  "_id": ObjectId('63117e3a36ef23055edbf083'),
+  "name": "Marine Technology",
+  "description": "Something hamana hamana hamana...",
+  "rating": 5.0,
+  "professors": [
+    {
+      "_id": ObjectId('53117e3a36ef23055edbf099'),
+      "name": "MS.Qureshi",
+    }
+  ],
+  "reviews": [
+    {
+      "_id": ObjectId("63117e3a36ef23055edbf096"),
+      "userId": ObjectId("63117e3a36ef23055edbf094"),
+      "rating": 4.5,
+      "review": "Hamana hamana hamana...",
+      "votes": 0,
+      "createdAt": 1671330599
+    },
+    {
+      "_id": ObjectId("63117e3a36ef23055edbf095"),
+      "userId": ObjectId("63117e3a36ef23055edbf094"),
+      "rating": 2.5,
+      "review": "Hamana2 hamana2 hamana2...",
+      "votes": 0,
+      "createdAt": 1671330599
+    }
+  ]
+});
+
+db.courses.insertOne({
+  "_id": ObjectId('63117e3a36ef23055edbf082'),
+  "name": "Big Data technologies",
+  "description": "Something hamana hamana hamana...",
+  "rating": 5.0,
+  "professors": [
+    {
+      "_id": ObjectId('53117e3a36ef23055edbf100'),
+      "name": "David B",
+    }
+  ],
+  "reviews": [
+    {
+      "_id": ObjectId("63117e3a36ef23055edbf096"),
+      "userId": ObjectId("63117e3a36ef23055edbf094"),
+      "rating": 4.5,
+      "review": "Hamana hamana hamana...",
+      "votes": 0,
+      "createdAt": 1671330599
+    },
+    {
+      "_id": ObjectId("63117e3a36ef23055edbf095"),
+      "userId": ObjectId("63117e3a36ef23055edbf094"),
+      "rating": 2.5,
+      "review": "Hamana2 hamana2 hamana2...",
+      "votes": 0,
+      "createdAt": 1671330599
+    }
+  ]
+});
+
+db.courses.insertOne({
+  "_id": ObjectId('63117e3a36ef23055edbf081'),
+  "name": "Fundamentals of Programming languages",
+  "description": "Something hamana hamana hamana...",
+  "rating": 5.0,
+  "professors": [
+    {
+      "_id": ObjectId('53117e3a36ef23055edbf101'),
+      "name": "Mr. Stuart",
+    }
+  ],
+  "reviews": [
+    {
+      "_id": ObjectId("63117e3a36ef23055edbf096"),
+      "userId": ObjectId("63117e3a36ef23055edbf094"),
+      "rating": 4.5,
+      "review": "Hamana hamana hamana...",
+      "votes": 0,
+      "createdAt": 1671330599
+    },
+    {
+      "_id": ObjectId("63117e3a36ef23055edbf095"),
+      "userId": ObjectId("63117e3a36ef23055edbf094"),
+      "rating": 2.5,
+      "review": "Hamana2 hamana2 hamana2...",
+      "votes": 0,
+      "createdAt": 1671330599
+    }
+  ]
+});
+
+db.courses.insertOne({
+  "_id": ObjectId('63117e3a36ef23055edbf080'),
+  "name": "Global Relations",
+  "description": "Something hamana hamana hamana...",
+  "rating": 5.0,
+  "professors": [
+    {
+      "_id": ObjectId('53117e3a36ef23055edbf102'),
+      "name": "Mr. Bali",
+    }
+  ],
+  "reviews": [
+    {
+      "_id": ObjectId("63117e3a36ef23055edbf096"),
+      "userId": ObjectId("63117e3a36ef23055edbf094"),
+      "rating": 4.5,
+      "review": "Hamana hamana hamana...",
+      "votes": 0,
+      "createdAt": 1671330599
+    },
+    {
+      "_id": ObjectId("63117e3a36ef23055edbf095"),
+      "userId": ObjectId("63117e3a36ef23055edbf094"),
+      "rating": 2.5,
+      "review": "Hamana2 hamana2 hamana2...",
+      "votes": 0,
+      "createdAt": 1671330599
+    }
+  ]
+});
+
+db.courses.insertOne({
+  "_id": ObjectId('63117e3a36ef23055edbf079'),
+  "name": "Current Affairs",
+  "description": "Something hamana hamana hamana...",
+  "rating": 5.0,
+  "professors": [
+    {
+      "_id": ObjectId('53117e3a36ef23055edbf103'),
+      "name": "Ms. Lisa",
+    }
+  ],
+  "reviews": [
+    {
+      "_id": ObjectId("63117e3a36ef23055edbf096"),
+      "userId": ObjectId("63117e3a36ef23055edbf094"),
+      "rating": 4.5,
+      "review": "Hamana hamana hamana...",
+      "votes": 0,
+      "createdAt": 1671330599
+    },
+    {
+      "_id": ObjectId("63117e3a36ef23055edbf095"),
+      "userId": ObjectId("63117e3a36ef23055edbf094"),
+      "rating": 2.5,
+      "review": "Hamana2 hamana2 hamana2...",
+      "votes": 0,
+      "createdAt": 1671330599
+    }
+  ]
+});
+
+db.courses.insertOne({
+  "_id": ObjectId('63117e3a36ef23055edbf078'),
+  "name": "Business Analytics",
+  "description": "Something hamana hamana hamana...",
+  "rating": 5.0,
+  "professors": [
+    {
+      "_id": ObjectId('53117e3a36ef23055edbf104'),
+      "name": "Ms. Courtney",
+    }
+  ],
+  "reviews": [
+    {
+      "_id": ObjectId("63117e3a36ef23055edbf096"),
+      "userId": ObjectId("63117e3a36ef23055edbf094"),
+      "rating": 4.5,
+      "review": "Hamana hamana hamana...",
+      "votes": 0,
+      "createdAt": 1671330599
+    },
+    {
+      "_id": ObjectId("63117e3a36ef23055edbf095"),
+      "userId": ObjectId("63117e3a36ef23055edbf094"),
+      "rating": 2.5,
+      "review": "Hamana2 hamana2 hamana2...",
+      "votes": 0,
+      "createdAt": 1671330599
+    }
+  ]
+});
+
+db.courses.insertOne({
+  "_id": ObjectId('63117e3a36ef23055edbf077'),
+  "name": "Internet protocol",
+  "description": "Something hamana hamana hamana...",
+  "rating": 5.0,
+  "professors": [
+    {
+      "_id": ObjectId('53117e3a36ef23055edbf105'),
+      "name": "Mr. Shadab Khan",
+    }
+  ],
+  "reviews": [
+    {
+      "_id": ObjectId("63117e3a36ef23055edbf096"),
+      "userId": ObjectId("63117e3a36ef23055edbf094"),
+      "rating": 4.5,
+      "review": "Hamana hamana hamana...",
+      "votes": 0,
+      "createdAt": 1671330599
+    },
+    {
+      "_id": ObjectId("63117e3a36ef23055edbf095"),
+      "userId": ObjectId("63117e3a36ef23055edbf094"),
+      "rating": 2.5,
+      "review": "Hamana2 hamana2 hamana2...",
+      "votes": 0,
+      "createdAt": 1671330599
+    }
+  ]
+});
+
 db.professors.insertOne({
   "_id": ObjectId('53117e3a36ef23055edbf096'),
   "name": "Patrick Hill",
@@ -79,4 +361,287 @@ db.professors.insertOne({
       "createdAt": 1671330599
     }
   ]
-})
+});
+
+db.professors.insertOne({
+  "_id": ObjectId('53117e3a36ef23055edbf097'),
+  "name": "John Doe",
+  "description": "Something hamana hamana hamana...",
+  "rating": 5.0,
+  "courses": [
+    {
+      "_id": ObjectId('63117e3a36ef23055edbf085'),
+      "name": "Molecular Biology",
+    }
+  ],
+  "reviews": [
+    {
+      "_id": ObjectId("63117e3a36ef23051edbf096"),
+      "userId": ObjectId("63117e3a36ef23055edbf094"),
+      "rating": 4.5,
+      "review": "Hamana hamana hamana...",
+      "votes": 0,
+      "createdAt": 1671330599
+    },
+    {
+      "_id": ObjectId("63117e3a36ef23051edbf095"),
+      "userId": ObjectId("63117e3a36ef23055edbf094"),
+      "rating": 2.5,
+      "review": "Hamana2 hamana2 hamana2...",
+      "votes": 0,
+      "createdAt": 1671330599
+    }
+  ]
+});
+
+db.professors.insertOne({
+  "_id": ObjectId('53117e3a36ef23055edbf098'),
+  "name": "Dr. Smith",
+  "description": "Something hamana hamana hamana...",
+  "rating": 5.0,
+  "courses": [
+    {
+      "_id": ObjectId('63117e3a36ef23055edbf084'),
+      "name": "Fundamentals of Java",
+    }
+  ],
+  "reviews": [
+    {
+      "_id": ObjectId("63117e3a36ef23051edbf096"),
+      "userId": ObjectId("63117e3a36ef23055edbf094"),
+      "rating": 4.5,
+      "review": "Hamana hamana hamana...",
+      "votes": 0,
+      "createdAt": 1671330599
+    },
+    {
+      "_id": ObjectId("63117e3a36ef23051edbf095"),
+      "userId": ObjectId("63117e3a36ef23055edbf094"),
+      "rating": 2.5,
+      "review": "Hamana2 hamana2 hamana2...",
+      "votes": 0,
+      "createdAt": 1671330599
+    }
+  ]
+});
+
+db.professors.insertOne({
+  "_id": ObjectId('53117e3a36ef23055edbf099'),
+  "name": "MS.Qureshi",
+  "description": "Something hamana hamana hamana...",
+  "rating": 5.0,
+  "courses": [
+    {
+      "_id": ObjectId('63117e3a36ef23055edbf083'),
+      "name": "Marine Technology",
+    }
+  ],
+  "reviews": [
+    {
+      "_id": ObjectId("63117e3a36ef23051edbf096"),
+      "userId": ObjectId("63117e3a36ef23055edbf094"),
+      "rating": 4.5,
+      "review": "Hamana hamana hamana...",
+      "votes": 0,
+      "createdAt": 1671330599
+    },
+    {
+      "_id": ObjectId("63117e3a36ef23051edbf095"),
+      "userId": ObjectId("63117e3a36ef23055edbf094"),
+      "rating": 2.5,
+      "review": "Hamana2 hamana2 hamana2...",
+      "votes": 0,
+      "createdAt": 1671330599
+    }
+  ]
+});
+
+
+db.professors.insertOne({
+  "_id": ObjectId('53117e3a36ef23055edbf100'),
+  "name": "David B",
+  "description": "Something hamana hamana hamana...",
+  "rating": 5.0,
+  "courses": [
+    {
+      "_id": ObjectId('63117e3a36ef23055edbf082'),
+      "name": "Big Data technologies",
+    }
+  ],
+  "reviews": [
+    {
+      "_id": ObjectId("63117e3a36ef23051edbf096"),
+      "userId": ObjectId("63117e3a36ef23055edbf094"),
+      "rating": 4.5,
+      "review": "Hamana hamana hamana...",
+      "votes": 0,
+      "createdAt": 1671330599
+    },
+    {
+      "_id": ObjectId("63117e3a36ef23051edbf095"),
+      "userId": ObjectId("63117e3a36ef23055edbf094"),
+      "rating": 2.5,
+      "review": "Hamana2 hamana2 hamana2...",
+      "votes": 0,
+      "createdAt": 1671330599
+    }
+  ]
+});
+
+db.professors.insertOne({
+  "_id": ObjectId('53117e3a36ef23055edbf101'),
+  "name": "Mr. Stuart",
+  "description": "Something hamana hamana hamana...",
+  "rating": 5.0,
+  "courses": [
+    {
+      "_id": ObjectId('63117e3a36ef23055edbf081'),
+      "name": "Fundamentals of Programming languages",
+    }
+  ],
+  "reviews": [
+    {
+      "_id": ObjectId("63117e3a36ef23051edbf096"),
+      "userId": ObjectId("63117e3a36ef23055edbf094"),
+      "rating": 4.5,
+      "review": "Hamana hamana hamana...",
+      "votes": 0,
+      "createdAt": 1671330599
+    },
+    {
+      "_id": ObjectId("63117e3a36ef23051edbf095"),
+      "userId": ObjectId("63117e3a36ef23055edbf094"),
+      "rating": 2.5,
+      "review": "Hamana2 hamana2 hamana2...",
+      "votes": 0,
+      "createdAt": 1671330599
+    }
+  ]
+});
+
+
+db.professors.insertOne({
+  "_id": ObjectId('53117e3a36ef23055edbf102'),
+  "name": "Mr. Bali",
+  "description": "Something hamana hamana hamana...",
+  "rating": 5.0,
+  "courses": [
+    {
+      "_id": ObjectId('63117e3a36ef23055edbf080'),
+      "name": "Global Relations",
+    }
+  ],
+  "reviews": [
+    {
+      "_id": ObjectId("63117e3a36ef23051edbf096"),
+      "userId": ObjectId("63117e3a36ef23055edbf094"),
+      "rating": 4.5,
+      "review": "Hamana hamana hamana...",
+      "votes": 0,
+      "createdAt": 1671330599
+    },
+    {
+      "_id": ObjectId("63117e3a36ef23051edbf095"),
+      "userId": ObjectId("63117e3a36ef23055edbf094"),
+      "rating": 2.5,
+      "review": "Hamana2 hamana2 hamana2...",
+      "votes": 0,
+      "createdAt": 1671330599
+    }
+  ]
+});
+
+
+db.professors.insertOne({
+  "_id": ObjectId('53117e3a36ef23055edbf103'),
+  "name": "Ms. Lisa",
+  "description": "Something hamana hamana hamana...",
+  "rating": 5.0,
+  "courses": [
+    {
+      "_id": ObjectId('63117e3a36ef23055edbf079'),
+      "name": "Current Affairs",
+    }
+  ],
+  "reviews": [
+    {
+      "_id": ObjectId("63117e3a36ef23051edbf096"),
+      "userId": ObjectId("63117e3a36ef23055edbf094"),
+      "rating": 4.5,
+      "review": "Hamana hamana hamana...",
+      "votes": 0,
+      "createdAt": 1671330599
+    },
+    {
+      "_id": ObjectId("63117e3a36ef23051edbf095"),
+      "userId": ObjectId("63117e3a36ef23055edbf094"),
+      "rating": 2.5,
+      "review": "Hamana2 hamana2 hamana2...",
+      "votes": 0,
+      "createdAt": 1671330599
+    }
+  ]
+});
+
+
+db.professors.insertOne({
+  "_id": ObjectId('53117e3a36ef23055edbf104'),
+  "name": "Ms. Courtney",
+  "description": "Something hamana hamana hamana...",
+  "rating": 5.0,
+  "courses": [
+    {
+      "_id": ObjectId('63117e3a36ef23055edbf078'),
+      "name": "Business Analytics",
+    }
+  ],
+  "reviews": [
+    {
+      "_id": ObjectId("63117e3a36ef23051edbf096"),
+      "userId": ObjectId("63117e3a36ef23055edbf094"),
+      "rating": 4.5,
+      "review": "Hamana hamana hamana...",
+      "votes": 0,
+      "createdAt": 1671330599
+    },
+    {
+      "_id": ObjectId("63117e3a36ef23051edbf095"),
+      "userId": ObjectId("63117e3a36ef23055edbf094"),
+      "rating": 2.5,
+      "review": "Hamana2 hamana2 hamana2...",
+      "votes": 0,
+      "createdAt": 1671330599
+    }
+  ]
+});
+
+db.professors.insertOne({
+  "_id": ObjectId('53117e3a36ef23055edbf105'),
+  "name": "Mr. Shadab Khan",
+  "description": "Something hamana hamana hamana...",
+  "rating": 5.0,
+  "courses": [
+    {
+      "_id": ObjectId('63117e3a36ef23055edbf077'),
+      "name": "Internet protocol",
+    }
+  ],
+  "reviews": [
+    {
+      "_id": ObjectId("63117e3a36ef23051edbf096"),
+      "userId": ObjectId("63117e3a36ef23055edbf094"),
+      "rating": 4.5,
+      "review": "Hamana hamana hamana...",
+      "votes": 0,
+      "createdAt": 1671330599
+    },
+    {
+      "_id": ObjectId("63117e3a36ef23051edbf095"),
+      "userId": ObjectId("63117e3a36ef23055edbf094"),
+      "rating": 2.5,
+      "review": "Hamana2 hamana2 hamana2...",
+      "votes": 0,
+      "createdAt": 1671330599
+    }
+  ]
+});
