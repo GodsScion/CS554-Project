@@ -4,21 +4,16 @@ import { Link } from 'react-router-dom';
 
 const Home = () => {
     return (
-        <div className="container bg-body rounded m-5 p-2">
+        <div className="container bg-body rounded m-5 p-4">
             <h1>Home</h1>
             <br />
             <p>
-                The purpose of this web app is to complete Lab 4 of CS 554 and to gain knowledge and marks, mainly marks.
-            </p>
-            <p>
-                Jokes Aside!
-            </p>
-            <br />
-            <p>
-                This Marvel API app will let you view for different characters, stories and comics.
-            </p>
-            <p>
-                Click on the top four links and feel free to explore.
+            We all have gone through the same confusion during the course registration countless
+            times, which course to choose and to do under which professor. Corstash helps avoid
+            that confusion or at least helps in reducing it by providing reviews on the course and
+            feedback on professors from the senior students. This is a platform for students to
+            interact and discuss various topics related to courses offered at the Stevens Institute of
+            Technology
             </p>
             <br />
             <p>Some useful links:</p>

@@ -1,24 +1,92 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
+import axios from 'axios';
+
+const defImg = require("../img/default.jpg") 
+
 const xss = require('xss');
 
 const Register = () => {
-    const navigate = useNavigate();
+    const navigate = useNavigate()
+    const [img,setImg] = useState(undefined)
+    const [preimg,setPreImg] = useState(defImg)
+    const [fname,setFName] = useState("")
+    const [lname,setLName] = useState("")
+    const [email,setEmail] = useState("")
+    const [password,setPassword] = useState("")
+
+    useEffect(()=>{getStatus()},[])
+
+    async function getStatus(){
+        try {
+            const { data } = await axios.get(`http://localhost:4000/users/status`);
+            if(data.data.isUserLoggedIn) { navigate('/') }
+        } catch (error) {
+            console.error(error.message || error);
+        }
+      }
+
+    async function hangleLogin(e){
+        try {
+            e.preventDefault();
+            const sendData = {
+                firstName: fname,
+                lastName: lname,
+                email: email,
+                password: password,
+                profilePic: img, //Leave it undefined if not uploaded, I'll handle image not given, when requested give undefined or null when image is not there to react!
+            }
+            const res = await axios.post('http://localhost:4000/login',sendData);
+            if(res){navigate('/')}
+        } catch (error) {
+            console.log(error)
+            alert(error.message || error)    
+        }
+    }
 
     return(
-        <div className="container position-absolute top-50 start-50 translate-middle m-5 p-2 bg-body rounded">
-            <div className="card">
+        <div className="row container-fluid justify-content-center m-5 p-2">
+            <div className="card col-md-5 col-lg-6 col-sm-10">
             <div className="card-body" >
-                <h2 className="card-title">Please enter your details</h2>
-                <form>
+                <h1 className="card-title mb-4">Sign-Up</h1>
+                <form onSubmit={hangleLogin}>
+
+                <div className="container mb-3">
+                    <div className="picture-container">
+                        <div className="picture">
+                            <img src={preimg} className="picture-src" alt='profile pic'/>
+                            <input id="image" name="image" type="file" placeholder='Profile pic' accept="image/*" onChange={(e)=>{setPreImg(URL.createObjectURL(e.target.files[0])); setImg(e.target.files[0])}} ></input>
+                        </div>
+                        <label htmlFor='image'>Please upload your profile pic: </label>
+                    </div>
+                </div>
+
                     
-                    <input id="name" name="name" className='form-control' placeholder='How would you like to be called?'></input>
+                    
+
+
+                    <label htmlFor='firstname'>Please enter your First Name: *</label>
+                    <input id="firstname" name="firstname" type="text" className='form-control mb-3' placeholder='First Name' onChange={(e)=>{setFName(xss(e.target.value))}} required></input>
+                    
+                    <label htmlFor='lastname'>Please enter your Last Name: *</label>
+                    <input id="lastname" name="lastname" type="text" className='form-control mb-3' placeholder='Last Name' onChange={(e)=>{setLName(xss(e.target.value))}} required></input>
+
+                    <label htmlFor='email'>Please enter your email: *</label>
+                    <input id="email" name="email" type="email" className='form-control' placeholder='Email' onChange={(e)=>{setEmail(xss(e.target.value))}} required></input>
+                    <div className='form-text mb-3'>Don't worry, we won't share your email with anyone.</div>
+
+                    <label htmlFor='password'>Please enter a password: *</label>
+                    <input id="password" name="password" type="password" className='form-control mb-5' placeholder='Password' onChange={(e)=>{setPassword(xss(e.target.value))}} required></input>
+
+                    <p>Fields with * are required</p>
+                    <button className='btn btn-primary mb-3 col-sm-4' type='submit'>Sign-Up</button>
                 </form>
-            </div>
-            </div>
-            <hr/>
+                <hr/>
             <p>Already have an account? Click Login to login</p>
-            <button className='btn btn-primary' onClick={()=>{navigate('/login')}}>Login</button>
+            <button className='btn btn-primary mb-3 col-sm-4' onClick={()=>{navigate('/login')}}>Login</button>
+            </div>
+            </div>
+
         </div>
     )
 }

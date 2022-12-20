@@ -6,15 +6,14 @@ const Page400 = () => {
     const navigate = useNavigate();
     let msg = useParams().msg || "Please don't do anything funny!";
     return (
-        <div className="container m-5 p-2 bg-body rounded">
-            <br />
+        <div className="container position-absolute top-50 start-50 translate-middle m-5 p-5 bg-body rounded">
             <h1>400: Bad Request!</h1>
-            <br />
+            <hr/>
             <p>
                 {msg}
             </p>
-            <br />
             <button className="btn btn-primary" onClick={navigate('/')}>Home</button>
+            <br/>
         </div>
     )
 }
