@@ -6,6 +6,7 @@ const sendResponse = require("../helpers/sendResponse");
 const { isValidObjectId: isObjectId } = require("mongoose");
 const { getUserById } = require('./users');
 const xss = require('../helpers/xss');
+const moment = require('moment');
 
 module.exports = {
     getAllProfessors,
@@ -56,7 +57,7 @@ async function getProfessor(req, res, next) {
                 rating: review.rating,
                 review: review.review,
                 votes: review.votes,
-                createdAt: review.createdAt,
+                createdAt: moment(review.createdAt * 1000).format('dddd, MMMM Do YYYY, h:mm:ss a'),
                 user: {
                     id: review.userId,
                     name: user.name,
@@ -88,7 +89,7 @@ async function postReview(req, res, next) {
         const professorId = req.params.id;
         const reqBody = xss(req.body);
 
-        const userId = req.session.user.id;
+        const userId = req.user.id;
 
         if (!isObjectId(professorId)) throw new ClientError("Professor does not exists with given id", 404);
 
@@ -109,9 +110,11 @@ async function postReview(req, res, next) {
             userId: userId
         }
 
+        let newRating = ((course.rating * reviewsSize) + review.rating) / (reviewsSize + 1);
+        newRating = Math.round((newRating + Number.EPSILON) * 100) / 100
         const updateQuery = {
             $set: {
-                rating: parseFloat(((professor.rating * reviewsSize) + review.rating) / (reviewsSize + 1).toFixed(2))
+                rating: newRating
             },
             $push: { reviews: review }
         }

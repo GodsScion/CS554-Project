@@ -1,5 +1,7 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import "./App.css";
+import { useSelector } from 'react-redux';
+import { ToastContainer } from 'react-toastify';
 
 import Login from "./components/users/Login";
 import Logout from "./components/users/Logout";
@@ -22,33 +24,16 @@ import Mediator from "./components/discussions/Mediator";
 
 import { BrowserRouter as Router, Route, Routes, Link } from "react-router-dom";
 
-import axios from "axios"
-
-
 const logo = require('./components/img/logo.png')
 
 
 // removed from package.json in dependencies "web-vitals": "^2.1.4"
 
 const App = () => {
-  const [isLoggedIn, setLoggedIn] = useState(false)
-  const [img, setImg] = useState(require('./components/img/default.jpg'))
+  const user = useSelector((state) => state.user);
+  console.log(user);
+  const { isUserLoggedIn, img } = user;
 
-  useEffect(() => { getStatus() })
-
-  async function getStatus() {
-    try {
-      const { data } = await axios.get(`http://localhost:4000/users/status`);
-      // >>>>>>>>>>>>>>>>>>>>>>>>>-----------------Code to be uncommented when implemented in backend----------------<<<<<<<<<<
-      // if(data && data.image && data.image !== null && data.image !== undefined) {
-      //   setImg(data.image)
-      // }
-      setLoggedIn(data.data.isUserLoggedIn)
-      // setLoggedIn(true) //-----Comment
-    } catch (error) {
-      console.error(error.message || error);
-    }
-  }
 
 
   return (
@@ -73,9 +58,9 @@ const App = () => {
               All Discussions
             </Link>
           </nav>
-          {!isLoggedIn && <Link className="btn btn-primary me-4 col-3" to='/login'>Login</Link>}
-          {isLoggedIn && <img src={img} className="headerPic rounded-circle me-2" alt='profile pic'></img>}
-          {isLoggedIn && <Link className="btn btn-warning me-4 col-3" to='/logout'>Logout</Link>}
+          {!isUserLoggedIn && <Link className="btn btn-primary me-4 col-3" to='/login'>Login</Link>}
+          {isUserLoggedIn && <img src={img} className="headerPic rounded-circle me-2" alt='profile pic'></img>}
+          {isUserLoggedIn && <Link className="btn btn-warning me-4 col-3" to='/logout'>Logout</Link>}
 
         </header>
       </div>
@@ -96,12 +81,24 @@ const App = () => {
 
           <Route path="/discussions" element={<Discussions />} />
           <Route path="/discussions/:roomId" element={<ChatRoom />} />
-          <Route path="/mediator/:roomName" element={<Mediator />} />  
+          <Route path="/mediator/:roomName" element={<Mediator />} />
 
           <Route path="/pg404" element={<Page404 />}></Route>
           <Route path="/pg400/:msg" element={<Page400 />}></Route>
           <Route path="*" element={<Page404 />}></Route>
         </Routes>
+        <ToastContainer
+          position="top-center"
+          autoClose={1000}
+          hideProgressBar={false}
+          newestOnTop={false}
+          closeOnClick
+          rtl={false}
+          pauseOnFocusLoss
+          draggable
+          pauseOnHover
+          theme="light"
+        />
       </div>
     </Router>
   );

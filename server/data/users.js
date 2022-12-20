@@ -23,7 +23,7 @@ module.exports = {
 async function getUser(req, res, next) {
   try {
     const userId = req.params.id;
-    if (!isObjectId(userId)) throw ClientError("ID is not a valid objectId");
+    if (!isObjectId(userId)) throw new ClientError("ID is not a valid objectId");
 
     const user = await Users.findOne({ _id: userId }).lean();
 
@@ -64,22 +64,24 @@ async function login(req, res, next) {
 
     const user = await Users.findOne({
       email: email,
-    });
+    }).lean();
 
     if (!user) {
       throw new ClientError("User email or password Incorrect!");
     }
+
+    const userId = user._id.toString();
 
     if (!(await bcrypt.compare(password, user.password))) {
       throw new ClientError("User email or password Incorrect!");
     }
 
     await client.set(isUserLoggedIn, 'true');
-    await client.set(loggedInUserId, user.id);
+    await client.set(loggedInUserId, userId);
     await client.expire(isUserLoggedIn, expiryTime);
     await client.expire(loggedInUserId, expiryTime);
 
-    return sendResponse(res, user);
+    return sendResponse(res, { id: userId, name: user.name, img: '' });
   } catch (error) {
     if (error instanceof ClientError) {
       return next(error);

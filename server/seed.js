@@ -22,7 +22,7 @@ db.courses.insertOne({
   "_id": ObjectId('63117e3a36ef23055edbf086'),
   "name": "Web Programming 1",
   "description": "Something hamana hamana hamana...",
-  "rating": 5.0,
+  "rating": 4.5,
   "professors": [
     {
       "_id": ObjectId('53117e3a36ef23055edbf096'),
@@ -33,7 +33,7 @@ db.courses.insertOne({
     {
       "_id": ObjectId("63117e3a36ef23055edbf096"),
       "userId": ObjectId("63117e3a36ef23055edbf094"),
-      "rating": 4.5,
+      "rating": 4,
       "review": "Hamana hamana hamana...",
       "votes": 0,
       "createdAt": 1671330599
@@ -41,7 +41,7 @@ db.courses.insertOne({
     {
       "_id": ObjectId("63117e3a36ef23055edbf095"),
       "userId": ObjectId("63117e3a36ef23055edbf094"),
-      "rating": 2.5,
+      "rating": 5,
       "review": "Hamana2 hamana2 hamana2...",
       "votes": 0,
       "createdAt": 1671330599
@@ -53,7 +53,7 @@ db.professors.insertOne({
   "_id": ObjectId('53117e3a36ef23055edbf096'),
   "name": "Patrick Hill",
   "description": "Something hamana hamana hamana...",
-  "rating": 5.0,
+  "rating": 4.5,
   "courses": [
     {
       "_id": ObjectId('63117e3a36ef23055edbf086'),
@@ -64,7 +64,7 @@ db.professors.insertOne({
     {
       "_id": ObjectId("63117e3a36ef23051edbf096"),
       "userId": ObjectId("63117e3a36ef23055edbf094"),
-      "rating": 4.5,
+      "rating": 4,
       "review": "Hamana hamana hamana...",
       "votes": 0,
       "createdAt": 1671330599
@@ -72,7 +72,7 @@ db.professors.insertOne({
     {
       "_id": ObjectId("63117e3a36ef23051edbf095"),
       "userId": ObjectId("63117e3a36ef23055edbf094"),
-      "rating": 2.5,
+      "rating": 5,
       "review": "Hamana2 hamana2 hamana2...",
       "votes": 0,
       "createdAt": 1671330599

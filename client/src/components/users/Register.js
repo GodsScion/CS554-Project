@@ -1,10 +1,9 @@
 import React, { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import axios from 'axios';
+import { toast } from 'react-toastify';
 
 const defImg = require("../img/default.jpg")
-
-const xss = require('xss');
 
 const Register = () => {
     const navigate = useNavigate()
@@ -39,8 +38,7 @@ const Register = () => {
             const res = await axios.post('http://localhost:4000/users/login', sendData);
             if (res) { navigate('/') }
         } catch (error) {
-            console.log(error)
-            alert(error.response.data.data);
+            toast.error(error.response.data.data);
         }
     }
 
@@ -66,17 +64,17 @@ const Register = () => {
 
 
                         <label htmlFor='firstname'>Please enter your First Name: *</label>
-                        <input id="firstname" name="firstname" type="text" className='form-control mb-3' placeholder='First Name' onChange={(e) => { setFName(xss(e.target.value)) }} required></input>
+                        <input id="firstname" name="firstname" type="text" className='form-control mb-3' placeholder='First Name' onChange={(e) => { setFName(e.target.value(e.target.value)) }} required></input>
 
                         <label htmlFor='lastname'>Please enter your Last Name: *</label>
-                        <input id="lastname" name="lastname" type="text" className='form-control mb-3' placeholder='Last Name' onChange={(e) => { setLName(xss(e.target.value)) }} required></input>
+                        <input id="lastname" name="lastname" type="text" className='form-control mb-3' placeholder='Last Name' onChange={(e) => { setLName(e.target.value(e.target.value)) }} required></input>
 
                         <label htmlFor='email'>Please enter your email: *</label>
-                        <input id="email" name="email" type="email" className='form-control' placeholder='Email' onChange={(e) => { setEmail(xss(e.target.value)) }} required></input>
+                        <input id="email" name="email" type="email" className='form-control' placeholder='Email' onChange={(e) => { setEmail(e.target.value(e.target.value)) }} required></input>
                         <div className='form-text mb-3'>Don't worry, we won't share your email with anyone.</div>
 
                         <label htmlFor='password'>Please enter a password: *</label>
-                        <input id="password" name="password" type="password" className='form-control mb-5' placeholder='Password' onChange={(e) => { setPassword(xss(e.target.value)) }} required></input>
+                        <input id="password" name="password" type="password" className='form-control mb-5' placeholder='Password' onChange={(e) => { setPassword(e.target.value(e.target.value)) }} required></input>
 
                         <p>Fields with * are required</p>
                         <button className='btn btn-primary mb-3 col-sm-4' type='submit'>Sign-Up</button>
