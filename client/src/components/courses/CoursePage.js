@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react"
 import axios from "axios"
 import { useParams , useNavigate } from "react-router-dom"
+import $ from "jquery"
+
 const xss = require('xss');
 
 const CoursePage = () => {
@@ -65,6 +67,10 @@ const CoursePage = () => {
                 "review": review,
             }
             const res = await axios.post(`http://localhost:4000/courses/${data.id}/reviews`,sendData);
+            if(res){
+                $('#createReviewModal').modal('hide');
+                alert("Successfully added review!");
+            }
             getData()
         } catch (error) {
             console.error("Failed to add review.\n" + (error.message || error));
@@ -143,7 +149,7 @@ const CoursePage = () => {
                                 <textarea className="form-control" id="message" name="message" onChange={(e)=>{setMessage(xss(e.target.value))}} 
                                 minLength="2" required></textarea>
                             </div>
-                            <button type="submit" className="btn btn-primary me-2 col-3 col-sm-4" data-bs-dismiss="modal">Add Review</button>
+                            <button type="submit" className="btn btn-primary me-2 col-3 col-sm-4">Add Review</button>
                             <button type="button" className="btn btn-secondary col-3 col-sm-4" data-bs-dismiss="modal">Cancel</button>
                         </form>
                     </div>

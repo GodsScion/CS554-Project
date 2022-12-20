@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react"
 import axios from "axios"
 import { useParams , useNavigate } from "react-router-dom"
+import $ from "jquery"
 const xss = require('xss');
 
 const ProfessorPage = () => {
@@ -66,7 +67,10 @@ const ProfessorPage = () => {
                 "review": review,
             }
             const res = await axios.post(`http://localhost:4000/professors/${data.id}/reviews`,sendData);
-            if(res){alert("Successfully added review! Please close the review ")}
+            if(res){
+                $('#createReviewModal').modal('hide');
+                alert("Successfully added review!");
+            }
             getData()
         } catch (error) {
             console.error("Failed to add review.\n" + (error.message || error));
@@ -88,7 +92,7 @@ const ProfessorPage = () => {
             </div>
             <hr/>
             <div className="container">
-                <h3>Professor:</h3>
+                <h3>Courses taught by the professor:</h3>
                 
                 {/* data-bs-toggle="tooltip" data-bs-placement="right" data-bs-title={`Click for more info on ${professor.name}`} */}
                 {data ? 
