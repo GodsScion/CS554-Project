@@ -9,7 +9,7 @@ const salt = 10;
 const xss = require('../helpers/xss');
 const { client } = require('../startup/redisClient');
 const { isUserLoggedIn, loggedInUserId, expiryTime } = require('../helpers/enums');
-const im = require('imagemagick');
+const gm = require('gm');
 
 module.exports = {
   login,
@@ -123,19 +123,26 @@ async function signUp(req, res, next) {
     if (user) throw new ClientError("User already exists with given email");
 
     const password = await bcrypt.hash(reqBody.password, salt);
+    var base64Img = reqBody.img.split(',')[1];
+    const imageBuff = Buffer.from(base64Img, 'base64');
 
-    console.log(im.identify(reqBody.img))
+    gm(imageBuff)
+      .resize(338, 338)
+      .toBuffer('PNG', async function (err, buffer) {
+        if (err) return sendResponse(res, err.message);
+        const img1 = buffer.toString('base64');
+        const img = `data:image/png;base64,${img1}`;
+        const result = await Users.create({
+          firstName: reqBody.firstName,
+          lastName: reqBody.lastName,
+          name: `${reqBody.firstName} ${reqBody.lastName}`,
+          email: email,
+          password: password,
+          img: img
+        });
+        return sendResponse(res, result);
+      })
 
-    const response = await Users.create({
-      firstName: reqBody.firstName,
-      lastName: reqBody.lastName,
-      name: `${reqBody.firstName} ${reqBody.lastName}`,
-      email: email,
-      password: password,
-      img: reqBody.img
-    });
-
-    return sendResponse(res, response);
   } catch (error) {
     if (error instanceof ClientError) {
       return next(error);
