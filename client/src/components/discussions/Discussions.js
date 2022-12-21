@@ -38,13 +38,13 @@ function Discussions() {
   }
 
   return (
-    <div className="home-container-main">
-      <h1>Available Rooms:</h1>
-      <ul>
+    <div className="container position-absolute top-50 start-50 translate-middle col-md-5 col-lg-5 col-sm-10 bg-body rounded mt-2 p-3">
+      <h1 className="mb-3">Available Rooms:</h1>
+      <ul className="list-group">
         {availableRooms.map((room, index) => {
           return (
             <Link key={index} to={`/mediator/${room.name}`}>
-              <li className="yellow-text">{room.name}</li>
+              <li className="list-group-item list-group-item-dark list-group-item-action rounded mb-1">{room.name}</li>
             </Link>
           );
         })}
