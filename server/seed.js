@@ -65,7 +65,7 @@ db.courses.insertOne({
     {
       "_id": ObjectId("63117e3a36ef23055edbf096"),
       "userId": ObjectId("63117e3a36ef23055edbf094"),
-      "rating": 4.5,
+      "rating": 5,
       "review": "Hamana hamana hamana...",
       "votes": 0,
       "createdAt": 1671330599
@@ -73,7 +73,7 @@ db.courses.insertOne({
     {
       "_id": ObjectId("63117e3a36ef23055edbf095"),
       "userId": ObjectId("63117e3a36ef23055edbf094"),
-      "rating": 2.5,
+      "rating": 5,
       "review": "Hamana2 hamana2 hamana2...",
       "votes": 0,
       "createdAt": 1671330599
@@ -97,7 +97,7 @@ db.courses.insertOne({
     {
       "_id": ObjectId("63117e3a36ef23055edbf096"),
       "userId": ObjectId("63117e3a36ef23055edbf094"),
-      "rating": 4.5,
+      "rating": 5,
       "review": "Hamana hamana hamana...",
       "votes": 0,
       "createdAt": 1671330599
@@ -105,7 +105,7 @@ db.courses.insertOne({
     {
       "_id": ObjectId("63117e3a36ef23055edbf095"),
       "userId": ObjectId("63117e3a36ef23055edbf094"),
-      "rating": 2.5,
+      "rating": 5,
       "review": "Hamana2 hamana2 hamana2...",
       "votes": 0,
       "createdAt": 1671330599
@@ -119,7 +119,7 @@ db.courses.insertOne({
   "_id": ObjectId('63117e3a36ef23055edbf083'),
   "name": "Marine Technology",
   "description": "Something hamana hamana hamana...",
-  "rating": 5.0,
+  "rating": 3.0,
   "professors": [
     {
       "_id": ObjectId('53117e3a36ef23055edbf099'),
@@ -130,7 +130,7 @@ db.courses.insertOne({
     {
       "_id": ObjectId("63117e3a36ef23055edbf096"),
       "userId": ObjectId("63117e3a36ef23055edbf094"),
-      "rating": 4.5,
+      "rating": 4,
       "review": "Hamana hamana hamana...",
       "votes": 0,
       "createdAt": 1671330599
@@ -138,7 +138,7 @@ db.courses.insertOne({
     {
       "_id": ObjectId("63117e3a36ef23055edbf095"),
       "userId": ObjectId("63117e3a36ef23055edbf094"),
-      "rating": 2.5,
+      "rating": 2,
       "review": "Hamana2 hamana2 hamana2...",
       "votes": 0,
       "createdAt": 1671330599
@@ -150,7 +150,7 @@ db.courses.insertOne({
   "_id": ObjectId('63117e3a36ef23055edbf082'),
   "name": "Big Data technologies",
   "description": "Something hamana hamana hamana...",
-  "rating": 5.0,
+  "rating": 3.0,
   "professors": [
     {
       "_id": ObjectId('53117e3a36ef23055edbf100'),
@@ -161,7 +161,7 @@ db.courses.insertOne({
     {
       "_id": ObjectId("63117e3a36ef23055edbf096"),
       "userId": ObjectId("63117e3a36ef23055edbf094"),
-      "rating": 4.5,
+      "rating": 4,
       "review": "Hamana hamana hamana...",
       "votes": 0,
       "createdAt": 1671330599
@@ -169,7 +169,7 @@ db.courses.insertOne({
     {
       "_id": ObjectId("63117e3a36ef23055edbf095"),
       "userId": ObjectId("63117e3a36ef23055edbf094"),
-      "rating": 2.5,
+      "rating": 2,
       "review": "Hamana2 hamana2 hamana2...",
       "votes": 0,
       "createdAt": 1671330599
@@ -192,7 +192,7 @@ db.courses.insertOne({
     {
       "_id": ObjectId("63117e3a36ef23055edbf096"),
       "userId": ObjectId("63117e3a36ef23055edbf094"),
-      "rating": 4.5,
+      "rating": 5,
       "review": "Hamana hamana hamana...",
       "votes": 0,
       "createdAt": 1671330599
@@ -200,7 +200,7 @@ db.courses.insertOne({
     {
       "_id": ObjectId("63117e3a36ef23055edbf095"),
       "userId": ObjectId("63117e3a36ef23055edbf094"),
-      "rating": 2.5,
+      "rating": 5,
       "review": "Hamana2 hamana2 hamana2...",
       "votes": 0,
       "createdAt": 1671330599
@@ -212,7 +212,7 @@ db.courses.insertOne({
   "_id": ObjectId('63117e3a36ef23055edbf080'),
   "name": "Global Relations",
   "description": "Something hamana hamana hamana...",
-  "rating": 5.0,
+  "rating": 4.0,
   "professors": [
     {
       "_id": ObjectId('53117e3a36ef23055edbf102'),
@@ -223,7 +223,7 @@ db.courses.insertOne({
     {
       "_id": ObjectId("63117e3a36ef23055edbf096"),
       "userId": ObjectId("63117e3a36ef23055edbf094"),
-      "rating": 4.5,
+      "rating": 4,
       "review": "Hamana hamana hamana...",
       "votes": 0,
       "createdAt": 1671330599
@@ -231,7 +231,7 @@ db.courses.insertOne({
     {
       "_id": ObjectId("63117e3a36ef23055edbf095"),
       "userId": ObjectId("63117e3a36ef23055edbf094"),
-      "rating": 2.5,
+      "rating": 4,
       "review": "Hamana2 hamana2 hamana2...",
       "votes": 0,
       "createdAt": 1671330599
@@ -254,7 +254,7 @@ db.courses.insertOne({
     {
       "_id": ObjectId("63117e3a36ef23055edbf096"),
       "userId": ObjectId("63117e3a36ef23055edbf094"),
-      "rating": 4.5,
+      "rating": 5,
       "review": "Hamana hamana hamana...",
       "votes": 0,
       "createdAt": 1671330599
@@ -262,7 +262,7 @@ db.courses.insertOne({
     {
       "_id": ObjectId("63117e3a36ef23055edbf095"),
       "userId": ObjectId("63117e3a36ef23055edbf094"),
-      "rating": 2.5,
+      "rating": 5,
       "review": "Hamana2 hamana2 hamana2...",
       "votes": 0,
       "createdAt": 1671330599
@@ -274,7 +274,7 @@ db.courses.insertOne({
   "_id": ObjectId('63117e3a36ef23055edbf078'),
   "name": "Business Analytics",
   "description": "Something hamana hamana hamana...",
-  "rating": 5.0,
+  "rating": 4.5,
   "professors": [
     {
       "_id": ObjectId('53117e3a36ef23055edbf104'),
@@ -285,7 +285,7 @@ db.courses.insertOne({
     {
       "_id": ObjectId("63117e3a36ef23055edbf096"),
       "userId": ObjectId("63117e3a36ef23055edbf094"),
-      "rating": 4.5,
+      "rating": 4,
       "review": "Hamana hamana hamana...",
       "votes": 0,
       "createdAt": 1671330599
@@ -293,7 +293,7 @@ db.courses.insertOne({
     {
       "_id": ObjectId("63117e3a36ef23055edbf095"),
       "userId": ObjectId("63117e3a36ef23055edbf094"),
-      "rating": 2.5,
+      "rating": 5,
       "review": "Hamana2 hamana2 hamana2...",
       "votes": 0,
       "createdAt": 1671330599
@@ -316,7 +316,7 @@ db.courses.insertOne({
     {
       "_id": ObjectId("63117e3a36ef23055edbf096"),
       "userId": ObjectId("63117e3a36ef23055edbf094"),
-      "rating": 4.5,
+      "rating": 5,
       "review": "Hamana hamana hamana...",
       "votes": 0,
       "createdAt": 1671330599
@@ -324,7 +324,7 @@ db.courses.insertOne({
     {
       "_id": ObjectId("63117e3a36ef23055edbf095"),
       "userId": ObjectId("63117e3a36ef23055edbf094"),
-      "rating": 2.5,
+      "rating": 5,
       "review": "Hamana2 hamana2 hamana2...",
       "votes": 0,
       "createdAt": 1671330599
@@ -336,7 +336,7 @@ db.professors.insertOne({
   "_id": ObjectId('53117e3a36ef23055edbf096'),
   "name": "Patrick Hill",
   "description": "Something hamana hamana hamana...",
-  "rating": 4.5,
+  "rating": 5.0,
   "courses": [
     {
       "_id": ObjectId('63117e3a36ef23055edbf086'),
@@ -347,7 +347,7 @@ db.professors.insertOne({
     {
       "_id": ObjectId("63117e3a36ef23051edbf096"),
       "userId": ObjectId("63117e3a36ef23055edbf094"),
-      "rating": 4,
+      "rating": 5,
       "review": "Hamana hamana hamana...",
       "votes": 0,
       "createdAt": 1671330599
@@ -378,7 +378,7 @@ db.professors.insertOne({
     {
       "_id": ObjectId("63117e3a36ef23051edbf096"),
       "userId": ObjectId("63117e3a36ef23055edbf094"),
-      "rating": 4.5,
+      "rating": 5,
       "review": "Hamana hamana hamana...",
       "votes": 0,
       "createdAt": 1671330599
@@ -386,7 +386,7 @@ db.professors.insertOne({
     {
       "_id": ObjectId("63117e3a36ef23051edbf095"),
       "userId": ObjectId("63117e3a36ef23055edbf094"),
-      "rating": 2.5,
+      "rating": 5,
       "review": "Hamana2 hamana2 hamana2...",
       "votes": 0,
       "createdAt": 1671330599
@@ -398,7 +398,7 @@ db.professors.insertOne({
   "_id": ObjectId('53117e3a36ef23055edbf098'),
   "name": "Dr. Smith",
   "description": "Something hamana hamana hamana...",
-  "rating": 5.0,
+  "rating": 3.5,
   "courses": [
     {
       "_id": ObjectId('63117e3a36ef23055edbf084'),
@@ -409,7 +409,7 @@ db.professors.insertOne({
     {
       "_id": ObjectId("63117e3a36ef23051edbf096"),
       "userId": ObjectId("63117e3a36ef23055edbf094"),
-      "rating": 4.5,
+      "rating": 4,
       "review": "Hamana hamana hamana...",
       "votes": 0,
       "createdAt": 1671330599
@@ -417,7 +417,7 @@ db.professors.insertOne({
     {
       "_id": ObjectId("63117e3a36ef23051edbf095"),
       "userId": ObjectId("63117e3a36ef23055edbf094"),
-      "rating": 2.5,
+      "rating": 3,
       "review": "Hamana2 hamana2 hamana2...",
       "votes": 0,
       "createdAt": 1671330599
@@ -440,7 +440,7 @@ db.professors.insertOne({
     {
       "_id": ObjectId("63117e3a36ef23051edbf096"),
       "userId": ObjectId("63117e3a36ef23055edbf094"),
-      "rating": 4.5,
+      "rating": 5,
       "review": "Hamana hamana hamana...",
       "votes": 0,
       "createdAt": 1671330599
@@ -448,7 +448,7 @@ db.professors.insertOne({
     {
       "_id": ObjectId("63117e3a36ef23051edbf095"),
       "userId": ObjectId("63117e3a36ef23055edbf094"),
-      "rating": 2.5,
+      "rating": 5,
       "review": "Hamana2 hamana2 hamana2...",
       "votes": 0,
       "createdAt": 1671330599
@@ -472,7 +472,7 @@ db.professors.insertOne({
     {
       "_id": ObjectId("63117e3a36ef23051edbf096"),
       "userId": ObjectId("63117e3a36ef23055edbf094"),
-      "rating": 4.5,
+      "rating": 5,
       "review": "Hamana hamana hamana...",
       "votes": 0,
       "createdAt": 1671330599
@@ -480,7 +480,7 @@ db.professors.insertOne({
     {
       "_id": ObjectId("63117e3a36ef23051edbf095"),
       "userId": ObjectId("63117e3a36ef23055edbf094"),
-      "rating": 2.5,
+      "rating": 5,
       "review": "Hamana2 hamana2 hamana2...",
       "votes": 0,
       "createdAt": 1671330599
@@ -503,7 +503,7 @@ db.professors.insertOne({
     {
       "_id": ObjectId("63117e3a36ef23051edbf096"),
       "userId": ObjectId("63117e3a36ef23055edbf094"),
-      "rating": 4.5,
+      "rating": 5,
       "review": "Hamana hamana hamana...",
       "votes": 0,
       "createdAt": 1671330599
@@ -511,7 +511,7 @@ db.professors.insertOne({
     {
       "_id": ObjectId("63117e3a36ef23051edbf095"),
       "userId": ObjectId("63117e3a36ef23055edbf094"),
-      "rating": 2.5,
+      "rating": 5,
       "review": "Hamana2 hamana2 hamana2...",
       "votes": 0,
       "createdAt": 1671330599
@@ -535,7 +535,7 @@ db.professors.insertOne({
     {
       "_id": ObjectId("63117e3a36ef23051edbf096"),
       "userId": ObjectId("63117e3a36ef23055edbf094"),
-      "rating": 4.5,
+      "rating": 5,
       "review": "Hamana hamana hamana...",
       "votes": 0,
       "createdAt": 1671330599
@@ -543,7 +543,7 @@ db.professors.insertOne({
     {
       "_id": ObjectId("63117e3a36ef23051edbf095"),
       "userId": ObjectId("63117e3a36ef23055edbf094"),
-      "rating": 2.5,
+      "rating": 5,
       "review": "Hamana2 hamana2 hamana2...",
       "votes": 0,
       "createdAt": 1671330599
@@ -567,7 +567,7 @@ db.professors.insertOne({
     {
       "_id": ObjectId("63117e3a36ef23051edbf096"),
       "userId": ObjectId("63117e3a36ef23055edbf094"),
-      "rating": 4.5,
+      "rating": 5,
       "review": "Hamana hamana hamana...",
       "votes": 0,
       "createdAt": 1671330599
@@ -575,7 +575,7 @@ db.professors.insertOne({
     {
       "_id": ObjectId("63117e3a36ef23051edbf095"),
       "userId": ObjectId("63117e3a36ef23055edbf094"),
-      "rating": 2.5,
+      "rating": 5,
       "review": "Hamana2 hamana2 hamana2...",
       "votes": 0,
       "createdAt": 1671330599
@@ -599,7 +599,7 @@ db.professors.insertOne({
     {
       "_id": ObjectId("63117e3a36ef23051edbf096"),
       "userId": ObjectId("63117e3a36ef23055edbf094"),
-      "rating": 4.5,
+      "rating": 5,
       "review": "Hamana hamana hamana...",
       "votes": 0,
       "createdAt": 1671330599
@@ -607,7 +607,7 @@ db.professors.insertOne({
     {
       "_id": ObjectId("63117e3a36ef23051edbf095"),
       "userId": ObjectId("63117e3a36ef23055edbf094"),
-      "rating": 2.5,
+      "rating": 5,
       "review": "Hamana2 hamana2 hamana2...",
       "votes": 0,
       "createdAt": 1671330599
@@ -630,7 +630,7 @@ db.professors.insertOne({
     {
       "_id": ObjectId("63117e3a36ef23051edbf096"),
       "userId": ObjectId("63117e3a36ef23055edbf094"),
-      "rating": 4.5,
+      "rating": 5,
       "review": "Hamana hamana hamana...",
       "votes": 0,
       "createdAt": 1671330599
@@ -638,7 +638,7 @@ db.professors.insertOne({
     {
       "_id": ObjectId("63117e3a36ef23051edbf095"),
       "userId": ObjectId("63117e3a36ef23055edbf094"),
-      "rating": 2.5,
+      "rating": 5,
       "review": "Hamana2 hamana2 hamana2...",
       "votes": 0,
       "createdAt": 1671330599
