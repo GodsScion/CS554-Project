@@ -74,7 +74,7 @@ const CoursePage = () => {
                     )}</ul>
                     :
                     <p>Currently no professors are teaching this course!</p>}
-                {data && <span className="subtitle"><aside>Click on professor for more info</aside></span>}
+                {data && <span className="subtitle">Click on professor for more info</span>}
             </div>
             <hr />
             <div className="container border rounded p-2">
@@ -83,7 +83,7 @@ const CoursePage = () => {
                     {isUserLoggedIn && <button type="button" className="btn btn-primary col-3 me-3" data-bs-toggle="modal" data-bs-target="#createReviewModal">Add Review</button>}
                     {!isUserLoggedIn && <button type="button" className="btn btn-primary col-3 me-3" onClick={() => { navigate('/login') }}>Login</button>}
                 </div>
-                {!isUserLoggedIn && <span className="subtitle"><aside>Only logged in users can post reviews!</aside></span>}
+                {!isUserLoggedIn && <span className="subtitle">Only logged in users can post reviews!</span>}
                 <div className="row">
                     {data ? <div className="container">
                         {data && data.reviews.map(

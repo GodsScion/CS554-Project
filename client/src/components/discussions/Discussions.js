@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import "./Discussions.css";
 
@@ -37,15 +37,15 @@ function Discussions() {
     console.log(availableRooms);
   }
 
+  const navigate = useNavigate();
+
   return (
     <div className="container position-absolute top-50 start-50 translate-middle col-md-5 col-lg-5 col-sm-10 bg-body rounded mt-2 p-3">
       <h1 className="mb-3">Available Rooms:</h1>
       <ul className="list-group">
         {availableRooms.map((room, index) => {
           return (
-            <Link key={index} to={`/mediator/${room.name}`}>
-              <li className="list-group-item list-group-item-dark list-group-item-action rounded mb-1">{room.name}</li>
-            </Link>
+              <li key={index} className="list-group-item list-group-item-dark list-group-item-action rounded mb-1" onClick={()=>{navigate(`/mediator/${room.name}`)}}>{room.name}</li>
           );
         })}
       </ul>
