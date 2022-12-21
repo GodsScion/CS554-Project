@@ -59,7 +59,7 @@ const schema = new mongoose.Schema(
             max: 5,
             default: 0
         },
-        courses: { type: [professorSchema], default: [] },
+        professors: { type: [professorSchema], default: [] },
         reviews: { type: [reviewSchema], default: [] },
     }
 );
