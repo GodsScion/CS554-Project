@@ -27,7 +27,7 @@ const Register = () => {
             const res = await axios.post('http://localhost:4000/api/users/signup', sendData);
             if (res) { navigate('/') }
         } catch (error) {
-            toast.error(error.response.data.data);
+            toast.error(error.response.data.data,{autoClose: 4000});
         }
     }
 

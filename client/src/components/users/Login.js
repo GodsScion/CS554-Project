@@ -26,7 +26,7 @@ const Login = () => {
             navigate('/');
             toast.success(`Welcome ${userData.name}`);
         } catch (error) {
-            toast.error(error.response.data.data);
+            toast.error(error.response.data.data,{autoClose: 4000});
         }
     }
 

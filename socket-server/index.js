@@ -27,6 +27,6 @@ io.on("connection", (socket) => {
 });
 
 
-server.listen(8080, () => {
-    console.log("Socket.io server is running on port 8080");
+server.listen(4041, () => {
+    console.log("Socket.io server is running on port 4041");
 });
