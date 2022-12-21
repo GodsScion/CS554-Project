@@ -8,7 +8,7 @@ const CoursesListPage = () => {
     const [search, setSearch] = useState("")
     const navigate = useNavigate()
 
-    useEffect(() => { getData() })
+    useEffect(() => { getData() }, [])
 
     async function getData() {
         try {
