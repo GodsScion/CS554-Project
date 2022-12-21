@@ -124,7 +124,6 @@ async function signUp(req, res, next) {
 
     const password = await bcrypt.hash(reqBody.password, salt);
     var base64Img = reqBody.img.split(',')[1];
-    console.log(base64Img);
     const imageBuff = Buffer.from(base64Img, 'base64');
 
     gm(imageBuff)
