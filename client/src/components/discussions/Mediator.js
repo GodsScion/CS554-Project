@@ -8,6 +8,8 @@ function Mediator() {
   const handleUserChange = (e) => {
     setUserName(e.target.value);
   };
+
+  let rn = roomName
   return (
     <div className="home-container">
       <label htmlFor="myinput1"></label>
@@ -19,7 +21,7 @@ function Mediator() {
         className="text-input-field"
         placeholder="chat as ..."
       />
-      <Link to={`/discussions/${roomName}`} className="enter-room-button" state={{username: userName}}>Join!</Link>
+      <Link to={`/discussions/${rn.replace(/\s/g, '')}`} className="enter-room-button" state={{username: userName}}>Join!</Link>
     </div>
   );
 }
