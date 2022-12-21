@@ -110,7 +110,7 @@ async function postReview(req, res, next) {
             userId: userId
         }
 
-        let newRating = ((course.rating * reviewsSize) + review.rating) / (reviewsSize + 1);
+        let newRating = ((professor.rating * reviewsSize) + review.rating) / (reviewsSize + 1);
         newRating = Math.round((newRating + Number.EPSILON) * 100) / 100
         const updateQuery = {
             $set: {
