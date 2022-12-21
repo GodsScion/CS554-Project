@@ -1,5 +1,5 @@
 const Professors = require("../models/professors");
-const { validatePostreview } = require('../validators/professors');
+const { validatePostreview, validateAddCourse, validateCreate } = require('../validators/professors');
 const ClientError = require("../helpers/client-error");
 const ServerError = require("../helpers/server-error");
 const sendResponse = require("../helpers/sendResponse");
@@ -7,12 +7,15 @@ const { isValidObjectId: isObjectId } = require("mongoose");
 const { getUserById } = require('./users');
 const xss = require('../helpers/xss');
 const moment = require('moment');
+const { getCourseById } = require('./courses');
 
 module.exports = {
     getAllProfessors,
     getProfessor,
     postReview,
-    getProfessorById
+    getProfessorById,
+    create,
+    addCourse,
 };
 
 async function getAllProfessors(req, res, next) {
@@ -136,4 +139,52 @@ async function getProfessorById(id) {
     if (!professor) throw new ClientError("Professor does not exists with given id");
 
     return professor;
+};
+
+async function create(req, res, next) {
+    try {
+        const reqBody = xss(req.body);
+
+        const { error } = validateCreate(reqBody);
+        if (error) {
+            throw new ClientError(error.message);
+        }
+
+        const result = await Professors.create(reqBody);
+
+        return sendResponse(res, result);
+    } catch (error) {
+        if (error instanceof ClientError) {
+            return next(error);
+        }
+        return next(new ServerError(error.message));
+    }
+};
+
+async function addCourse(req, res, next) {
+    try {
+        const reqBody = xss(req.body);
+        const professorId = req.params.id;
+        if (!isObjectId(professorId)) throw new ClientError("Course does not exists with given id", 404);
+
+        const { error } = validateAddCourse(reqBody);
+        if (error) {
+            throw new ClientError(error.message);
+        }
+
+        let professor = await Professors.findOne({ _id: professorId }).lean();
+
+        if (!professor) throw new ClientError("Course does not exists with given id", 404);
+
+        const course = await getCourseById(reqBody.id);
+
+        const result = await Professors.updateOne({ _id: professorId }, { $addToSet: { courses: { _id: course._id, name: course.name } } });
+
+        return sendResponse(res, result);
+    } catch (error) {
+        if (error instanceof ClientError) {
+            return next(error);
+        }
+        return next(new ServerError(error.message));
+    }
 };

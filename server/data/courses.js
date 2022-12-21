@@ -15,6 +15,7 @@ module.exports = {
     postReview,
     create,
     addProfessor,
+    getCourseById,
 };
 
 async function getAllCourses(req, res, next) {
@@ -178,4 +179,12 @@ async function postReview(req, res, next) {
         }
         return next(new ServerError(error.message));
     }
+};
+
+async function getCourseById(id) {
+    const professor = await Courses.findOne({ _id: id }).lean();
+
+    if (!professor) throw new ClientError("Course does not exists with given id");
+
+    return professor;
 };

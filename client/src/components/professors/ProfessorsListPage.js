@@ -34,7 +34,7 @@ const ProfessorsListPage = () => {
                 <div className="container">
                     <h2>Results for "{search}" </h2>
                     <br />
-                    {data && data.filter(professor => professor.name.toLowerCase().includes(search.toLowerCase())).length > 0 && <span className="subtitle"><aside>Click on professor for more info</aside></span>}
+                    {data && data.filter(professor => professor.name.toLowerCase().includes(search.toLowerCase())).length > 0 && <span className="subtitle">Click on professor for more info</span>}
 
                     {data && data.filter(professor => professor.name.toLowerCase().includes(search.toLowerCase())).length > 0 && data.filter(professor => professor.name.toLowerCase().includes(search.toLowerCase())).map(
                         (professor) => {
@@ -53,7 +53,7 @@ const ProfessorsListPage = () => {
                     <h2>List of all professors: </h2>
                     <br />
                     <div className="container rounded border p-2">
-                        {data && data.length > 0 && <span className="subtitle"><aside>Click on professor for more info</aside></span>}
+                        {data && data.length > 0 && <span className="subtitle">Click on professor for more info</span>}
                         {data && data.length > 0 && data.map(
                             (professor) => {
                                 return <div key={professor.id} className="card mb-2" onClick={() => { navigate(`/professors/${professor.id}`) }}>

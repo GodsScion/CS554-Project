@@ -34,7 +34,7 @@ const CoursesListPage = () => {
                 <div className="container">
                     <h2>Results for "{search}" </h2>
                     <br />
-                    {data && data.filter(course => course.name.toLowerCase().includes(search.toLowerCase())).length > 0 && <span className="subtitle"><aside>Click on course for more info</aside></span>}
+                    {data && data.filter(course => course.name.toLowerCase().includes(search.toLowerCase())).length > 0 && <span className="subtitle">Click on course for more info</span>}
 
                     {data && data.filter(course => course.name.toLowerCase().includes(search.toLowerCase())).length > 0 && data.filter(course => course.name.toLowerCase().includes(search.toLowerCase())).map(
                         (course) => {
@@ -53,7 +53,7 @@ const CoursesListPage = () => {
                     <h2>List of all courses: </h2>
                     <br />
                     <div className="container rounded border p-2">
-                        {data && data.length > 0 && <span className="subtitle"><aside>Click on course for more info</aside></span>}
+                        {data && data.length > 0 && <span className="subtitle">Click on course for more info</span>}
                         {data && data.length > 0 && data.map(
                             (course) => {
                                 return <div key={course.id} className="card mb-2" onClick={() => { navigate(`/courses/${course.id}`) }}>
