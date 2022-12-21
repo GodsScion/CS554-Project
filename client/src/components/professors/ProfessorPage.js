@@ -43,7 +43,7 @@ const ProfessorPage = () => {
             setRating(5);
             setMessage('');
             setReloadData(!reloadData);
-            toast.success("Successfully added review!")
+            toast.success("Successfully added review!",{autoClose: 4000})
         } catch (error) {
             toast.error(error.response.data.data);
         }

@@ -18,11 +18,11 @@ const Logout = () => {
             await axios.post('http://localhost:4000/users/logout');
             dispatch(logout());
             navigate('/');
-            toast.success("Logged out");
+            toast.success("Logged out",{autoClose: 4000});
         } catch (error) {
             console.log(error.message || error)
-            toast.error("Something went wrong! Log out failed, Please try again!")
-            toast.error(error.response.data.data);
+            toast.error("Something went wrong! Log out failed, Please try again!",{autoClose: 4000})
+            toast.error(error.response.data.data,{autoClose: 4000});
         }
     }
 
