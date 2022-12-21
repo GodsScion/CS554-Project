@@ -17,19 +17,35 @@ const Register = () => {
     async function hangleSignUp(e) {
         try {
             e.preventDefault();
-            const sendData = {
+            let sendData = {
                 firstName: fname,
                 lastName: lname,
                 email: email,
                 password: password,
                 img: img, //Leave it undefined if not uploaded, I'll handle image not given, when requested give undefined or null when image is not there to react!
+            }  
+            if(!img || img == undefined){
+                sendData.img = await getBase64FromUrl(defImg);    
             }
             const res = await axios.post('http://localhost:4000/api/users/signup', sendData);
             if (res) { navigate('/') }
         } catch (error) {
-            toast.error(error.response.data.data,{autoClose: 4000});
+            toast.error(error.response.data.data || error.message || error,{autoClose: 4000});
         }
     }
+
+    const getBase64FromUrl = async (url) => {
+        const data = await fetch(url);
+        const blob = await data.blob();
+        return new Promise((resolve) => {
+          const reader = new FileReader();
+          reader.readAsDataURL(blob); 
+          reader.onloadend = () => {
+            const base64data = reader.result;   
+            resolve(base64data);
+          }
+        });
+      }
 
     const convertToBase64 = (file) => {
         return new Promise((resolve, reject) => {
@@ -43,6 +59,7 @@ const Register = () => {
             };
         });
     };
+    
     const handleImageUpload = async (e) => {
         const file = e.target.files[0];
         setPreImg(URL.createObjectURL(file));

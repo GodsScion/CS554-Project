@@ -9,6 +9,7 @@ const salt = 10;
 const xss = require('../helpers/xss');
 const { client } = require('../startup/redisClient');
 const { isUserLoggedIn, loggedInUserId, expiryTime } = require('../helpers/enums');
+const im = require('imagemagick');
 
 module.exports = {
   login,
@@ -54,6 +55,8 @@ async function getUserStatus(req, res, next) {
 async function login(req, res, next) {
   try {
     const reqBody = xss(req.body);
+
+
 
     const { isInvalid, message } = validateLogin(reqBody);
     if (isInvalid) {
@@ -120,6 +123,8 @@ async function signUp(req, res, next) {
     if (user) throw new ClientError("User already exists with given email");
 
     const password = await bcrypt.hash(reqBody.password, salt);
+
+    console.log(im.identify(reqBody.img))
 
     const response = await Users.create({
       firstName: reqBody.firstName,
