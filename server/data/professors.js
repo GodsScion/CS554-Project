@@ -105,7 +105,7 @@ async function postReview(req, res, next) {
         const reviewsSize = professor.reviews.length;
 
         const review = {
-            rating: reqBody.rating,
+            rating: parseInt(reqBody.rating),
             review: reqBody.review,
             userId: userId
         }
