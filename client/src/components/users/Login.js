@@ -24,6 +24,7 @@ const Login = () => {
             const userData = data.data;
             dispatch(login(userData.id, userData.name, userData.img));
             navigate('/');
+            toast.success(`Welcome ${userData.name}`);
         } catch (error) {
             toast.error(error.response.data.data,{autoClose: 4000});
         }
