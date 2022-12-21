@@ -129,7 +129,7 @@ async function signUp(req, res, next) {
     gm(imageBuff)
       .resize(338, 338)
       .toBuffer('PNG', async function (err, buffer) {
-        if (err) return sendResponse(res, err.message);
+        if (err) throw new ServerError(err.message);
         const img1 = buffer.toString('base64');
         const img = `data:image/png;base64,${img1}`;
         const result = await Users.create({
