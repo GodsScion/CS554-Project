@@ -20,7 +20,7 @@ const Login = () => {
                 email: email,
                 password: password
             }
-            const { data } = await axios.post('http://localhost:4000/users/login', sendData);
+            const { data } = await axios.post('http://localhost:4000/api/users/login', sendData);
             const userData = data.data;
             dispatch(login(userData.id, userData.name, userData.img));
             navigate('/');

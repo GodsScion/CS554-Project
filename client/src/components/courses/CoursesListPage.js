@@ -11,7 +11,7 @@ const CoursesListPage = () => {
 
     async function getData() {
         try {
-            const { data } = await axios.get(`http://localhost:4000/courses`);
+            const { data } = await axios.get(`http://localhost:4000/api/courses`);
             console.log(data);
             setData(data.data);
         } catch (error) {

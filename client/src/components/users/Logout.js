@@ -15,7 +15,7 @@ const Logout = () => {
 
     async function logOut() {
         try {
-            await axios.post('http://localhost:4000/users/logout');
+            await axios.post('http://localhost:4000/api/users/logout');
             dispatch(logout());
             navigate('/');
             toast.success("Logged out");

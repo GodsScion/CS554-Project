@@ -11,7 +11,7 @@ const ProfessorsListPage = () => {
 
     async function getData() {
         try {
-            const { data } = await axios.get(`http://localhost:4000/professors`);
+            const { data } = await axios.get(`http://localhost:4000/api/professors`);
             console.log(data);
             setData(data.data);
         } catch (error) {

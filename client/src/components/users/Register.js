@@ -24,7 +24,7 @@ const Register = () => {
                 password: password,
                 img: img, //Leave it undefined if not uploaded, I'll handle image not given, when requested give undefined or null when image is not there to react!
             }
-            const res = await axios.post('http://localhost:4000/users/signup', sendData);
+            const res = await axios.post('http://localhost:4000/api/users/signup', sendData);
             if (res) { navigate('/') }
         } catch (error) {
             toast.error(error.response.data.data);

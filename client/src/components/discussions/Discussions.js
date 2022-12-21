@@ -10,13 +10,13 @@ function Discussions() {
   const [availableRooms, setAvailableRooms] = useState([]);
 
 
-  useEffect (() => {
+  useEffect(() => {
     async function fetchData() {
-        const {data} = await axios.get(`http://localhost:4000/courses`);
-        setAvailableRooms(data.data);
+      const { data } = await axios.get(`http://localhost:4000/api/courses`);
+      setAvailableRooms(data.data);
     };
     fetchData()
-  },[availableRooms]);
+  }, [availableRooms]);
 
   const handleRoomChange = (e) => {
     setRoomName(e.target.value);

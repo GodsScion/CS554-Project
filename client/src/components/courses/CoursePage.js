@@ -19,7 +19,7 @@ const CoursePage = () => {
 
     async function getData() {
         try {
-            const { data } = await axios.get(`http://localhost:4000/courses/${id}`);
+            const { data } = await axios.get(`http://localhost:4000/api/courses/${id}`);
             setData(data.data);
         } catch (error) {
             console.error(error.message || error);
@@ -38,7 +38,7 @@ const CoursePage = () => {
                 "rating": rating,
                 "review": review,
             }
-            await axios.post(`http://localhost:4000/courses/${data.id}/reviews`, sendData);
+            await axios.post(`http://localhost:4000/api/courses/${data.id}/reviews`, sendData);
 
             setRating(5);
             setMessage('');
