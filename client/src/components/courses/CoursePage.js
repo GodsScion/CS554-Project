@@ -121,7 +121,7 @@ const CoursePage = () => {
                                     <br />
                                     <div className="mb-3">
                                         <label htmlFor="rating" className="col-form-label">Select your rating:</label>
-                                        <select id="rating" name="rating" className="form-select col-1" aria-label="Rating" value="" onChange={(e) => { setRating(e.target.value) }}>
+                                        <select id="rating" name="rating" className="form-select col-1" aria-label="Rating" onChange={(e) => { setRating(e.target.value) }}>
                                             <option value={5}>5 / 5</option>
                                             <option value={4}>4 / 5</option>
                                             <option value={3}>3 / 5</option>
