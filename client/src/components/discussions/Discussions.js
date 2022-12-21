@@ -17,7 +17,7 @@ function Discussions() {
       setAvailableRooms(data.data);
     };
     fetchData()
-  }, [availableRooms]);
+  }, []);
 
   const handleRoomChange = (e) => {
     setRoomName(e.target.value);
