@@ -65,7 +65,7 @@ const ProfessorPage = () => {
             <div className="container">
                 <h3>Courses taught by this professor:</h3>
 
-                {data && <span className="subtitle"><aside>Click on course for more info</aside></span>}
+                {data && <span className="subtitle">Click on course for more info</span>}
                 {data ?
                     <ul className="list-group">{data.courses.map(
                         (course) => {
@@ -83,7 +83,7 @@ const ProfessorPage = () => {
                     {isUserLoggedIn && <button type="button" className="btn btn-primary col-3 me-3" data-bs-toggle="modal" data-bs-target="#createReviewModal">Add Review</button>}
                     {!isUserLoggedIn && <button type="button" className="btn btn-primary col-3 me-3" onClick={() => { navigate('/login') }}>Login</button>}
                 </div>
-                {!isUserLoggedIn && <span className="subtitle"><aside>Only logged in users can post reviews!</aside></span>}
+                {!isUserLoggedIn && <span className="subtitle">Only logged in users can post reviews!</span>}
                 <div className="row">
                     {data ? <div className="container">
                         {data && data.reviews.map(
