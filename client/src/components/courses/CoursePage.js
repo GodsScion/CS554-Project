@@ -3,6 +3,7 @@ import axios from "axios"
 import { useParams, useNavigate } from "react-router-dom"
 import { useSelector } from 'react-redux';
 import { toast } from 'react-toastify'
+import { BE_URL } from '../../enums';
 
 const CoursePage = () => {
     const navigate = useNavigate()
@@ -19,7 +20,7 @@ const CoursePage = () => {
 
     async function getData() {
         try {
-            const { data } = await axios.get(`http://localhost:4000/api/courses/${id}`);
+            const { data } = await axios.get(`${BE_URL}/courses/${id}`);
             setData(data.data);
         } catch (error) {
             console.error(error.message || error);
@@ -38,12 +39,12 @@ const CoursePage = () => {
                 "rating": rating,
                 "review": review,
             }
-            await axios.post(`http://localhost:4000/api/courses/${data.id}/reviews`, sendData);
+            await axios.post(`${BE_URL}/courses/${data.id}/reviews`, sendData);
 
             setRating(5);
             setMessage('');
             setReloadData(!reloadData);
-            toast.success("Successfully added review!",{autoClose: 4000})
+            toast.success("Successfully added review!", { autoClose: 4000 })
         } catch (error) {
             toast.error(error.response.data.data);
         }

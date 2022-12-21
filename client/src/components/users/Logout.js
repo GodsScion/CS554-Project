@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { logout } from '../../actions';
 
+import { BE_URL } from '../../enums';
 import { toast } from 'react-toastify';
 
 
@@ -15,14 +16,14 @@ const Logout = () => {
 
     async function logOut() {
         try {
-            await axios.post('http://localhost:4000/api/users/logout');
+            await axios.post(`${BE_URL}/users/logout`);
             dispatch(logout());
             navigate('/');
-            toast.success("Logged out",{autoClose: 4000});
+            toast.success("Logged out", { autoClose: 4000 });
         } catch (error) {
             console.log(error.message || error)
-            toast.error("Something went wrong! Log out failed, Please try again!",{autoClose: 4000})
-            toast.error(error.response.data.data,{autoClose: 4000});
+            toast.error("Something went wrong! Log out failed, Please try again!", { autoClose: 4000 })
+            toast.error(error.response.data.data, { autoClose: 4000 });
         }
     }
 

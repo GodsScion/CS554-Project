@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import axios from "axios";
 import "./Discussions.css";
 
+import { BE_URL } from '../../enums';
 function Discussions() {
   const [roomName, setRoomName] = useState("");
   const [userName, setUserName] = useState("");
@@ -12,7 +13,7 @@ function Discussions() {
 
   useEffect(() => {
     async function fetchData() {
-      const { data } = await axios.get(`http://localhost:4000/api/courses`);
+      const { data } = await axios.get(`${BE_URL}/courses`);
       setAvailableRooms(data.data);
     };
     fetchData()

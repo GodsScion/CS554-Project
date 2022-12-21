@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react"
 import axios from "axios"
 import { useNavigate } from "react-router-dom"
+import { BE_URL } from '../../enums';
 
 const ProfessorsListPage = () => {
     const [data, setData] = useState([])
@@ -11,7 +12,7 @@ const ProfessorsListPage = () => {
 
     async function getData() {
         try {
-            const { data } = await axios.get(`http://localhost:4000/api/professors`);
+            const { data } = await axios.get(`${BE_URL}/professors`);
             console.log(data);
             setData(data.data);
         } catch (error) {

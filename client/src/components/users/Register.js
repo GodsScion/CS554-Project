@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import axios from 'axios';
+import { BE_URL } from '../../enums';
 import { toast } from 'react-toastify';
 
 const defImg = require("../img/default.jpg")
@@ -24,10 +25,10 @@ const Register = () => {
                 password: password,
                 img: img, //Leave it undefined if not uploaded, I'll handle image not given, when requested give undefined or null when image is not there to react!
             }
-            const res = await axios.post('http://localhost:4000/api/users/signup', sendData);
+            const res = await axios.post(`${BE_URL}/users/signup`, sendData);
             if (res) { navigate('/') }
         } catch (error) {
-            toast.error(error.response.data.data,{autoClose: 4000});
+            toast.error(error.response.data.data, { autoClose: 4000 });
         }
     }
 

@@ -4,7 +4,7 @@ import { useDispatch } from 'react-redux';
 import { login } from '../../actions';
 import axios from 'axios';
 import { toast } from 'react-toastify';
-
+import { BE_URL } from '../../enums';
 const Login = () => {
     const navigate = useNavigate();
     const dispatch = useDispatch();
@@ -20,13 +20,13 @@ const Login = () => {
                 email: email,
                 password: password
             }
-            const { data } = await axios.post('http://localhost:4000/api/users/login', sendData);
+            const { data } = await axios.post(`${BE_URL}/users/login`, sendData);
             const userData = data.data;
             dispatch(login(userData.id, userData.name, userData.img));
             navigate('/');
             toast.success(`Welcome ${userData.name}`);
         } catch (error) {
-            toast.error(error.response.data.data,{autoClose: 4000});
+            toast.error(error.response.data.data, { autoClose: 4000 });
         }
     }
 
