@@ -36,3 +36,5 @@ Call /professors/:id/courses [POST] Body: {id: "existingCourse"}
 Regular user:
 username: hpatrick@stevens.edu
 password: Stevens123$
+
+Public DNS: http://ec2-3-230-158-129.compute-1.amazonaws.com:3000
